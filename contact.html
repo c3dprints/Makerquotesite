@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MakerQuote, quoting software for 3D print shops</title>
+<meta name="description" content="MakerQuote turns messy 3D print quote requests into an organized, priced, ready-to-send pipeline. Runs on your own computer, no monthly fees, no cloud.">
+<style>
+  html,body{margin:0;padding:0;background:#0b1623}
+  /* Everything is scoped under .mq-landing so this same block is safe to paste
+     into a Shopify page without clashing with the theme. */
+</style>
+<!--
+  ==========================================================================
+  MakerQuote landing page (standalone, for GitHub Pages).
+  Add your own screenshots later: each ".mq-shot" block is an image slot,
+  replace the whole <div class="mq-shot">...</div> with <img src="..." alt="...">.
+  For the Shopify version paste marketing/shopify-page.html into a page.
+  ==========================================================================
+-->
+</head>
+<body>
+
+<div class="mq-landing">
+<style>
+/* ---- MakerQuote landing, scoped styles -------------------------------- */
+.mq-landing{--bg:#0b1623;--surface:#111e2e;--card:#162236;--border:#1e3550;
+  --blue:#00aaff;--blue-l:#33ccff;--orange:#ff6b1a;--orange-l:#ff8c3a;
+  --text:#ddeeff;--muted:#9fb6d0;
+  background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.mq-landing *{box-sizing:border-box}
+.mq-landing a{color:inherit;text-decoration:none}
+.mq-container{max-width:1200px;margin:0 auto;padding:0 24px}
+.mq-eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--blue-l);
+  background:rgba(0,170,255,.1);border:1px solid rgba(0,170,255,.3);
+  padding:6px 14px;border-radius:999px}
+.mq-landing h1,.mq-landing h2,.mq-landing h3{margin:0;line-height:1.15;font-weight:800}
+.mq-h1{font-size:clamp(34px,6vw,60px);letter-spacing:-1px}
+.mq-h2{font-size:clamp(26px,4vw,40px);letter-spacing:-.5px}
+.mq-grad{background:linear-gradient(100deg,var(--blue-l),var(--orange-l));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.mq-lead{color:var(--muted);font-size:clamp(16px,2vw,20px);max-width:46ch}
+
+/* Buttons */
+.mq-btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:16px;
+  padding:14px 26px;border-radius:14px;cursor:pointer;border:none;transition:transform .12s ease,box-shadow .2s ease,filter .2s ease}
+.mq-btn:active{transform:translateY(1px)}
+.mq-btn-primary{background:linear-gradient(135deg,var(--orange),var(--orange-l));color:#fff;
+  box-shadow:0 8px 26px rgba(255,107,26,.35)}
+.mq-btn-primary:hover{filter:brightness(1.07);box-shadow:0 12px 34px rgba(255,107,26,.5)}
+.mq-btn-ghost{background:transparent;color:var(--blue-l);border:1px solid var(--blue)}
+.mq-btn-ghost:hover{background:rgba(0,170,255,.12)}
+
+/* Hero */
+.mq-hero{position:relative;padding:96px 0 80px;overflow:hidden}
+.mq-hero-bg{position:absolute;inset:0;z-index:0;
+  background:radial-gradient(1200px 600px at 15% -10%,rgba(0,170,255,.18),transparent 60%),
+             radial-gradient(1000px 600px at 100% 10%,rgba(255,107,26,.16),transparent 55%)}
+.mq-orb{position:absolute;border-radius:50%;filter:blur(46px);opacity:.5;z-index:0;
+  animation:mq-float 12s ease-in-out infinite}
+.mq-orb.a{width:280px;height:280px;left:-60px;top:120px;background:rgba(0,170,255,.5)}
+.mq-orb.b{width:240px;height:240px;right:-40px;top:40px;background:rgba(255,107,26,.45);animation-delay:-4s}
+.mq-hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.1fr;
+  gap:48px;align-items:center}
+.mq-hero-copy>*{opacity:0;animation:mq-fadeup .7s ease forwards}
+.mq-hero-copy>*:nth-child(1){animation-delay:.05s}
+.mq-hero-copy>*:nth-child(2){animation-delay:.18s}
+.mq-hero-copy>*:nth-child(3){animation-delay:.3s}
+.mq-hero-copy>*:nth-child(4){animation-delay:.42s}
+.mq-hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.mq-note{margin-top:16px;color:var(--muted);font-size:14px}
+
+/* Animated "3D print building" hero graphic (placeholder until you add art) */
+.mq-build{position:relative;z-index:1;aspect-ratio:1/1;max-width:440px;margin-left:auto;
+  background:linear-gradient(180deg,#12233a,#0d1a2b);border:1px solid var(--border);
+  border-radius:24px;display:flex;align-items:flex-end;justify-content:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);overflow:hidden;opacity:0;animation:mq-fadeup .8s .3s ease forwards}
+.mq-build .nozzle{position:absolute;top:14%;width:64px;height:34px;border-radius:8px;
+  background:linear-gradient(180deg,#c9d4e2,#8aa0b8);box-shadow:0 6px 14px rgba(0,0,0,.4);
+  animation:mq-nozzle 3.2s ease-in-out infinite}
+.mq-build .bed{width:70%;height:14px;border-radius:6px;background:#0a1420;margin-bottom:14%;
+  box-shadow:0 0 0 1px var(--border)}
+.mq-build .stack{position:absolute;bottom:calc(14% + 14px);display:flex;flex-direction:column-reverse;gap:3px}
+.mq-build .layer{width:78px;height:11px;border-radius:3px;
+  background:linear-gradient(180deg,var(--orange-l),var(--orange));opacity:0;
+  animation:mq-layer .5s ease forwards}
+.mq-build .layer:nth-child(1){animation-delay:.6s}
+.mq-build .layer:nth-child(2){animation-delay:1.0s}
+.mq-build .layer:nth-child(3){animation-delay:1.4s}
+.mq-build .layer:nth-child(4){animation-delay:1.8s;width:70px}
+.mq-build .layer:nth-child(5){animation-delay:2.2s;width:58px}
+.mq-build .layer:nth-child(6){animation-delay:2.6s;width:44px}
+.mq-build .tag{position:absolute;bottom:12px;font-size:12px;color:var(--muted)}
+
+/* Sections */
+.mq-section{position:relative;padding:76px 0}
+.mq-section.alt{background:linear-gradient(180deg,transparent,rgba(0,170,255,.04),transparent)}
+.mq-center{text-align:center;max-width:720px;margin:0 auto 46px}
+.mq-center .mq-lead{margin:14px auto 0}
+
+/* Value cards */
+.mq-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.mq-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.mq-card:hover{transform:translateY(-6px);border-color:rgba(0,170,255,.5);
+  box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.mq-ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:22px;
+  background:linear-gradient(135deg,rgba(0,170,255,.2),rgba(255,107,26,.2));margin-bottom:14px}
+.mq-card h3{font-size:18px;margin-bottom:6px}
+.mq-card p{margin:0;color:var(--muted);font-size:15px}
+
+/* Feature rows (image + text) */
+.mq-feature{display:grid;grid-template-columns:1.18fr 0.82fr;gap:46px;align-items:center;
+  padding:34px 0}
+.mq-feature.rev{grid-template-columns:0.82fr 1.18fr}
+.mq-feature.rev .mq-feature-media{order:2}
+.mq-feature h2{margin-bottom:14px}
+.mq-feature p{color:var(--muted);font-size:17px;margin:0 0 16px}
+.mq-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.mq-list li{position:relative;padding-left:30px;color:var(--text)}
+.mq-list li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:16px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--orange))}
+.mq-list li::after{content:"";position:absolute;left:5px;top:10px;width:5px;height:9px;
+  border:2px solid #04121e;border-top:0;border-left:0;transform:rotate(45deg)}
+
+/* Image placeholder */
+.mq-shot{aspect-ratio:16/10;border-radius:20px;border:1px dashed rgba(159,182,208,.4);
+  background:linear-gradient(135deg,#12233a,#0d1a2b);display:grid;place-items:center;
+  color:var(--muted);font-size:14px;text-align:center;padding:20px;position:relative;
+  box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.mq-shot::before{content:"";position:absolute;inset:0;border-radius:20px;
+  background:radial-gradient(600px 200px at 50% 0,rgba(0,170,255,.12),transparent 70%)}
+.mq-shot span{position:relative;z-index:1;max-width:80%}
+.mq-shot img,.mq-feature-media img{width:100%;border-radius:20px;display:block}
+.mq-shotimg{width:100%;border-radius:18px;display:block;border:1px solid var(--border);
+  box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.mq-heroimg{position:relative;z-index:1;width:100%;border-radius:20px;display:block;
+  border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.5);
+  opacity:0;animation:mq-fadeup .8s .3s ease forwards}
+
+/* Steps */
+.mq-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:mq}
+.mq-step{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px}
+.mq-step .n{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-weight:800;
+  color:#04121e;background:linear-gradient(135deg,var(--blue-l),var(--blue));margin-bottom:12px}
+.mq-step h3{font-size:17px;margin-bottom:6px}
+.mq-step p{margin:0;color:var(--muted);font-size:14px}
+
+/* Tiers */
+.mq-tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch}
+.mq-tier{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;display:flex;flex-direction:column}
+.mq-tier.pop{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange),0 20px 50px rgba(255,107,26,.18)}
+.mq-tier .tname{font-weight:800;font-size:20px}
+.mq-tier .tprice{font-size:30px;font-weight:800;margin:8px 0 2px}
+.mq-tier .tprice small{font-size:14px;color:var(--muted);font-weight:600}
+.mq-tier .tdesc{color:var(--muted);font-size:14px;margin-bottom:14px;min-height:38px}
+.mq-tier ul{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:9px;font-size:14px}
+.mq-tier ul li{padding-left:22px;position:relative;color:var(--text)}
+.mq-tier ul li::before{content:"+";position:absolute;left:0;color:var(--blue-l);font-weight:800}
+.mq-tier .mq-btn{margin-top:auto;justify-content:center;width:100%}
+.mq-pill{align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  color:var(--orange-l);background:rgba(255,107,26,.14);border:1px solid rgba(255,107,26,.4);
+  padding:3px 10px;border-radius:999px;margin-bottom:10px}
+
+/* Final CTA + footer */
+.mq-cta-band{position:relative;text-align:center;padding:72px 0;overflow:hidden;
+  background:linear-gradient(135deg,rgba(0,170,255,.12),rgba(255,107,26,.12));
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.mq-footer{padding:34px 0;color:var(--muted);font-size:14px;text-align:center}
+
+/* Scroll reveal (only active when JS adds .mq-js; without JS everything shows) */
+.mq-js .mq-reveal{opacity:0;transform:translateY(28px)}
+.mq-js .mq-reveal.mq-in{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease}
+
+/* Keyframes */
+@keyframes mq-fadeup{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes mq-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-26px)}}
+@keyframes mq-layer{from{opacity:0;transform:translateY(14px) scaleX(.6)}to{opacity:1;transform:none}}
+@keyframes mq-nozzle{0%,100%{transform:translateX(-70px)}50%{transform:translateX(70px)}}
+
+/* Responsive */
+@media(max-width:900px){
+  .mq-hero-grid{grid-template-columns:1fr}
+  .mq-build{margin:8px auto 0}
+  .mq-grid,.mq-steps,.mq-tiers{grid-template-columns:1fr 1fr}
+  .mq-feature{grid-template-columns:1fr;gap:24px}
+  .mq-feature.rev .mq-feature-media{order:0}
+}
+@media(max-width:560px){.mq-grid,.mq-steps,.mq-tiers{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){
+  .mq-landing *{animation:none!important}
+  .mq-js .mq-reveal{opacity:1;transform:none}
+}
+</style>
+
+<!-- HERO -->
+<header class="mq-hero">
+  <div class="mq-hero-bg"></div>
+  <div class="mq-orb a"></div><div class="mq-orb b"></div>
+  <div class="mq-container mq-hero-grid">
+    <div class="mq-hero-copy">
+      <span class="mq-eyebrow">For 3D print shops</span>
+      <h1 class="mq-h1" style="margin-top:18px">Quote 3D prints in minutes, <span class="mq-grad">not emails.</span></h1>
+      <p class="mq-lead" style="margin-top:18px">MakerQuote turns scattered quote requests into one organized, auto-priced, ready-to-send pipeline. It runs on your own computer, so your customer data never leaves your desk, and you can own it outright with a one-time license.</p>
+      <div class="mq-hero-actions">
+        <a class="mq-btn mq-btn-primary" href="#pricing">Start free</a>
+        <a class="mq-btn mq-btn-ghost" href="#how">See how it works</a>
+      </div>
+      <p class="mq-note">Free 7-day trial, no account, no cloud. Mac and Windows.</p>
+    </div>
+    <!-- Hero visual (swap for your own screenshot anytime) -->
+    <img class="mq-heroimg" src="img/kanban.png" alt="MakerQuote Kanban board tracking print jobs">
+  </div>
+</header>
+
+<!-- VALUE CARDS -->
+<section class="mq-section">
+  <div class="mq-container">
+    <div class="mq-center mq-reveal">
+      <h2 class="mq-h2">Everything from request to paid, in one place</h2>
+      <p class="mq-lead">Stop juggling inboxes, spreadsheets, and calculators. MakerQuote handles the whole quoting workflow.</p>
+    </div>
+    <div class="mq-grid">
+      <div class="mq-card mq-reveal"><div class="mq-ic">📥</div><h3>Collect requests</h3><p>An intake form you can embed on your website or Shopify store drops every request straight into your queue.</p></div>
+      <div class="mq-card mq-reveal"><div class="mq-ic">🧮</div><h3>Price automatically</h3><p>Set your rates once. MakerQuote prices each job from material, weight, and time, no mental math.</p></div>
+      <div class="mq-card mq-reveal"><div class="mq-ic">🗂️</div><h3>Track visually</h3><p>Move jobs across a Kanban board and production queue so nothing slips through the cracks.</p></div>
+      <div class="mq-card mq-reveal"><div class="mq-ic">✉️</div><h3>Send &amp; get paid</h3><p>Send branded quotes with checkout links from your own email in a couple of clicks.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE: Intake -->
+<section class="mq-section alt">
+  <div class="mq-container mq-feature mq-reveal">
+    <div class="mq-feature-media">
+      <img class="mq-shotimg" src="img/queue.png" alt="MakerQuote quote queue with request details">
+    </div>
+    <div>
+      <span class="mq-eyebrow">Intake</span>
+      <h2 class="mq-h2" style="margin-top:14px">Every request lands in one tidy queue</h2>
+      <p>Customers submit their files and project details through a form you build in the app and embed on your site. No more digging through email threads to figure out what someone wants.</p>
+      <ul class="mq-list">
+        <li>Drag-and-drop STL and 3MF file uploads</li>
+        <li>Embeddable intake forms for your website or Shopify</li>
+        <li>Import requests straight from your inbox</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE: Pricing -->
+<section class="mq-section">
+  <div class="mq-container mq-feature rev mq-reveal">
+    <div class="mq-feature-media">
+      <img class="mq-shotimg" src="img/form.png" alt="MakerQuote quote calculator with material and time inputs">
+    </div>
+    <div>
+      <span class="mq-eyebrow">Pricing</span>
+      <h2 class="mq-h2" style="margin-top:14px">Consistent prices, calculated for you</h2>
+      <p>Enter your material costs, machine rates, and margins once. MakerQuote applies them to every job so your quotes stay accurate and profitable, whoever sends them.</p>
+      <ul class="mq-list">
+        <li>Fully adjustable pricing settings</li>
+        <li>Auto-price by material, weight, and print time</li>
+        <li>Optional AI quote assistant on higher tiers</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE: Manage -->
+<section class="mq-section alt">
+  <div class="mq-container mq-feature mq-reveal">
+    <div class="mq-feature-media">
+      <img class="mq-shotimg" src="img/analytics.png" alt="MakerQuote business analytics dashboard">
+    </div>
+    <div>
+      <span class="mq-eyebrow">Manage</span>
+      <h2 class="mq-h2" style="margin-top:14px">See your whole shop at a glance</h2>
+      <p>Track every job from new request to shipped on a visual Kanban board, and keep your printers busy with a production queue sorted by due date.</p>
+      <ul class="mq-list">
+        <li>Kanban pipeline by status</li>
+        <li>Production queue and printer tracking</li>
+        <li>Business analytics: revenue and pipeline</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE: Yours / offline -->
+<section class="mq-section">
+  <div class="mq-container mq-feature rev mq-reveal">
+    <div class="mq-feature-media">
+      <img class="mq-shotimg" src="img/calculator.png" alt="MakerQuote settings with license, updates, and configuration">
+    </div>
+    <div>
+      <span class="mq-eyebrow">Yours to keep</span>
+      <h2 class="mq-h2" style="margin-top:14px">Runs on your computer, not someone's cloud</h2>
+      <p>MakerQuote is a real desktop app for Mac and Windows. Your quotes, files, and customer list stay on your machine, not a vendor's cloud, and it quietly updates itself.</p>
+      <ul class="mq-list">
+        <li>Works offline, your data stays local</li>
+        <li>Own it for life with a one-time license</li>
+        <li>Automatic updates built in</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="mq-section alt" id="how">
+  <div class="mq-container">
+    <div class="mq-center mq-reveal">
+      <h2 class="mq-h2">Up and running in four steps</h2>
+      <p class="mq-lead">No servers to set up, no onboarding calls.</p>
+    </div>
+    <div class="mq-steps">
+      <div class="mq-step mq-reveal"><div class="n">1</div><h3>Install</h3><p>Download MakerQuote for Mac or Windows and open it. Your data folder is created automatically.</p></div>
+      <div class="mq-step mq-reveal"><div class="n">2</div><h3>Set your pricing</h3><p>Enter your materials, rates, and margins in the calculator settings.</p></div>
+      <div class="mq-step mq-reveal"><div class="n">3</div><h3>Share your form</h3><p>Embed your intake form on your website or Shopify so requests flow in.</p></div>
+      <div class="mq-step mq-reveal"><div class="n">4</div><h3>Quote &amp; send</h3><p>Review, price, and send a professional quote with a checkout link.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING / TIERS -->
+<section class="mq-section" id="pricing">
+  <div class="mq-container">
+    <div class="mq-center mq-reveal">
+      <h2 class="mq-h2">Plans for every shop</h2>
+      <p class="mq-lead">Start with a free 7-day trial. Contact us for pricing that fits your shop. <!-- Buttons below link to mailto:Hi@c3dprints.com, change to your contact page/email --></p>
+    </div>
+    <div class="mq-tiers">
+      <div class="mq-tier mq-reveal">
+        <div class="tname">Free</div>
+        <div class="tprice">Free <small>trial</small></div>
+        <div class="tdesc">A 7-day trial to explore the workflow.</div>
+        <ul><li>Quote queue, Kanban &amp; pricing</li><li>Try it for 7 days</li><li>No account, no cloud</li></ul>
+        <a class="mq-btn mq-btn-ghost" href="#">Start free</a>
+      </div>
+      <div class="mq-tier mq-reveal">
+        <div class="tname">Standard</div>
+        <div class="tprice" style="font-size:20px">Contact us</div>
+        <div class="tdesc">Unlocks everything customer-facing.</div>
+        <ul><li>Send quotes to customers</li><li>Checkout links &amp; customer portal</li><li>Embed intake forms on your site</li></ul>
+        <a class="mq-btn mq-btn-ghost" href="mailto:Hi@c3dprints.com?subject=MakerQuote%20Standard">Contact us</a>
+      </div>
+      <div class="mq-tier pop mq-reveal">
+        <div class="mq-pill">Most popular</div>
+        <div class="tname">Pro</div>
+        <div class="tprice" style="font-size:20px">Contact us</div>
+        <div class="tdesc">Adds automation and branding.</div>
+        <ul><li>Everything in Standard</li><li>AI quote assistant</li><li>Custom shop links</li></ul>
+        <a class="mq-btn mq-btn-primary" href="mailto:Hi@c3dprints.com?subject=MakerQuote%20Pro">Contact us</a>
+      </div>
+      <div class="mq-tier mq-reveal">
+        <div class="tname">Lifetime</div>
+        <div class="tprice" style="font-size:20px">Contact us</div>
+        <div class="tdesc">Every feature, forever, one payment.</div>
+        <ul><li>Everything in Pro</li><li>All future features</li><li>No subscription</li></ul>
+        <a class="mq-btn mq-btn-ghost" href="mailto:Hi@c3dprints.com?subject=MakerQuote%20Lifetime">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="mq-cta-band">
+  <div class="mq-orb a" style="opacity:.35;top:-40px;left:10%"></div>
+  <div class="mq-container mq-reveal" style="position:relative;z-index:1">
+    <h2 class="mq-h2">Start quoting the easy way</h2>
+    <p class="mq-lead" style="margin:14px auto 26px">Download MakerQuote and turn your next quote request into a sent quote in minutes.</p>
+    <a class="mq-btn mq-btn-primary" href="#">Get MakerQuote free</a>
+  </div>
+</section>
+
+<footer class="mq-footer">
+  <div class="mq-container">MakerQuote &middot; &copy; C3D Prints. Made for makers.</div>
+</footer>
+
+<script>
+/* Progressive enhancement: mark JS on, then reveal sections as they scroll in.
+   If this script is stripped (some Shopify editors), all content still shows. */
+(function(){
+  var root=document.querySelector('.mq-landing');
+  if(!root) return;
+  root.classList.add('mq-js');
+  var items=root.querySelectorAll('.mq-reveal');
+  if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('mq-in')});return;}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('mq-in');io.unobserve(e.target);}});
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  items.forEach(function(el){io.observe(el)});
+})();
+</script>
+</div><!-- /.mq-landing -->
+</body>
+</html>
