@@ -146,7 +146,7 @@
 
 /* Tiers */
 .mq-tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch}
-.mq-tier{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;display:flex;flex-direction:column}
+.mq-tier{position:relative;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;display:flex;flex-direction:column}
 .mq-tier.pop{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange),0 20px 50px rgba(255,107,26,.18)}
 .mq-tier .tname{font-weight:800;font-size:20px}
 .mq-tier .tprice{font-size:30px;font-weight:800;margin:8px 0 2px}
@@ -156,9 +156,9 @@
 .mq-tier ul li{padding-left:22px;position:relative;color:var(--text)}
 .mq-tier ul li::before{content:"+";position:absolute;left:0;color:var(--blue-l);font-weight:800}
 .mq-tier .mq-btn{margin-top:auto;justify-content:center;width:100%}
-.mq-pill{align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+.mq-pill{position:absolute;top:24px;right:20px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
   color:var(--orange-l);background:rgba(255,107,26,.14);border:1px solid rgba(255,107,26,.4);
-  padding:3px 10px;border-radius:999px;margin-bottom:10px}
+  padding:3px 10px;border-radius:999px}
 
 /* Final CTA + footer */
 .mq-cta-band{position:relative;text-align:center;padding:72px 0;overflow:hidden;
