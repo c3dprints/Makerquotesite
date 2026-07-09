@@ -1,6 +1,6 @@
-# MakerQuote marketing page
+# MakerQ marketing page
 
-Two ready-to-use versions of the MakerQuote landing page. Both are self-contained
+Two ready-to-use versions of the MakerQ landing page. Both are self-contained
 (no build step, no dependencies) and animated. Real app screenshots are already
 wired in from `img/` (hero, queue, calculator, analytics, settings); to swap any
 for your own, just replace the file in `img/` or change the `<img src="...">`.
