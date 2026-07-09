@@ -147,18 +147,57 @@ try{ localStorage.setItem("c3d_admin_token","demo-token"); }catch(e){}
       if (/portal-link$/.test(path)) return J({url:"https://makerq-demo.example/portal/sample"});
       return J({});
     }
-    var ms = path.match(/^\\/admin\\/requests\\/(\\d+)\\/status$/);
-    if (ms && body.status) {
-      (D["/admin/requests"]||[]).forEach(function(r){ if(r.id==ms[1]) r.status=body.status; });
-      return J({success:true, status:body.status});
+    var list = D["/admin/requests"]||[];
+    function findReq(id){ return list.find(function(r){ return Number(r.id)===Number(id); }); }
+    var mid = path.match(/^\\/admin\\/requests\\/(\\d+)\\/([a-z-]+)$/);
+    if (mid) {
+      var r = findReq(mid[1]); var act = mid[2];
+      if (!r) return J({detail:"Not found"}, 404);
+      if (act === "status" && body.status) { r.status = body.status; return J({success:true, status:r.status, request:r}); }
+      if (act === "archive") { r.status = "Archived"; return J({success:true, request:r}); }
+      if (act === "duplicate") {
+        var nid1 = Math.max.apply(null, list.map(function(x){return x.id||0})) + 1;
+        var cl = JSON.parse(JSON.stringify(r)); cl.id = nid1; cl.status = "New";
+        cl.created_at = new Date().toISOString(); cl.final_price = null; cl.paid = false;
+        list.unshift(cl); return J({success:true, new_request:cl, request:cl});
+      }
+      if (act === "auto-price") {
+        // demo STL-style estimate; the UI then runs the calculator with these
+        return J({inputs:{grams:20, hours:6, fail_rate:10, complexity_multiplier:1.1,
+                          quantity:r.quantity||1}, source:"demo STL estimate"});
+      }
+      if (act === "ai-quote-assist") {
+        var est = demoCalc({grams:20, hours:6, quantity:r.quantity||1, fail_rate:10,
+                            complexity_multiplier:1.1, include_shipping:true});
+        r.ai_quote_assist = "Demo AI analysis for "+(r.name||"this request")+": ~20g of "+
+          (r.material_preference||"PLA")+", about 6 print hours. Suggested price $"+
+          est.per_unit.suggested_sell_price.toFixed(2)+" per unit. Watch overhangs; add supports if needed.";
+        r.ai_quote_structured = {recommended_material:(r.material_preference||"PLA"), complexity:"Moderate",
+          confidence:"High", estimated_grams:20, estimated_hours:6, fail_rate:10,
+          price_min:Math.round(est.per_unit.suggested_sell_price*0.9*100)/100,
+          price_max:Math.round(est.per_unit.suggested_sell_price*1.15*100)/100,
+          complexity_multiplier:1.1,
+          risk_flags:["Demo data: verify wall thickness before printing"],
+          customer_reply:est.customer_quote};
+        return J({success:true, request:r});
+      }
+      if (act === "payment") { Object.assign(r, body); return J({success:true, request:r}); }
+      if (act === "details" || act === "job-details") {
+        Object.keys(body).forEach(function(k){ if(body[k]!==undefined) r[k]=body[k]; });
+        return J({success:true, request:r});
+      }
+      if (act === "send-quote") { r.status = (r.status==="New"||r.status==="Need Info")?"Quoted":r.status;
+        return J({success:true, sent_to:(r.email||"customer@example.com"), demo:true, request:r}); }
+      if (act === "send-checkout" || act === "send-portal-link" || act === "send-customer-orders" || act === "tracking")
+        return J({success:true, sent_to:(r.email||"customer@example.com"), demo:true, request:r});
+      if (act === "assign-printer") return J({success:true, request:r});
+      return J({success:true, demo:true, request:r});
     }
     if (path === "/admin/requests" && method === "POST") {
-      var list = D["/admin/requests"]||[]; var nid = list.length ? Math.max.apply(null,list.map(function(r){return r.id||0}))+1 : 1;
+      var nid = list.length ? Math.max.apply(null,list.map(function(r){return r.id||0}))+1 : 1;
       var nr = Object.assign({id:nid, status:"New", created_at:new Date().toISOString(), files:[]}, body);
       list.unshift(nr); return J(Object.assign({success:true}, nr));
     }
-    if (/ai-quote-assist$/.test(path)) return J({success:true, suggestion:"Demo mode: the AI quote assistant drafts pricing and a customer-ready reply here (Pro tier)."});
-    if (/send-quote$|send-checkout$|send-portal-link$/.test(path)) return J({success:true, sent_to:"customer@example.com", demo:true});
     return J({success:true, demo:true});
   };
 })();
@@ -182,9 +221,14 @@ header .brand img{height:56px!important}
     tail = """<script>
 /* demo: settings disabled everywhere (setup checklist etc.) */
 window.openEmailImport = function(){ try{ toast("Settings are disabled in this demo.","error"); }catch(e){} };
-/* demo: prefill the quote calculator with a sample job */
-(function(){ var g=document.getElementById("grams"), h=document.getElementById("hours");
-  if(g && !g.value) g.value="20"; if(h && !h.value) h.value="6"; })();
+/* demo: prefill the quote calculator with a sample job on every selection */
+(function(){
+  function fill(){ var g=document.getElementById("grams"), h=document.getElementById("hours");
+    if(g && !g.value) g.value="20"; if(h && !h.value) h.value="6"; }
+  fill();
+  var _sr = window.selectRequest;
+  window.selectRequest = function(id){ var out=_sr(id); setTimeout(fill, 80); return out; };
+})();
 </script>
 <div id="mq-demo-bar">Interactive demo, sample data, nothing is saved.<a href="../" target="_top">&larr; Back to MakerQ</a></div>
 </body>"""
