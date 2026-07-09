@@ -94,6 +94,37 @@ window.__DEMO__ = """ + json.dumps(canned) + """;
 try{ localStorage.setItem("c3d_admin_token","demo-token"); }catch(e){}
 (function(){
   var D = window.__DEMO__;
+  var S={kwh:0.25,watts:150,spool_usd:25,spool_g:1000,nozzle_cost:12,nozzle_hours:600,
+         sheet_cost:30,sheet_prints:800,shipping:8,boxing:2,tax:7,markup:100,labor_rate:25};
+  function mny(v){ return Math.round(v*100)/100; }
+  function demoQuoteText(q,h,g,unit,total,ship){
+    var price = q>1 ? "Estimated quote: $"+total.toFixed(2)+" total ($"+unit.toFixed(2)+" each)"
+                    : "Estimated quote: $"+unit.toFixed(2);
+    var sh = ship ? "Shipping is included in this estimate." : "Shipping/pickup will be handled separately.";
+    return "Hi! Thanks for sending over the details.\\n\\n"+price+"\\n\\nEstimated print time: "+(h*q).toFixed(1)+
+      " hours total\\nEstimated material use: "+(g*q).toFixed(1)+"g total\\n"+sh+
+      "\\n\\nThis quote is based on the information provided and may change if the file needs repair, resizing, extra supports, or additional finishing.\\n\\nIf you'd like to move forward, I can confirm the final details and get it added to the print queue.";
+  }
+  function demoCalc(p){
+    var q=Math.max(1, p.quantity|0 || 1), g=p.grams, h=p.hours;
+    var fil=g*(S.spool_usd/S.spool_g), elec=(S.watts/1000)*h*S.kwh;
+    var noz=(S.nozzle_cost/S.nozzle_hours)*h, sheet=S.sheet_cost/S.sheet_prints;
+    var shipC=p.include_shipping?S.shipping:0, labor=(p.labor_minutes||0)/60*S.labor_rate;
+    var direct=fil+elec+noz+sheet+S.boxing+shipC+labor+(p.cad_fee||0)+(p.rush_fee||0);
+    var withFail=direct*(1/(1-(p.fail_rate||0)/100));
+    var adj=withFail*(p.complexity_multiplier||1);
+    var tax=adj*(S.tax/100), sell=adj*(1+S.markup/100), profit=sell-adj;
+    return {quantity:q,
+      per_unit:{grams:mny(g),hours:mny(h),cost_to_make:mny(adj),tax:mny(tax),
+                suggested_sell_price:mny(sell),profit:mny(profit)},
+      totals:{grams:mny(g*q),hours:mny(h*q),cost_to_make:mny(adj*q),tax:mny(tax*q),
+              suggested_sell_price:mny(sell*q),profit:mny(profit*q)},
+      breakdown_per_unit:{filament:mny(fil),electricity:mny(elec),nozzle_wear:mny(noz),
+        print_sheet_wear:mny(sheet),packaging:mny(S.boxing),shipping:mny(shipC),labor:mny(labor),
+        cad_fee:mny(p.cad_fee||0),rush_fee:mny(p.rush_fee||0),fail_overhead:mny(withFail-direct),
+        complexity_added_cost:mny(adj-withFail)},
+      customer_quote:demoQuoteText(q,h,g,sell,sell*q,p.include_shipping)};
+  }
   function J(obj, status){
     return Promise.resolve(new Response(JSON.stringify(obj), {status: status||200, headers:{"Content-Type":"application/json"}}));
   }
@@ -104,6 +135,11 @@ try{ localStorage.setItem("c3d_admin_token","demo-token"); }catch(e){}
     var body = {};
     try{ if(opts.body) body = JSON.parse(opts.body); }catch(e){}
     if (path === "/admin/login") return J({token:"demo-token"});
+    if (path === "/calculate") {
+      if(!body.grams || body.grams<=0 || !body.hours || body.hours<=0)
+        return J({detail:"Enter grams and print hours first."}, 400);
+      return J(demoCalc(body));
+    }
     if (method === "GET") {
       if (D[path] !== undefined) return J(D[path]);
       var m = path.match(/^\\/admin\\/requests\\/(\\d+)$/);
@@ -146,6 +182,9 @@ header .brand img{height:56px!important}
     tail = """<script>
 /* demo: settings disabled everywhere (setup checklist etc.) */
 window.openEmailImport = function(){ try{ toast("Settings are disabled in this demo.","error"); }catch(e){} };
+/* demo: prefill the quote calculator with a sample job */
+(function(){ var g=document.getElementById("grams"), h=document.getElementById("hours");
+  if(g && !g.value) g.value="20"; if(h && !h.value) h.value="6"; })();
 </script>
 <div id="mq-demo-bar">Interactive demo, sample data, nothing is saved.<a href="../" target="_top">&larr; Back to MakerQ</a></div>
 </body>"""
@@ -157,86 +196,5 @@ window.openEmailImport = function(){ try{ toast("Settings are disabled in this d
     open(out, "w").write(demo)
     print("wrote", out, round(len(demo) / 1024), "KB")
 
-def build_calc():
-    """demo/calc.html: the customer-facing quote calculator with the pricing
-    engine ported to JS (decoy settings), fully functional offline."""
-    page = open(os.path.join(REPO, "index.html")).read()
-    # neutral shop branding for the demo + drop the logo file reference
-    page = re.sub(r'<img src="logo.png"[^>]*>', "", page)
-    page = page.replace("C3D Prints", "Demo Shop")
-    # Dashboard button should go to the demo dashboard
-    page = page.replace('href="https://quote.c3dprints.com/admin"', 'href="app.html"')
-    page = re.sub(r'href="[^"]*/admin"', 'href="app.html"', page)
-
-    shim = """<script>
-/* ===== MakerQ demo: pricing engine ported to JS (sample shop settings) ===== */
-(function(){
-  var S={kwh:0.25,watts:150,spool_usd:25,spool_g:1000,nozzle_cost:12,nozzle_hours:600,
-         sheet_cost:30,sheet_prints:800,shipping:8,boxing:2,tax:7,markup:100,labor_rate:25};
-  function money(v){ return Math.round(v*100)/100; }
-  function quoteText(q,h,g,unit,total,ship){
-    var price = q>1 ? "Estimated quote: $"+total.toFixed(2)+" total ($"+unit.toFixed(2)+" each)"
-                    : "Estimated quote: $"+unit.toFixed(2);
-    var sh = ship ? "Shipping is included in this estimate." : "Shipping/pickup will be handled separately.";
-    return "Hi! Thanks for sending over the details.\\n\\n"+price+"\\n\\nEstimated print time: "+(h*q).toFixed(1)+
-      " hours total\\nEstimated material use: "+(g*q).toFixed(1)+"g total\\n"+sh+
-      "\\n\\nThis quote is based on the information provided and may change if the file needs repair, resizing, extra supports, or additional finishing.\\n\\nIf you'd like to move forward, I can confirm the final details and get it added to the print queue.";
-  }
-  function calc(p){
-    var q=Math.max(1, p.quantity|0 || 1), g=p.grams, h=p.hours;
-    var fil=g*(S.spool_usd/S.spool_g);
-    var elec=(S.watts/1000)*h*S.kwh;
-    var noz=(S.nozzle_cost/S.nozzle_hours)*h;
-    var sheet=S.sheet_cost/S.sheet_prints;
-    var shipC=p.include_shipping?S.shipping:0;
-    var labor=(p.labor_minutes||0)/60*S.labor_rate;
-    var direct=fil+elec+noz+sheet+S.boxing+shipC+labor+(p.cad_fee||0)+(p.rush_fee||0);
-    var failM=1/(1-(p.fail_rate||0)/100);
-    var withFail=direct*failM;
-    var adj=withFail*(p.complexity_multiplier||1);
-    var tax=adj*(S.tax/100);
-    var sell=adj*(1+S.markup/100);
-    var profit=sell-adj;
-    return {quantity:q,
-      per_unit:{grams:money(g),hours:money(h),cost_to_make:money(adj),tax:money(tax),
-                suggested_sell_price:money(sell),profit:money(profit)},
-      totals:{grams:money(g*q),hours:money(h*q),cost_to_make:money(adj*q),tax:money(tax*q),
-              suggested_sell_price:money(sell*q),profit:money(profit*q)},
-      breakdown_per_unit:{filament:money(fil),electricity:money(elec),nozzle_wear:money(noz),
-        print_sheet_wear:money(sheet),packaging:money(S.boxing),shipping:money(shipC),labor:money(labor),
-        cad_fee:money(p.cad_fee||0),rush_fee:money(p.rush_fee||0),fail_overhead:money(withFail-direct),
-        complexity_added_cost:money(adj-withFail)},
-      customer_quote:quoteText(q,h,g,sell,sell*q,p.include_shipping)};
-  }
-  window.fetch = function(url, opts){
-    var p={}; try{ p=JSON.parse((opts||{}).body||"{}"); }catch(e){}
-    if(!p.grams || p.grams<=0 || !p.hours || p.hours<=0)
-      return Promise.resolve(new Response(JSON.stringify({detail:"Enter grams and print hours first."}),{status:400,headers:{"Content-Type":"application/json"}}));
-    return Promise.resolve(new Response(JSON.stringify(calc(p)),{status:200,headers:{"Content-Type":"application/json"}}));
-  };
-  // Prefill a sample job so one click shows a price
-  document.addEventListener("DOMContentLoaded", function(){
-    var g=document.getElementById("grams"), h=document.getElementById("hours");
-    if(g && !g.value) g.value="20";
-    if(h && !h.value) h.value="6";
-  });
-})();
-</script>
-<style>#mq-demo-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:5000;background:#162236;border:1px solid #ff6b1a;color:#ddeeff;font:600 13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:9px 16px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.5);display:flex;gap:14px;align-items:center}#mq-demo-bar a{color:#33ccff;text-decoration:none}#mq-demo-bar a:hover{text-decoration:underline}</style>
-"""
-    marker = 'const API_URL='
-    assert page.count(marker) == 1, "calc API_URL marker not found"
-    assert page.count("<script>\n" + marker) == 1, "calc script block marker not found"
-    page = page.replace("<script>\n" + marker, shim + "<script>\n" + marker, 1)
-    ribbon = '<div id="mq-demo-bar">Demo calculator, sample shop pricing.<a href="../" target="_top">&larr; Back to MakerQ</a></div>\n</body>'
-    assert page.count("</body>") == 1
-    page = page.replace("</body>", ribbon)
-    if "<title>" in page and "MakerQ Demo" not in page:
-        page = page.replace("<title>", "<title>MakerQ Demo - ", 1)
-    out = os.path.join(SITE, "demo", "calc.html")
-    open(out, "w").write(page)
-    print("wrote", out, round(len(page) / 1024), "KB")
-
 if __name__ == "__main__":
     build(record_canned())
-    build_calc()

@@ -37,11 +37,6 @@ h1 .grad{background:linear-gradient(100deg,var(--blue-l),var(--orange-l));-webki
   border-bottom:1px solid var(--border)}
 .dot{width:11px;height:11px;border-radius:50%}.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
 .chrome .t{margin-left:8px;color:var(--muted);font-size:12px;font-weight:600}
-.tabs{display:flex;gap:6px;margin-left:14px}
-.tab{background:transparent;border:1px solid var(--border);color:var(--muted);font:600 12px inherit;
-  font-family:inherit;padding:5px 12px;border-radius:8px;cursor:pointer;transition:all .15s}
-.tab:hover{color:var(--text)}
-.tab.active{color:#04121e;background:linear-gradient(135deg,var(--blue),var(--blue-l));border-color:transparent}
 .chrome .open{margin-left:auto;color:var(--blue-l);font-size:12px;font-weight:700}
 .chrome .open:hover{text-decoration:underline}
 iframe{display:block;width:100%;height:min(68vh,760px);min-height:520px;border:0;background:var(--bg)}
@@ -73,26 +68,11 @@ iframe{display:block;width:100%;height:min(68vh,760px);min-height:520px;border:0
     <div class="chrome">
       <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
       <span class="t">MakerQ, interactive demo</span>
-      <div class="tabs">
-        <button class="tab active" data-src="app.html">Shop dashboard</button>
-        <button class="tab" data-src="calc.html">Customer calculator</button>
-      </div>
       <a class="open" href="app.html" target="_blank">Open full screen &nearr;</a>
     </div>
     <iframe src="app.html" title="MakerQ interactive demo"></iframe>
   </div>
   <p class="note">Sample data only. The desktop app runs on your own computer, Mac and Windows.</p>
 </div>
-<script>
-document.querySelectorAll('.tab').forEach(function(b){
-  b.addEventListener('click', function(){
-    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
-    b.classList.add('active');
-    var src=b.getAttribute('data-src');
-    document.querySelector('iframe').src=src;
-    document.querySelector('.chrome .open').href=src;
-  });
-});
-</script>
 </body>
 </html>
