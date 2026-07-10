@@ -80,7 +80,7 @@ textarea{min-height:130px;resize:vertical}
   <div class="card">
     <form id="contact-form" novalidate>
       <!-- honeypot: bots fill this, humans never see it -->
-      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
       <div class="row">
         <div class="field">
           <label for="c-name">Name <span class="req">*</span></label>
@@ -108,7 +108,7 @@ textarea{min-height:130px;resize:vertical}
       <button class="btn submit" type="submit" id="c-submit">Send message</button>
       <div class="msg" id="c-msg"></div>
     </form>
-    <p class="tiny">We'll only use your details to reply. Straight to Hi@c3dprints.com.</p>
+    <p class="tiny">Prefer email? Reach us directly at <a href="mailto:Hi@c3dprints.com" style="color:var(--blue-l);font-weight:700;">Hi@c3dprints.com</a>.<br>We'll only use your details to reply.</p>
   </div>
 </div>
 
@@ -116,12 +116,11 @@ textarea{min-height:130px;resize:vertical}
 
 <script>
 /* ===== Contact form =====
-   Delivery: set ACCESS_KEY to a free Web3Forms key (create one at
-   https://web3forms.com using the email Hi@c3dprints.com; the key routes
-   submissions to that inbox). Until a key is set, the form falls back to
-   opening the visitor's email app pre-addressed to Hi@c3dprints.com so it
-   still works today. */
-var ACCESS_KEY = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY";
+   Submits on-page (no email app) to Hi@c3dprints.com via Web3Forms.
+   SETUP (one time): create a free access key at https://web3forms.com using
+   the email Hi@c3dprints.com, then paste it below in place of PASTE_KEY_HERE.
+   The key routes every submission to that inbox. */
+var ACCESS_KEY = "PASTE_KEY_HERE";
 var TO = "Hi@c3dprints.com";
 (function(){
   var f = document.getElementById("contact-form");
@@ -133,40 +132,29 @@ var TO = "Hi@c3dprints.com";
 
   f.addEventListener("submit", function(e){
     e.preventDefault();
-    if(f.botcheck && f.botcheck.checked) return;
+    if(f._honey && f._honey.value) return; // honeypot tripped
     var name = val("c-name"), email = val("c-email"), company = val("c-company"),
         phone = val("c-phone"), message = val("c-message");
     if(!name){ show("Please enter your name.", false); return; }
     if(!validEmail(email)){ show("Please enter a valid email address.", false); return; }
     if(!message){ show("Please add a short message.", false); return; }
-
-    var keyed = ACCESS_KEY && ACCESS_KEY.indexOf("REPLACE_WITH") !== 0;
-    if(keyed){
-      btn.disabled = true; btn.textContent = "Sending...";
-      fetch("https://api.web3forms.com/submit", {
-        method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"},
-        body: JSON.stringify({
-          access_key: ACCESS_KEY,
-          subject: "New MakerQ contact from " + name,
-          from_name: "MakerQ website",
-          name: name, email: email, company: company, phone: phone, message: message
-        })
-      }).then(function(r){ return r.json(); }).then(function(d){
-        if(d.success){ f.reset(); show("Thanks, " + name + "! Your message is on its way. We'll reply to " + email + " soon.", true); }
-        else { show("Sorry, that didn't send. Please email us directly at " + TO + ".", false); }
-      }).catch(function(){ show("Network error. Please email us directly at " + TO + ".", false); })
-        .finally(function(){ btn.disabled = false; btn.textContent = "Send message"; });
-    } else {
-      // Fallback: open the visitor's email client pre-filled to Hi@c3dprints.com
-      var body = "Name: " + name + "\nEmail: " + email +
-                 (company ? "\nCompany: " + company : "") +
-                 (phone ? "\nPhone: " + phone : "") +
-                 "\n\n" + message;
-      window.location.href = "mailto:" + TO +
-        "?subject=" + encodeURIComponent("MakerQ inquiry from " + name) +
-        "&body=" + encodeURIComponent(body);
-      show("Opening your email app to send to " + TO + ". If nothing opens, email us directly.", true);
+    if(ACCESS_KEY === "PASTE_KEY_HERE"){
+      show("The form isn't connected yet. Please email us at " + TO + " for now.", false); return;
     }
+
+    btn.disabled = true; btn.textContent = "Sending...";
+    fetch("https://api.web3forms.com/submit", {
+      method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body: JSON.stringify({
+        access_key: ACCESS_KEY, subject: "New MakerQ contact from " + name,
+        from_name: "MakerQ website", name: name, email: email,
+        company: company || "-", phone: phone || "-", message: message
+      })
+    }).then(function(r){ return r.json().catch(function(){ return {}; }); }).then(function(d){
+      if(d && d.success){ f.reset(); show("Thanks, " + name + "! Your message has been sent. We'll reply to " + email + " soon.", true); }
+      else { show("Sorry, that didn't go through. Please email us directly at " + TO + ".", false); }
+    }).catch(function(){ show("Network error. Please email us directly at " + TO + ".", false); })
+      .finally(function(){ btn.disabled = false; btn.textContent = "Send message"; });
   });
 })();
 </script>
