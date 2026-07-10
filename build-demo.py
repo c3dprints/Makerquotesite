@@ -214,7 +214,7 @@ header .brand img{height:56px!important}
     demo = admin.replace(marker, shim + marker)
 
     # remove the header Settings button (robust to inline style changes)
-    demo, n = re.subn(r'<button[^>]*onclick="openEmailImport\(\)"[^>]*>Settings</button>', "", demo)
+    demo, n = re.subn(r'<button[^>]*onclick="openEmailImport\(\)".*?</button>', "", demo, flags=re.S)
     print("settings buttons removed:", n)
 
     # after-app patches: disable ALL settings entry points + demo pill
