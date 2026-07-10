@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact MakerQ</title>
+<meta name="description" content="Get in touch with the MakerQ team. Questions, demos, pricing, we're happy to help.">
+<style>
+:root{--bg:#0b1623;--surface:#111e2e;--card:#162236;--input:#0d1928;--border:#1e3550;
+  --blue:#00aaff;--blue-l:#33ccff;--orange:#ff6b1a;--orange-l:#ff8c3a;--green:#00e890;
+  --red:#ff6b6b;--text:#ddeeff;--muted:#9fb6d0}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+a{color:inherit;text-decoration:none}
+/* Nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(11,22,35,.9);backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1120px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
+.brand{font-weight:800;font-size:20px;letter-spacing:-.5px}.brand span{color:var(--orange-l)}
+.links{display:flex;gap:4px}
+.links a{padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:600;font-size:14px;transition:color .15s,background .15s}
+.links a:hover,.links a.active{color:var(--text);background:rgba(0,170,255,.12)}
+.right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.nav-mail{color:var(--muted);font-size:13px;font-weight:600}.nav-mail:hover{color:var(--blue-l)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:9px 18px;border-radius:11px;
+  cursor:pointer;border:none;background:linear-gradient(135deg,var(--orange),var(--orange-l));color:#fff;
+  box-shadow:0 8px 26px rgba(255,107,26,.35);transition:transform .12s,filter .2s}
+.btn:hover{filter:brightness(1.07);transform:translateY(-2px)}
+@media(max-width:820px){.nav-mail{display:none}.links a{padding:8px 8px;font-size:13px}}
+/* Page */
+.wrap{max-width:640px;margin:0 auto;padding:54px 24px 70px}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--blue-l);background:rgba(0,170,255,.1);border:1px solid rgba(0,170,255,.3);padding:6px 14px;border-radius:999px}
+h1{font-size:clamp(30px,5vw,44px);margin:16px 0 8px;letter-spacing:-.5px}
+h1 .grad{background:linear-gradient(100deg,var(--blue-l),var(--orange-l));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:17px;margin:0 0 28px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{margin-bottom:14px}
+label{display:block;color:var(--muted);font-size:13px;font-weight:700;margin-bottom:6px}
+label .req{color:var(--orange-l)}
+input,textarea{width:100%;background:var(--input);border:1px solid var(--border);color:var(--text);
+  border-radius:11px;padding:12px 14px;font-size:15px;font-family:inherit;transition:border-color .15s,box-shadow .15s}
+input:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,170,255,.15)}
+textarea{min-height:130px;resize:vertical}
+.hp{position:absolute;left:-9999px}
+.submit{width:100%;justify-content:center;margin-top:6px;font-size:16px;padding:14px}
+.msg{margin-top:16px;padding:12px 16px;border-radius:11px;font-size:14px;display:none}
+.msg.show{display:block}
+.msg.ok{background:rgba(0,232,144,.12);border:1px solid rgba(0,232,144,.4);color:#7ef0c0}
+.msg.err{background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.4);color:#ffb0b0}
+.tiny{color:var(--muted);font-size:12px;margin-top:14px;text-align:center}
+.footer{padding:30px 0;color:var(--muted);font-size:14px;text-align:center;border-top:1px solid var(--border);margin-top:10px}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="MakerQ">
+  <div class="nav-inner">
+    <a class="brand" href="./">Maker<span>Q</span></a>
+    <div class="links">
+      <a href="index.html#features">Features</a>
+      <a href="demo/">Demo</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#pricing">Plans</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+    <div class="right">
+      <a class="nav-mail" href="mailto:Hi@c3dprints.com">Hi@c3dprints.com</a>
+      <a class="btn" href="index.html#pricing">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <span class="eyebrow">Contact us</span>
+  <h1>Let's talk <span class="grad">MakerQ</span></h1>
+  <p class="lead">Questions, a demo, custom pricing, or just want to say hi? Send us a note and we'll get back to you.</p>
+
+  <div class="card">
+    <form id="contact-form" novalidate>
+      <!-- honeypot: bots fill this, humans never see it -->
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+      <div class="row">
+        <div class="field">
+          <label for="c-name">Name <span class="req">*</span></label>
+          <input id="c-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="c-email">Email <span class="req">*</span></label>
+          <input id="c-email" name="email" type="email" autocomplete="email" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="c-company">Company name</label>
+          <input id="c-company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="c-phone">Phone number</label>
+          <input id="c-phone" name="phone" type="tel" autocomplete="tel">
+        </div>
+      </div>
+      <div class="field">
+        <label for="c-message">How can we help? <span class="req">*</span></label>
+        <textarea id="c-message" name="message" required placeholder="Tell us a bit about your shop and what you're looking for..."></textarea>
+      </div>
+      <button class="btn submit" type="submit" id="c-submit">Send message</button>
+      <div class="msg" id="c-msg"></div>
+    </form>
+    <p class="tiny">We'll only use your details to reply. Straight to Hi@c3dprints.com.</p>
+  </div>
+</div>
+
+<footer class="footer">MakerQ.io &middot; &copy; C3D Prints. Made for makers.</footer>
+
+<script>
+/* ===== Contact form =====
+   Delivery: set ACCESS_KEY to a free Web3Forms key (create one at
+   https://web3forms.com using the email Hi@c3dprints.com; the key routes
+   submissions to that inbox). Until a key is set, the form falls back to
+   opening the visitor's email app pre-addressed to Hi@c3dprints.com so it
+   still works today. */
+var ACCESS_KEY = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY";
+var TO = "Hi@c3dprints.com";
+(function(){
+  var f = document.getElementById("contact-form");
+  var msg = document.getElementById("c-msg");
+  var btn = document.getElementById("c-submit");
+  function show(text, ok){ msg.textContent = text; msg.className = "msg show " + (ok ? "ok" : "err"); }
+  function val(id){ return (document.getElementById(id).value || "").trim(); }
+  function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+  f.addEventListener("submit", function(e){
+    e.preventDefault();
+    if(f.botcheck && f.botcheck.checked) return;
+    var name = val("c-name"), email = val("c-email"), company = val("c-company"),
+        phone = val("c-phone"), message = val("c-message");
+    if(!name){ show("Please enter your name.", false); return; }
+    if(!validEmail(email)){ show("Please enter a valid email address.", false); return; }
+    if(!message){ show("Please add a short message.", false); return; }
+
+    var keyed = ACCESS_KEY && ACCESS_KEY.indexOf("REPLACE_WITH") !== 0;
+    if(keyed){
+      btn.disabled = true; btn.textContent = "Sending...";
+      fetch("https://api.web3forms.com/submit", {
+        method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"},
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject: "New MakerQ contact from " + name,
+          from_name: "MakerQ website",
+          name: name, email: email, company: company, phone: phone, message: message
+        })
+      }).then(function(r){ return r.json(); }).then(function(d){
+        if(d.success){ f.reset(); show("Thanks, " + name + "! Your message is on its way. We'll reply to " + email + " soon.", true); }
+        else { show("Sorry, that didn't send. Please email us directly at " + TO + ".", false); }
+      }).catch(function(){ show("Network error. Please email us directly at " + TO + ".", false); })
+        .finally(function(){ btn.disabled = false; btn.textContent = "Send message"; });
+    } else {
+      // Fallback: open the visitor's email client pre-filled to Hi@c3dprints.com
+      var body = "Name: " + name + "\nEmail: " + email +
+                 (company ? "\nCompany: " + company : "") +
+                 (phone ? "\nPhone: " + phone : "") +
+                 "\n\n" + message;
+      window.location.href = "mailto:" + TO +
+        "?subject=" + encodeURIComponent("MakerQ inquiry from " + name) +
+        "&body=" + encodeURIComponent(body);
+      show("Opening your email app to send to " + TO + ". If nothing opens, email us directly.", true);
+    }
+  });
+})();
+</script>
+</body>
+</html>
