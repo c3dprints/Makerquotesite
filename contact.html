@@ -116,12 +116,12 @@ textarea{min-height:130px;resize:vertical}
 
 <script>
 /* ===== Contact form =====
-   Submits on-page (no email app) to Hi@c3dprints.com via Web3Forms.
-   SETUP (one time): create a free access key at https://web3forms.com using
-   the email Hi@c3dprints.com, then paste it below in place of PASTE_KEY_HERE.
-   The key routes every submission to that inbox. */
-var ACCESS_KEY = "PASTE_KEY_HERE";
+   Submits on-page (no email app, no account) to Hi@c3dprints.com via FormSubmit.
+   ONE-TIME ACTIVATION: the very first submission from the live site sends a
+   confirmation email to Hi@c3dprints.com. Click that link once and the form is
+   live for everyone; after that, submissions deliver straight to the inbox. */
 var TO = "Hi@c3dprints.com";
+var ENDPOINT = "https://formsubmit.co/ajax/" + TO;
 (function(){
   var f = document.getElementById("contact-form");
   var msg = document.getElementById("c-msg");
@@ -138,22 +138,23 @@ var TO = "Hi@c3dprints.com";
     if(!name){ show("Please enter your name.", false); return; }
     if(!validEmail(email)){ show("Please enter a valid email address.", false); return; }
     if(!message){ show("Please add a short message.", false); return; }
-    if(ACCESS_KEY === "PASTE_KEY_HERE"){
-      show("The form isn't connected yet. Please email us at " + TO + " for now.", false); return;
-    }
 
     btn.disabled = true; btn.textContent = "Sending...";
-    fetch("https://api.web3forms.com/submit", {
-      method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"},
-      body: JSON.stringify({
-        access_key: ACCESS_KEY, subject: "New MakerQ contact from " + name,
-        from_name: "MakerQ website", name: name, email: email,
-        company: company || "-", phone: phone || "-", message: message
-      })
-    }).then(function(r){ return r.json().catch(function(){ return {}; }); }).then(function(d){
-      if(d && d.success){ f.reset(); show("Thanks, " + name + "! Your message has been sent. We'll reply to " + email + " soon.", true); }
-      else { show("Sorry, that didn't go through. Please email us directly at " + TO + ".", false); }
-    }).catch(function(){ show("Network error. Please email us directly at " + TO + ".", false); })
+    // FormData keeps this a simple CORS request (no preflight)
+    var fd = new FormData();
+    fd.append("name", name); fd.append("email", email);
+    fd.append("company", company || "-"); fd.append("phone", phone || "-");
+    fd.append("message", message);
+    fd.append("_subject", "New MakerQ contact from " + name);
+    fd.append("_template", "table"); fd.append("_captcha", "false");
+    fetch(ENDPOINT, { method:"POST", headers:{"Accept":"application/json"}, body: fd })
+      .then(function(r){ return r.json().catch(function(){ return {}; }); }).then(function(d){
+        if(d && (d.success === true || d.success === "true")){
+          f.reset(); show("Thanks, " + name + "! Your message has been sent. We'll reply to " + email + " soon.", true);
+        } else {
+          show((d && d.message) ? d.message : ("Sorry, that didn't go through. Please email us directly at " + TO + "."), false);
+        }
+      }).catch(function(){ show("Network error. Please email us directly at " + TO + "."); })
       .finally(function(){ btn.disabled = false; btn.textContent = "Send message"; });
   });
 })();
