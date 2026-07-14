@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- Google Analytics (GA4) - replace G-XXXXXXXXXX with your Measurement ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<!-- Google Analytics (GA4) - replace G-365JP65BHP with your Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-365JP65BHP"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
-gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -229,7 +229,58 @@ gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
   transform:skewX(-20deg);transition:left .5s ease;pointer-events:none}
 .mq-btn-primary:hover::after{left:130%}
 .mq-btn-ghost:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,170,255,.18)}
+
+/* ---- Light / dark theme -------------------------------------------- */
+html[data-theme="light"] .mq-landing{
+  --bg:#eef3f9;--surface:#ffffff;--card:#ffffff;--border:#d7e2f0;
+  --text:#13233a;--muted:#59708a}
+html[data-theme="light"],html[data-theme="light"] body{background:#eef3f9}
+html[data-theme="light"] .mq-nav{background:rgba(255,255,255,.86);border-bottom-color:#d7e2f0}
+html[data-theme="light"] .mq-nav-brand{color:#13233a}
+html[data-theme="light"] .mq-hero-bg{background:
+  radial-gradient(1200px 600px at 15% -10%,rgba(0,170,255,.14),transparent 60%),
+  radial-gradient(1000px 600px at 100% 10%,rgba(255,107,26,.12),transparent 55%)}
+html[data-theme="light"] .mq-orb{opacity:.32}
+html[data-theme="light"] .mq-shot,html[data-theme="light"] .mq-build{background:linear-gradient(135deg,#eaf1fa,#dce7f4)}
+html[data-theme="light"] .mq-card,html[data-theme="light"] .mq-step,html[data-theme="light"] .mq-tier{box-shadow:0 10px 30px rgba(20,45,80,.07)}
+html[data-theme="light"] .mq-card:hover{box-shadow:0 18px 40px rgba(20,45,80,.15)}
+html[data-theme="light"] .mq-heroimg,html[data-theme="light"] .mq-shotimg{box-shadow:0 24px 60px rgba(20,45,80,.20)}
+html[data-theme="light"] .mq-list li::after{border-color:#fff}
+
+/* ---- Theme toggle button ------------------------------------------- */
+.mq-theme-btn{width:42px;height:42px;border-radius:12px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;display:inline-grid;place-items:center;
+  padding:0;transition:transform .15s ease,border-color .2s,box-shadow .2s,background .2s}
+.mq-theme-btn:hover{transform:translateY(-2px) rotate(-8deg);border-color:var(--blue);box-shadow:0 8px 22px rgba(0,170,255,.22)}
+.mq-theme-btn svg{width:20px;height:20px}
+.mq-theme-fab{position:fixed;top:16px;right:16px;z-index:200;
+  box-shadow:0 10px 30px rgba(0,0,0,.32);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  transition:opacity .3s ease,transform .3s ease,border-color .2s,box-shadow .2s}
+.mq-theme-fab.hide{opacity:0;transform:scale(.7);pointer-events:none}
+.mq-theme-nav{width:38px;height:38px;border-radius:11px}
+
+/* ---- Extra flare --------------------------------------------------- */
+.mq-grad{background-image:linear-gradient(100deg,var(--blue-l),var(--orange-l),var(--blue-l));
+  background-size:220% auto;animation:mq-shimmer 7s linear infinite}
+@keyframes mq-shimmer{to{background-position:220% center}}
+.mq-hero-bg::after{content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(159,182,208,.18) 1px,transparent 1px);background-size:26px 26px;
+  -webkit-mask:radial-gradient(1000px 520px at 50% 0,#000,transparent 72%);
+  mask:radial-gradient(1000px 520px at 50% 0,#000,transparent 72%);
+  animation:mq-drift 24s linear infinite;opacity:.55}
+@keyframes mq-drift{to{background-position:0 260px}}
+.mq-tier.pop{animation:mq-popglow 3.6s ease-in-out infinite}
+@keyframes mq-popglow{0%,100%{box-shadow:0 0 0 1px var(--orange),0 20px 50px rgba(255,107,26,.18)}
+  50%{box-shadow:0 0 0 1px var(--orange),0 24px 62px rgba(255,107,26,.36)}}
+.mq-ic{transition:transform .25s ease}
+.mq-card:hover .mq-ic{transform:translateY(-3px) scale(1.08) rotate(-4deg)}
+@media(prefers-reduced-motion:reduce){.mq-grad,.mq-hero-bg::after,.mq-tier.pop{animation:none!important}}
 </style>
+
+<button class="mq-theme-btn mq-theme-fab" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">
+  <svg class="mq-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  <svg class="mq-moon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+</button>
 
 <nav class="mq-nav" id="mq-nav" aria-label="MakerQ">
   <div class="mq-container mq-nav-inner">
@@ -244,6 +295,10 @@ gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
     </div>
     <div class="mq-nav-right">
       <a class="mq-nav-mail" href="mailto:Hi@c3dprints.com">Hi@c3dprints.com</a>
+      <button class="mq-theme-btn mq-theme-nav" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">
+        <svg class="mq-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="mq-moon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
       <a class="mq-btn mq-btn-primary mq-btn-sm" href="download.html">Start free <span class="arr">&rarr;</span></a>
     </div>
   </div>
@@ -434,6 +489,28 @@ gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
 </footer>
 
 <script>
+/* Light/dark theme: saved choice wins, else follow the OS. Icon shows target mode. */
+(function(){
+  var KEY="mq-theme",root=document.documentElement;
+  function apply(t){
+    root.setAttribute("data-theme",t);
+    document.querySelectorAll(".mq-theme-btn").forEach(function(b){
+      var sun=b.querySelector(".mq-sun"),moon=b.querySelector(".mq-moon");
+      if(sun)sun.style.display=(t==="light")?"none":"block";
+      if(moon)moon.style.display=(t==="light")?"block":"none";
+      b.setAttribute("aria-label",(t==="light")?"Switch to dark theme":"Switch to light theme");
+    });
+  }
+  var saved;try{saved=localStorage.getItem(KEY)}catch(e){}
+  var t=saved||((window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark");
+  apply(t);
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest(".mq-theme-btn");if(!b)return;
+    e.preventDefault();t=(root.getAttribute("data-theme")==="light")?"dark":"light";
+    apply(t);try{localStorage.setItem(KEY,t)}catch(e){}
+  });
+})();
+
 /* Progressive enhancement: mark JS on, then reveal sections as they scroll in.
    If this script is stripped (some Shopify editors), all content still shows. */
 (function(){
@@ -451,7 +528,8 @@ gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
 /* Sticky nav on scroll + smooth in-page scrolling */
 (function(){
   var nav=document.getElementById('mq-nav'); if(!nav) return;
-  var onS=function(){ if(window.scrollY>420){nav.classList.add('show')}else{nav.classList.remove('show')} };
+  var fab=document.querySelector('.mq-theme-fab');
+  var onS=function(){ var s=window.scrollY>420; nav.classList.toggle('show',s); if(fab)fab.classList.toggle('hide',s); };
   window.addEventListener('scroll', onS, {passive:true}); onS();
   document.querySelectorAll('.mq-landing a[href^="#"]').forEach(function(a){
     a.addEventListener('click', function(e){

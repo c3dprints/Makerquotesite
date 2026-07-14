@@ -17,6 +17,7 @@ REPO = os.path.expanduser("~/Documents/c3dprints-quote-portal")
 SITE = os.path.dirname(os.path.abspath(__file__))
 PORT = 8856
 BASE = f"http://127.0.0.1:{PORT}"
+APP_VERSION = "1.0.98"
 
 sys.path.insert(0, os.path.join(REPO, "tools"))
 import gen_license  # noqa: E402
@@ -86,8 +87,81 @@ def record_canned():
         proc.send_signal(signal.SIGTERM)
         proc.wait(timeout=10)
 
+def enrich(canned):
+    """Fill in the 'blanks' so a viewer sees populated panels: AI triage summary,
+    structured quote data, uploaded files, and a per-customer email log. Also bump
+    the /health version so the footer isn't stale."""
+    try:
+        canned.setdefault("/health", {})["version"] = APP_VERSION
+    except Exception:
+        pass
+    reqs = canned.get("/admin/requests", []) or []
+    by_name = {r.get("name"): r for r in reqs}
+    emails = {}
+
+    def stl(name, grams, hours):
+        return {"original_filename": name, "filename": name, "size_bytes": int(grams * 1024 * 1.7),
+                "stl_analysis": {"estimated_grams": grams, "estimated_print_hours": hours,
+                                 "bounding_box_mm": [82.4, 61.0, 45.2], "triangles": 128444}}
+
+    def ai(material, complexity, mult, grams, hours, price, flags):
+        lo, hi = round(price * 0.9, 2), round(price * 1.15, 2)
+        return {"recommended_material": material, "complexity": complexity, "confidence": "High",
+                "estimated_grams": grams, "estimated_hours": hours, "fail_rate": 10,
+                "price_min": lo, "price_max": hi, "complexity_multiplier": mult, "risk_flags": flags}
+
+    plan = {
+        "Owen Brooks": dict(material="PLA Matte", complexity="Moderate", mult=1.1, grams=42, hours=5.5,
+                            price=34.0, files=[("phone-stand-v3.stl", 42, 5.5)],
+                            flags=["Overhang on the neck rest, add supports", "Thin 1.2mm base, verify bed adhesion"],
+                            summary="Desk phone stand in matte black. Single-part print, low risk. "
+                                    "Recommend 15% gyroid infill and tree supports under the lip. "
+                                    "About 42g of PLA and ~5.5h on a 0.4mm nozzle at 0.2mm layers."),
+        "Marisol Chen": dict(material="PETG Carbon", complexity="Hard", mult=1.5, grams=210, hours=14.0,
+                             price=96.0, files=[("fpv-frame-arm.stl", 120, 8.0), ("fpv-frame-body.stl", 90, 6.0)],
+                             flags=["Carbon-fill needs a hardened nozzle", "Functional part, print walls at 4 perimeters"],
+                             summary="FPV drone frame, carbon look. Two structural parts, functional load. "
+                                     "Suggest PETG-CF, 4 perimeters, 40% infill for stiffness. Higher fail risk, "
+                                     "priced with a 1.5x complexity factor."),
+        "Devin Wright": dict(material="Resin (Grey)", complexity="Moderate", mult=1.25, grams=95, hours=9.5,
+                             price=120.0, files=[("miniatures-set-12.stl", 95, 9.5)],
+                             flags=["12 minis on one plate, watch for cupping", "Hollow + drain holes recommended"],
+                             summary="Tabletop miniatures set of 12 in grey primer resin. Nest on the plate, "
+                                     "hollow to save material, add drain holes. ~95g resin, ~9.5h print + cure."),
+    }
+    for name, cfg in plan.items():
+        r = by_name.get(name)
+        if not r:
+            continue
+        r["ai_summary"] = cfg["summary"]
+        r["ai_quote_structured"] = ai(cfg["material"], cfg["complexity"], cfg["mult"],
+                                       cfg["grams"], cfg["hours"], cfg["price"], cfg["flags"])
+        r["ai_quote_assist"] = (f"AI analysis for {name}: ~{cfg['grams']}g of {cfg['material']}, "
+                                f"about {cfg['hours']}h. Suggested price ${cfg['price']:.2f}. "
+                                f"{cfg['summary'].split('. ')[0]}.")
+        r["uploaded_files"] = [stl(fn, g, h) for (fn, g, h) in cfg["files"]]
+
+    # per-customer email log for a few requests that have been quoted/approved
+    log_plan = {"Owen Brooks": [("Quote sent", True), ("Checkout link sent", True)],
+                "Marisol Chen": [("Quote sent", True), ("Approval link sent", True), ("Order approved", True)],
+                "Lena Fischer": [("Quote sent", True), ("Tracking link sent", True), ("Order completed", True)]}
+    stamps = ["2026-07-12T15:04:00", "2026-07-13T09:22:00", "2026-07-13T16:41:00"]
+    for name, items in log_plan.items():
+        r = by_name.get(name)
+        if not r:
+            continue
+        rid = r.get("id")
+        emails[str(rid)] = {"email": r.get("email", ""), "count": len(items),
+                            "emails": [{"request_id": rid, "label": subj, "ok": ok, "sent_at": stamps[i % len(stamps)]}
+                                       for i, (subj, ok) in enumerate(items)]}
+    canned["__emails__"] = emails
+    return canned
+
 def build(canned):
-    admin = open(os.path.join(REPO, "admin.html")).read()
+    _cands = [os.path.join(REPO, "backend", "admin.html"), os.path.join(REPO, "admin.html")]
+    admin_path = next((p for p in _cands if os.path.exists(p)), _cands[-1])
+    admin = open(admin_path).read()
+    print("admin source:", admin_path)
     shim = """<script>
 /* ===== MakerQ interactive demo shim: mock backend, sample data, nothing saved ===== */
 window.__DEMO__ = """ + json.dumps(canned) + """;
@@ -145,6 +219,8 @@ try{ localStorage.setItem("c3d_admin_token","demo-token"); }catch(e){}
       var m = path.match(/^\\/admin\\/requests\\/(\\d+)$/);
       if (m) { var r=(D["/admin/requests"]||[]).find(function(x){return x.id==m[1]}); return J(r||{}); }
       if (/portal-link$/.test(path)) return J({url:"https://makerq-demo.example/portal/sample"});
+      var em = path.match(/^\\/admin\\/requests\\/(\\d+)\\/emails$/);
+      if (em) { var E=(D["__emails__"]||{})[em[1]]; return J(E||{emails:[],count:0,email:""}); }
       return J({});
     }
     var list = D["/admin/requests"]||[];
@@ -241,4 +317,4 @@ window.openEmailImport = function(){ try{ toast("Settings are disabled in this d
     print("wrote", out, round(len(demo) / 1024), "KB")
 
 if __name__ == "__main__":
-    build(record_canned())
+    build(enrich(record_canned()))
