@@ -262,6 +262,8 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
 .mq-grad{background-image:linear-gradient(100deg,var(--blue-l),var(--orange-l),var(--blue-l));
   background-size:220% auto;animation:mq-shimmer 7s linear infinite}
 @keyframes mq-shimmer{to{background-position:220% center}}
+.mq-tiers.three{grid-template-columns:repeat(3,1fr);max-width:1020px;margin:0 auto}
+@media(max-width:900px){.mq-tiers.three{grid-template-columns:1fr;max-width:460px}}
 .mq-tier.pop{animation:mq-popglow 3.6s ease-in-out infinite}
 @keyframes mq-popglow{0%,100%{box-shadow:0 0 0 1px var(--orange),0 20px 50px rgba(255,107,26,.18)}
   50%{box-shadow:0 0 0 1px var(--orange),0 24px 62px rgba(255,107,26,.36)}}
@@ -311,7 +313,7 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
         <a class="mq-btn mq-btn-ghost" href="demo/">Try the live demo</a>
         <a class="mq-btn mq-btn-ghost" href="#how">See how it works</a>
       </div>
-      <p class="mq-note">Free 7-day trial, no account, no cloud. Mac and Windows.</p>
+      <p class="mq-note">Free forever plan, no account, no cloud. Mac and Windows.</p>
     </div>
     <!-- Hero visual (swap for your own screenshot anytime) -->
     <img class="mq-heroimg" src="img/kanban.png" alt="MakerQ Kanban board tracking print jobs">
@@ -430,38 +432,50 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
 <section class="mq-section" id="pricing">
   <div class="mq-container">
     <div class="mq-center mq-reveal">
-      <h2 class="mq-h2">Subscribe monthly, or own it for life</h2>
-      <p class="mq-lead">Start with a free 7-day trial. Customer-facing features (sending quotes, checkout links, portal) unlock on Standard and up.</p>
+      <h2 class="mq-h2">Simple pricing. Own your data.</h2>
+      <p class="mq-lead">Start free, no account, no card. Upgrade when you're ready, or own it forever with a one-time license.</p>
     </div>
-    <div class="mq-tiers">
+    <div class="mq-tiers three">
       <div class="mq-tier mq-reveal">
         <div class="tname">Free</div>
-        <div class="tprice">$0</div>
-        <div class="tdesc">A 7-day trial to explore the workflow.</div>
-        <ul><li>Quote queue, Kanban &amp; pricing</li><li>Try it for 7 days</li><li>No account, no cloud</li></ul>
-        <a class="mq-btn mq-btn-ghost" href="#">Download free</a>
-      </div>
-      <div class="mq-tier mq-reveal">
-        <div class="tname">Standard</div>
-        <div class="tprice">$10 <small>/ month</small></div>
-        <div class="tdesc">Unlocks everything customer-facing.</div>
-        <ul><li>Send quotes to customers</li><li>Checkout links &amp; customer portal</li><li>Embed intake forms on your site</li></ul>
-        <a class="mq-btn mq-btn-ghost" href="#">Get Standard</a>
+        <div class="tprice">$0 <small>forever</small></div>
+        <div class="tdesc">Everything you need to quote and track, right on your own computer.</div>
+        <ul>
+          <li>Up to 5 active projects</li>
+          <li>Pricing calculator + adjustable quotes</li>
+          <li>List &amp; Kanban, priorities, statuses</li>
+          <li>Quote emails via your own SMTP</li>
+          <li>1 printer, no account, no cloud</li>
+        </ul>
+        <a class="mq-btn mq-btn-ghost" href="download.html">Download free</a>
       </div>
       <div class="mq-tier pop mq-reveal">
         <div class="mq-pill">Most popular</div>
         <div class="tname">Pro</div>
-        <div class="tprice">$20 <small>/ month</small></div>
-        <div class="tdesc">Adds automation and branding.</div>
-        <ul><li>Everything in Standard</li><li>AI quote assistant</li><li>Custom shop links</li></ul>
-        <a class="mq-btn mq-btn-primary" href="#">Get Pro</a>
+        <div class="tprice">$9 <small>/ month</small></div>
+        <div class="tdesc">Or $90/year, 2 months free. Unlimited projects and every customer-facing feature.</div>
+        <ul>
+          <li>Everything in Free, unlimited</li>
+          <li>Hosted intake form (Shopify + uploads)</li>
+          <li>Customer status &amp; approval pages</li>
+          <li>Checkout links &amp; invoices</li>
+          <li>AI quote assist</li>
+          <li>Reports, history &amp; email log</li>
+          <li>Hosted email + anywhere access</li>
+        </ul>
+        <a class="mq-btn mq-btn-primary" href="contact.html">Get Pro</a>
       </div>
       <div class="mq-tier mq-reveal">
         <div class="tname">Lifetime</div>
-        <div class="tprice">$300 <small>one-time</small></div>
-        <div class="tdesc">Every feature, forever, one payment.</div>
-        <ul><li>Everything in Pro</li><li>All future features</li><li>No subscription</li></ul>
-        <a class="mq-btn mq-btn-ghost" href="#">Buy Lifetime</a>
+        <div class="tprice">$249 <small>one-time</small></div>
+        <div class="tdesc"><strong style="color:var(--orange-l)">Founder price $179</strong> for early adopters. Own it forever, one payment.</div>
+        <ul>
+          <li>Everything in Pro, forever</li>
+          <li>No subscription, ever</li>
+          <li>All future updates included</li>
+          <li>More team seats</li>
+        </ul>
+        <a class="mq-btn mq-btn-ghost" href="contact.html">Buy Lifetime</a>
       </div>
     </div>
   </div>
