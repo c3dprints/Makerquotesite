@@ -175,6 +175,9 @@ gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
   background:linear-gradient(135deg,rgba(0,170,255,.12),rgba(255,107,26,.12));
   border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .mq-footer{padding:34px 0;color:var(--muted);font-size:14px;text-align:center}
+.mq-footer-links{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.mq-footer-links a{color:var(--muted);font-weight:600;padding:6px 12px;border-radius:8px;transition:color .15s,background .15s}
+.mq-footer-links a:hover{color:var(--text);background:rgba(0,170,255,.12)}
 
 /* Scroll reveal (only active when JS adds .mq-js; without JS everything shows) */
 .mq-js .mq-reveal{opacity:0;transform:translateY(28px)}
@@ -400,9 +403,28 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
   </div>
 </section>
 
-<!-- FEATURE: Yours / offline -->
+<!-- FEATURE: Customer tracking -->
 <section class="mq-section">
   <div class="mq-container mq-feature rev mq-reveal">
+    <div class="mq-feature-media">
+      <img class="mq-shotimg" src="img/customers.png" alt="MakerQ customer tracking screen showing order status, deadline, price, deposit, and contact details">
+    </div>
+    <div>
+      <span class="mq-eyebrow">Customers</span>
+      <h2 class="mq-h2" style="margin-top:14px">Every customer and order, tracked in one place</h2>
+      <p>Keep each customer's projects, prices, deadlines, and full quote history side by side, so you always know where every order stands and what you've already sent.</p>
+      <ul class="mq-list">
+        <li>Per-customer order history and status</li>
+        <li>Deadlines, prices, and deposits at a glance</li>
+        <li>A log of every quote email you've sent</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE: Yours / offline -->
+<section class="mq-section alt">
+  <div class="mq-container mq-feature mq-reveal">
     <div class="mq-feature-media">
       <img class="mq-shotimg" src="img/calculator.png" alt="MakerQ settings with license, updates, and configuration">
     </div>
@@ -499,7 +521,16 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
 </section>
 
 <footer class="mq-footer">
-  <div class="mq-container">MakerQ.io &middot; &copy; C3D Prints. Made for makers.</div>
+  <div class="mq-container">
+    <div class="mq-footer-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="demo/">Demo</a>
+      <a href="download.html">Download</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div>MakerQ.io &middot; &copy; C3D Prints. Made for makers.</div>
+  </div>
 </footer>
 
 <script>

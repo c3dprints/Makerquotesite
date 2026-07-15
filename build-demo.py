@@ -17,7 +17,7 @@ REPO = os.path.expanduser("~/Documents/c3dprints-quote-portal")
 SITE = os.path.dirname(os.path.abspath(__file__))
 PORT = 8856
 BASE = f"http://127.0.0.1:{PORT}"
-APP_VERSION = "1.0.98"
+APP_VERSION = "1.1.7"
 
 sys.path.insert(0, os.path.join(REPO, "tools"))
 import gen_license  # noqa: E402
@@ -129,10 +129,22 @@ def enrich(canned):
                              summary="Tabletop miniatures set of 12 in grey primer resin. Nest on the plate, "
                                      "hollow to save material, add drain holes. ~95g resin, ~9.5h print + cure."),
     }
+    extra = {
+        "Owen Brooks": dict(phone="(415) 555-0142", use_case="Desk accessory", due="2026-07-24"),
+        "Marisol Chen": dict(phone="(408) 555-0177", use_case="FPV racing drone", due="2026-07-26"),
+        "Devin Wright": dict(phone="(503) 555-0119", use_case="Tabletop gaming", due="2026-07-29"),
+    }
     for name, cfg in plan.items():
         r = by_name.get(name)
         if not r:
             continue
+        x = extra.get(name, {})
+        r["phone"] = x.get("phone")
+        r["use_case"] = x.get("use_case")
+        r["due_date"] = x.get("due")
+        r["final_price"] = cfg["price"]
+        r["quoted_price"] = cfg["price"]
+        r["deposit_paid"] = True
         r["ai_summary"] = cfg["summary"]
         r["ai_quote_structured"] = ai(cfg["material"], cfg["complexity"], cfg["mult"],
                                        cfg["grams"], cfg["hours"], cfg["price"], cfg["flags"])
