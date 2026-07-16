@@ -18,9 +18,9 @@ CONFIG = {
     "EFFECTIVE_DATE": "July 15, 2026",
     "LEGAL_ENTITY":   "C3D Prints",
     "SUPPORT_EMAIL":  "Hi@c3dprints.com",
-    "MAILING_ADDRESS": None,     # e.g. "123 Main St, City, ST 00000"
-    "GOVERNING_STATE": None,     # e.g. "the State of Texas, USA"
-    "VENUE":           None,     # e.g. "Travis County, Texas"
+    "MAILING_ADDRESS": "42 Revere Beach Pkwy, Chelsea, MA, USA",
+    "GOVERNING_STATE": "the Commonwealth of Massachusetts, USA",
+    "VENUE":           "Suffolk County, Massachusetts",
     "REFUND_DAYS":    "14",
 }
 
