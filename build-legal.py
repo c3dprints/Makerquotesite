@@ -89,11 +89,6 @@ def build_privacy(md):
         "traffic and improve the site. Google Analytics sets cookies and collects usage data such as pages "
         "viewed, approximate location, and device and browser type. You can opt out via your browser "
         "settings or Google's opt-out browser add-on (tools.google.com/dlpage/gaoptout).")
-    md = md.replace(
-        "- **GitHub** — hosts application downloads and updates.",
-        "- **GitHub** — hosts application downloads and updates.\n"
-        "- **Google Analytics (Google LLC)** — website traffic analytics via cookies.")
-    md = md.replace("[mailing address]", fill(CONFIG["MAILING_ADDRESS"], "your business mailing address"))
     return md
 
 def build_terms(md):

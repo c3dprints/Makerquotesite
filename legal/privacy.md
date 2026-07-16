@@ -17,7 +17,7 @@ your machine** and are **never transmitted to, collected by, or stored by us.** 
 business data or your customers' data. For that data, **you** are the controller and are responsible
 for its security, backups, and legal compliance.
 
-## 1. Information we collect
+## Information we collect
 
 - **Account & license:** your name and email address, used to issue and validate your license and to
   provide support.
@@ -34,7 +34,7 @@ for its security, backups, and legal compliance.
   your actual site setup.]
 - **Support:** if you email us, we retain those messages.
 
-## 2. How we use your information
+## How we use your information
 
 - Provide and validate your license; deliver activation keys.
 - Process payments and prevent fraud (via Stripe).
@@ -43,46 +43,41 @@ for its security, backups, and legal compliance.
 
 **We do not sell your personal information.**
 
-## 3. Service providers (processors)
+## Service providers
 
-- **Stripe** — payment processing.
-- **Supabase** — stores your license/entitlement record (email, activation key, plan, status).
-- **Resend** — sends transactional email (activation keys, notices) from noreply@makerq.io.
-- **GitHub** — hosts application downloads and updates.
+We use trusted third-party service providers to operate MakerQ — for example, payment processing
+(**Stripe**), website analytics, transactional email delivery (from noreply@makerq.io), and hosting for
+your license record and for application downloads and updates. These providers process your data only
+as needed to perform their service for us and are bound by confidentiality obligations. **We do not
+sell your personal information.**
 
-Each processes data only as needed to provide its service.
-
-## 4. Data retention
+## Data retention
 
 We keep your license/account data while your license is active and as needed for legal, tax, and
 accounting purposes, then delete or anonymize it.
 
-## 5. Your rights
+## Your rights
 
 Depending on where you live (e.g., **GDPR** in the EEA/UK, **CCPA/CPRA** in California), you may have
 the right to access, correct, delete, or export your personal data and to object to certain
 processing. To exercise these, email [SUPPORT_EMAIL]. Because MakerQ is self-hosted, personal data you
 process about **your own** customers stays under your control on your machine, not ours.
 
-## 6. Security
+## Security
 
-We rely on reputable providers (Stripe, Supabase, Resend, GitHub) and industry-standard measures. No
+We rely on reputable third-party service providers and industry-standard measures. No
 method of transmission or storage is 100% secure.
 
-## 7. Children
-
-MakerQ is a business tool and is not directed to children under 16.
-
-## 8. International transfers
+## International transfers
 
 Our providers may process data in the United States and other countries.
 
-## 9. Changes
+## Changes
 
 We may update this policy; the effective date above will change and material changes will be noted on
 makerq.io.
 
-## 10. Contact
+## Contact
 
-[C3D Prints — legal entity], [mailing address].
+[C3D Prints — legal entity].
 Email: [SUPPORT_EMAIL].
