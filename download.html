@@ -49,6 +49,8 @@ h1 .grad{background:linear-gradient(100deg,var(--blue-l),var(--orange-l));-webki
 .disabled{width:100%;justify-content:center;background:var(--input);color:var(--muted);
   border:1px solid var(--border);box-shadow:none;cursor:not-allowed;font-size:15px;padding:13px}
 .disabled:hover{transform:none;filter:none}
+.dl{width:100%;justify-content:center;font-size:15px;padding:13px}
+.plat .soon.ready{color:var(--green);background:rgba(0,232,144,.12);border-color:rgba(0,232,144,.4)}
 .notify{margin-top:36px}
 .notify .btn{font-size:16px;padding:14px 28px}
 .tiny{color:var(--muted);font-size:13px;margin-top:16px}
@@ -92,17 +94,17 @@ html[data-theme="light"] .disabled{color:#8aa0b8}
 </nav>
 
 <div class="wrap">
-  <span class="badge">Coming soon</span>
+  <span class="badge">Now available for Windows</span>
   <h1>Download <span class="grad">MakerQ</span></h1>
-  <p class="lead">Native apps for Windows and Mac are on the way. We're putting the finishing touches on MakerQ, tell us where to reach you and we'll let you know the moment it's ready.</p>
+  <p class="lead">MakerQ for Windows is ready to download. The Mac app is on the way, tell us where to reach you and we'll let you know the moment it lands.</p>
 
   <div class="cards">
     <div class="plat">
-      <span class="soon">Coming soon</span>
+      <span class="soon ready">Available now</span>
       <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.9 10.4 4.8v6.9H3zM10.4 12.7v6.9L3 18.5v-5.8zM11.5 4.6 21 3.2v8.5h-9.5zM21 12.7V21l-9.5-1.4v-6.9z"/></svg>
       <h2>Windows</h2>
       <p>Windows 10 and 11, 64-bit. Installer (.exe).</p>
-      <button class="btn disabled" type="button" disabled>Coming soon</button>
+      <a class="btn dl" href="https://github.com/c3dprints/MakerQ-download/releases/latest/download/MakerQ-Setup.exe">Download for Windows</a>
     </div>
     <div class="plat">
       <span class="soon">Coming soon</span>
@@ -114,8 +116,8 @@ html[data-theme="light"] .disabled{color:#8aa0b8}
   </div>
 
   <div class="notify">
-    <a class="btn" href="contact.html">Get notified at launch</a>
-    <p class="tiny">Free forever plan when it lands. No account, no cloud, runs on your own computer.</p>
+    <a class="btn" href="contact.html">Get notified when the Mac app is ready</a>
+    <p class="tiny">Free forever plan. No account, no cloud, runs on your own computer.</p>
   </div>
 </div>
 
