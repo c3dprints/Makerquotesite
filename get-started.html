@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-365JP65BHP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get your plan, MakerQ</title>
+<meta name="description" content="Download MakerQ, set your email, and choose your plan inside the app. Free, Pro, and Lifetime, all activated in the desktop app.">
+<style>
+:root{--bg:#0b1623;--surface:#111e2e;--card:#162236;--input:#0d1928;--border:#1e3550;
+  --blue:#00aaff;--blue-l:#33ccff;--orange:#ff6b1a;--orange-l:#ff8c3a;--green:#00e890;
+  --text:#ddeeff;--muted:#9fb6d0}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
+a{color:var(--blue-l);text-decoration:none}
+.nav{position:sticky;top:0;z-index:100;background:rgba(11,22,35,.9);backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1120px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
+.brand{font-weight:800;font-size:20px;letter-spacing:-.5px;color:var(--text)}.brand span{color:var(--orange-l)}
+.links{display:flex;gap:4px}
+.links a{padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:600;font-size:14px;transition:color .15s,background .15s}
+.links a:hover{color:var(--text);background:rgba(0,170,255,.12)}
+.right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.nav-mail{color:var(--muted);font-size:13px;font-weight:600}.nav-mail:hover{color:var(--blue-l)}
+@media(max-width:820px){.nav-mail{display:none}.links a{padding:8px 8px;font-size:13px}}
+.mq-theme-btn{width:38px;height:38px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;display:inline-grid;place-items:center;padding:0;
+  transition:transform .15s ease,border-color .2s,box-shadow .2s,background .2s}
+.mq-theme-btn:hover{transform:translateY(-2px) rotate(-8deg);border-color:var(--blue);box-shadow:0 8px 22px rgba(0,170,255,.22)}
+.mq-theme-btn svg{width:19px;height:19px}
+.wrap{max-width:720px;margin:0 auto;padding:52px 24px 64px;text-align:center}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--blue-l);background:rgba(0,170,255,.1);border:1px solid rgba(0,170,255,.3);padding:6px 14px;border-radius:999px}
+h1{font-size:clamp(30px,5vw,46px);margin:16px 0 10px;letter-spacing:-.5px}
+h1 .grad{background:linear-gradient(100deg,var(--blue-l),var(--orange-l));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:18px;max-width:56ch;margin:0 auto 28px}
+.lead strong{color:var(--text)}
+/* Plan pills */
+.plans{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:0 0 30px}
+.pill{padding:9px 20px;border-radius:999px;border:1px solid var(--border);color:var(--muted);
+  font-weight:700;font-size:14px;cursor:pointer;background:transparent;transition:all .15s}
+.pill:hover{color:var(--text);border-color:var(--blue);text-decoration:none}
+.pill.on{color:#fff;background:linear-gradient(135deg,var(--orange),var(--orange-l));border-color:transparent;
+  box-shadow:0 8px 22px rgba(255,107,26,.3)}
+/* Download box */
+.dl-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;
+  max-width:520px;margin:0 auto 36px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:16px;
+  padding:14px 26px;border-radius:13px;cursor:pointer;border:none;width:100%;
+  background:linear-gradient(135deg,var(--orange),var(--orange-l));color:#fff;
+  box-shadow:0 8px 26px rgba(255,107,26,.35);transition:transform .12s,filter .2s}
+.btn:hover{filter:brightness(1.07);transform:translateY(-2px);text-decoration:none}
+.sub{color:var(--muted);font-size:14px;margin:12px 0 0}
+.warn{color:var(--muted);font-size:13px;margin:12px 0 0;text-align:left;
+  background:rgba(255,196,0,.08);border:1px solid rgba(255,180,0,.28);border-radius:11px;padding:11px 14px}
+.warn strong{color:var(--text)}
+/* Steps */
+.steps{counter-reset:s;list-style:none;padding:0;margin:0 auto;max-width:640px;text-align:left}
+.steps li{position:relative;padding:2px 0 20px 54px;margin:0;color:var(--text)}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:-2px;
+  width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:15px;
+  color:#04121e;background:linear-gradient(135deg,var(--blue-l),var(--blue))}
+.steps li:not(:last-child)::after{content:"";position:absolute;left:16px;top:34px;bottom:6px;width:2px;
+  background:linear-gradient(var(--border),transparent)}
+.steps li strong{color:var(--text)}
+.steps li code{background:var(--input);border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:13px;color:var(--text);white-space:nowrap}
+.stepshead{text-align:left;max-width:640px;margin:6px auto 18px;font-size:15px;font-weight:700;
+  color:var(--blue-l);text-transform:uppercase;letter-spacing:1px}
+.note{max-width:640px;margin:24px auto 0;color:var(--muted);font-size:14px;text-align:left;
+  background:rgba(0,170,255,.07);border:1px solid rgba(0,170,255,.25);border-radius:12px;padding:14px 16px}
+.note strong{color:var(--text)}
+.footer{border-top:1px solid var(--border);margin-top:26px;padding:28px 0;text-align:center}
+.footer-legal{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;font-size:13px}
+.footer-legal a{color:var(--muted);padding:4px 10px;border-radius:8px}
+.footer-legal a:hover{color:var(--text)}
+.footer-copy{color:var(--muted);font-size:13px}
+html[data-theme="light"]{--bg:#eef3f9;--surface:#ffffff;--card:#ffffff;--input:#eef2f8;
+  --border:#d7e2f0;--text:#13233a;--muted:#59708a}
+html[data-theme="light"] body{background:var(--bg)}
+html[data-theme="light"] .nav{background:rgba(255,255,255,.86)}
+html[data-theme="light"] .dl-box{box-shadow:0 20px 50px rgba(20,45,80,.10)}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="MakerQ">
+  <div class="nav-inner">
+    <a class="brand" href="./">Maker<span>Q</span></a>
+    <div class="links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="demo/">Demo</a>
+      <a href="download.html">Download</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="right">
+      <a class="nav-mail" href="mailto:Hi@c3dprints.com">Hi@c3dprints.com</a>
+      <button class="mq-theme-btn" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">
+        <svg class="mq-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="mq-moon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <span class="eyebrow" id="gs-eyebrow">Get started</span>
+  <h1 id="gs-title">Get started with <span class="grad">MakerQ</span></h1>
+  <p class="lead" id="gs-lead"></p>
+
+  <div class="plans" id="gs-plans">
+    <a class="pill" data-plan="free" href="?plan=free">Free</a>
+    <a class="pill" data-plan="pro" href="?plan=pro">Pro</a>
+    <a class="pill" data-plan="lifetime" href="?plan=lifetime">Lifetime</a>
+  </div>
+
+  <div class="dl-box">
+    <a class="btn" id="gs-download" href="https://github.com/c3dprints/MakerQ-download/releases/latest/download/MakerQ-Setup.exe" download>Download MakerQ for Windows</a>
+    <p class="sub">Windows 10/11. macOS coming soon.</p>
+    <p class="warn">If Windows shows an <strong>&ldquo;unknown publisher&rdquo;</strong> warning, click <strong>More info &rarr; Run anyway</strong>. That's expected until the app is code-signed, and it's safe.</p>
+  </div>
+
+  <div class="stepshead">How to activate</div>
+  <ol class="steps" id="gs-steps"></ol>
+  <p class="note" id="gs-note" hidden></p>
+</div>
+
+<footer class="footer">
+  <div class="footer-legal">
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="refund.html">Refund</a>
+  </div>
+  <div class="footer-copy">MakerQ.io &middot; &copy; C3D Prints. Made for makers.</div>
+</footer>
+
+<script>
+/* Light/dark theme */
+(function(){
+  var KEY="mq-theme",root=document.documentElement;
+  function apply(t){root.setAttribute("data-theme",t);
+    document.querySelectorAll(".mq-theme-btn").forEach(function(b){
+      var s=b.querySelector(".mq-sun"),m=b.querySelector(".mq-moon");
+      if(s)s.style.display=(t==="light")?"none":"block";
+      if(m)m.style.display=(t==="light")?"block":"none";});}
+  var saved;try{saved=localStorage.getItem(KEY)}catch(e){}
+  var t=saved||((window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark");
+  apply(t);
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest(".mq-theme-btn");if(!b)return;e.preventDefault();
+    t=(root.getAttribute("data-theme")==="light")?"dark":"light";
+    apply(t);try{localStorage.setItem(KEY,t)}catch(e){}});
+})();
+
+/* Plan-aware instructions */
+(function(){
+  var PAID_NOTE = 'Your email is locked to your purchase on the Stripe page, that\'s intentional: '
+    + 'your license and activation key are tied to it, so make sure it\'s set to your own email in '
+    + 'the app <strong>before</strong> you check out.';
+  var setEmail = 'Set your email: on first launch the app prompts for your email, enter the address you '
+    + 'want your license tied to (this is where your activation key will be sent). You can also set or '
+    + 'change it later under <strong>Settings &rarr; Account</strong>.';
+  var paidSteps = function(pick){ return [
+    'Download &amp; install MakerQ using the button above, then launch it.',
+    setEmail,
+    'Open <strong>Settings &rarr; License</strong> in the app.',
+    'Under <strong>Upgrade</strong>, click ' + pick + '. A secure Stripe checkout opens in your browser.',
+    'Pay. Right after checkout we email you an activation key.',
+    'Back in the app (<strong>Settings &rarr; License</strong>), paste that key into the activation box and click <strong>Activate</strong>. Your plan unlocks immediately.'
+  ];};
+  var PLANS = {
+    free: {
+      eyebrow: "Free plan",
+      title: 'Get started with MakerQ &mdash; <span class="grad">free</span>',
+      lead: "MakerQ is free for up to 5 active projects, no account, no card. Just download, set your email, and start quoting.",
+      steps: [
+        'Download &amp; install MakerQ using the button above.',
+        "Launch it. On first run it asks for your email, enter yours (it's your account email).",
+        "That's it, you're on the free tier. Start creating quotes. You can upgrade to Pro or Lifetime any time from <strong>Settings &rarr; License</strong> inside the app."
+      ],
+      note: null
+    },
+    pro: {
+      eyebrow: "Pro plan",
+      title: 'Get MakerQ <span class="grad">Pro</span>',
+      lead: "Pro unlocks every feature, <strong>$8.99/month</strong> or <strong>$89.99/year</strong>. You buy it securely inside the app, the website never handles payment.",
+      steps: paidSteps('<strong>&ldquo;Pro &mdash; $8.99/mo&rdquo;</strong> or <strong>&ldquo;Pro &mdash; $89.99/yr&rdquo;</strong>'),
+      note: PAID_NOTE
+    },
+    lifetime: {
+      eyebrow: "Lifetime plan",
+      title: 'Get MakerQ <span class="grad">Lifetime</span>',
+      lead: "Lifetime is every feature, forever, one payment of <strong>$249.99</strong>. You buy it securely inside the app, the website never handles payment.",
+      steps: paidSteps('<strong>&ldquo;Lifetime &mdash; $249.99&rdquo;</strong>'),
+      note: PAID_NOTE
+    },
+    generic: {
+      eyebrow: "Get started",
+      title: 'Get started with <span class="grad">MakerQ</span>',
+      lead: "Download the app, set your email, then pick your plan inside it. Free needs no purchase; Pro and Lifetime are bought securely in-app.",
+      steps: [
+        'Download &amp; install MakerQ using the button above, then launch it.',
+        setEmail,
+        "You're on the <strong>Free</strong> plan right away (up to 5 active projects). To go further, open <strong>Settings &rarr; License</strong>.",
+        'Under <strong>Upgrade</strong>, pick a plan, <strong>Pro $8.99/mo</strong> or <strong>$89.99/yr</strong>, or <strong>Lifetime $249.99</strong>. A secure Stripe checkout opens in your browser.',
+        'Pay. We email you an activation key right after checkout.',
+        'Back in <strong>Settings &rarr; License</strong>, paste the key and click <strong>Activate</strong>. Everything unlocks.'
+      ],
+      note: null
+    }
+  };
+  function render(plan){
+    var cfg = PLANS[plan] || PLANS.generic;
+    document.getElementById("gs-eyebrow").textContent = cfg.eyebrow;
+    document.getElementById("gs-title").innerHTML = cfg.title;
+    document.getElementById("gs-lead").innerHTML = cfg.lead;
+    document.getElementById("gs-steps").innerHTML = cfg.steps.map(function(s){return "<li>"+s+"</li>";}).join("");
+    var note = document.getElementById("gs-note");
+    if(cfg.note){ note.innerHTML = cfg.note; note.hidden = false; } else { note.hidden = true; }
+    document.querySelectorAll(".pill").forEach(function(p){ p.classList.toggle("on", p.getAttribute("data-plan")===plan); });
+    try{ document.title = (cfg.eyebrow==="Get started"?"Get started":cfg.eyebrow)+", MakerQ"; }catch(e){}
+  }
+  function currentPlan(){
+    var p=(new URLSearchParams(location.search).get("plan")||"").toLowerCase();
+    return (p==="free"||p==="pro"||p==="lifetime")?p:"generic";
+  }
+  render(currentPlan());
+  // switch plans without a full reload
+  document.getElementById("gs-plans").addEventListener("click", function(e){
+    var a=e.target.closest(".pill"); if(!a) return; e.preventDefault();
+    var plan=a.getAttribute("data-plan");
+    try{ history.replaceState(null,"", "?plan="+plan); }catch(err){}
+    render(plan);
+    try{ gtag('event','select_plan',{plan:plan}); }catch(err){}
+  });
+})();
+</script>
+</body>
+</html>
