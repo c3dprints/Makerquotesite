@@ -14,17 +14,17 @@ gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
 <meta property="og:site_name" content="MakerQ">
 <meta property="og:url" content="https://makerq.io/">
 <meta property="og:title" content="MakerQ, quoting software for 3D print shops">
-<meta property="og:description" content="MakerQ turns messy 3D print quote requests into an organized, priced, ready-to-send pipeline. Runs on your own computer, free forever plan, own it outright with a one-time license.">
+<meta property="og:description" content="MakerQ turns messy 3D print quote requests into an organized, priced, ready-to-send pipeline. Runs on your own computer, free to try, own it outright with a one-time license.">
 <meta property="og:image" content="https://makerq.io/img/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="MakerQ, quoting software for 3D print shops">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MakerQ, quoting software for 3D print shops">
-<meta name="twitter:description" content="MakerQ turns messy 3D print quote requests into an organized, priced, ready-to-send pipeline. Runs on your own computer, free forever plan, own it outright with a one-time license.">
+<meta name="twitter:description" content="MakerQ turns messy 3D print quote requests into an organized, priced, ready-to-send pipeline. Runs on your own computer, free to try, own it outright with a one-time license.">
 <meta name="twitter:image" content="https://makerq.io/img/og-image.png">
 <link rel="canonical" href="https://makerq.io/">
-<meta name="description" content="MakerQ turns messy 3D print quote requests into an organized, priced, ready-to-send pipeline. Runs on your own computer, free forever plan, own it outright with a one-time license.">
+<meta name="description" content="MakerQ turns messy 3D print quote requests into an organized, priced, ready-to-send pipeline. Runs on your own computer, free to try, own it outright with a one-time license.">
 <style>
   html,body{margin:0;padding:0;background:#0b1623}
   /* Everything is scoped under .mq-landing so this same block is safe to paste
@@ -295,6 +295,23 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
 @keyframes mq-drift{to{background-position:0 260px}}
 .mq-tiers.three{grid-template-columns:repeat(3,1fr);max-width:1020px;margin:0 auto}
 @media(max-width:900px){.mq-tiers.three{grid-template-columns:1fr;max-width:460px}}
+/* Plan comparison grid */
+.mq-compare{max-width:1020px;margin:52px auto 0}
+.mq-compare h3{text-align:center;margin:0 0 22px}
+.mq-compare .tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:16px;background:var(--card)}
+.mq-compare table{width:100%;border-collapse:collapse;min-width:660px}
+.mq-compare th,.mq-compare td{padding:12px 16px;text-align:center;border-bottom:1px solid var(--border)}
+.mq-compare tbody tr:last-child th,.mq-compare tbody tr:last-child td{border-bottom:0}
+.mq-compare thead th{font-size:17px;font-weight:800;color:var(--text)}
+.mq-compare tbody th,.mq-compare .prices th{text-align:left;font-weight:600;color:var(--muted);font-size:14px}
+.mq-compare td{font-size:14px;color:var(--text)}
+.mq-compare td small{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:2px}
+.mq-compare .prices td{font-weight:800;font-size:15px}
+.mq-compare td.on{color:var(--green);font-weight:800;font-size:16px}
+.mq-compare td.off{color:var(--muted)}
+.mq-compare .colpro{background:rgba(255,107,26,.07)}
+.mq-compare thead tr:first-child .colpro{color:var(--orange-l)}
+.mq-compare-note{text-align:center;color:var(--muted);font-size:13px;margin-top:14px}
 .mq-tier.pop{animation:mq-popglow 3.6s ease-in-out infinite}
 @keyframes mq-popglow{0%,100%{box-shadow:0 0 0 1px var(--orange),0 20px 50px rgba(255,107,26,.18)}
   50%{box-shadow:0 0 0 1px var(--orange),0 24px 62px rgba(255,107,26,.36)}}
@@ -344,7 +361,7 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
         <a class="mq-btn mq-btn-ghost" href="demo/">Try the live demo</a>
         <a class="mq-btn mq-btn-ghost" href="#how">See how it works</a>
       </div>
-      <p class="mq-note">Free forever plan, no account, no cloud. Windows now, macOS soon.</p>
+      <p class="mq-note">Start free, no account, no cloud. Windows now, macOS soon.</p>
     </div>
     <!-- Hero visual (swap for your own screenshot anytime) -->
     <img class="mq-heroimg" src="img/kanban.png" alt="MakerQ Kanban board tracking print jobs">
@@ -502,12 +519,12 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
   <div class="mq-container">
     <div class="mq-center mq-reveal">
       <h2 class="mq-h2">Simple pricing. Own your data.</h2>
-      <p class="mq-lead">Start free, no account, no card. Upgrade when you're ready, or own it forever with a one-time license.</p>
+      <p class="mq-lead">Start with a free trial, no account, no card. Upgrade when you're ready, or own it outright with a one-time license.</p>
     </div>
     <div class="mq-tiers three">
       <div class="mq-tier mq-reveal">
         <div class="tname">Free</div>
-        <div class="tprice">$0 <small>forever</small></div>
+        <div class="tprice">$0 <small>to try</small></div>
         <div class="tdesc">Everything you need to quote and track, right on your own computer.</div>
         <ul>
           <li>Up to 5 active projects</li>
@@ -546,6 +563,33 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
         </ul>
         <a class="mq-btn mq-btn-ghost" href="get-started?plan=lifetime">Buy Lifetime</a>
       </div>
+    </div>
+
+    <div class="mq-compare mq-reveal">
+      <h3 class="mq-h2" style="font-size:26px">Compare plans</h3>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th></th><th>Free</th><th class="colpro">Pro</th><th>Lifetime</th></tr>
+            <tr class="prices"><th>Price</th><td>$0<small>to try</small></td><td class="colpro">$8.99/mo<small>or $89.99/yr</small></td><td>$249.99<small>one-time</small></td></tr>
+          </thead>
+          <tbody>
+            <tr><th>Active projects</th><td>5</td><td class="colpro">Unlimited</td><td>Unlimited</td></tr>
+            <tr><th>Printers</th><td>1</td><td class="colpro">Unlimited</td><td>Unlimited</td></tr>
+            <tr><th>Pricing calculator + adjustable quotes</th><td class="on">&#10003;</td><td class="colpro on">&#10003;</td><td class="on">&#10003;</td></tr>
+            <tr><th>List &amp; Kanban, priorities, statuses</th><td class="on">&#10003;</td><td class="colpro on">&#10003;</td><td class="on">&#10003;</td></tr>
+            <tr><th>Quote emails via your own SMTP</th><td class="on">&#10003;</td><td class="colpro on">&#10003;</td><td class="on">&#10003;</td></tr>
+            <tr><th>Hosted intake form (Shopify + uploads)</th><td class="off">-</td><td class="colpro on">&#10003;</td><td class="on">&#10003;</td></tr>
+            <tr><th>Customer status &amp; approval pages</th><td class="off">-</td><td class="colpro on">&#10003;</td><td class="on">&#10003;</td></tr>
+            <tr><th>Checkout links &amp; invoices</th><td class="off">-</td><td class="colpro on">&#10003;</td><td class="on">&#10003;</td></tr>
+            <tr><th>AI quote assist</th><td class="off">-</td><td class="colpro on">&#10003;</td><td class="on">&#10003;</td></tr>
+            <tr><th>Reports, history &amp; email log</th><td class="off">-</td><td class="colpro on">&#10003;</td><td class="on">&#10003;</td></tr>
+            <tr><th>Hosted email + anywhere access</th><td class="off">-</td><td class="colpro on">&#10003;</td><td class="on">&#10003;</td></tr>
+            <tr><th>Team seats</th><td>1</td><td class="colpro">up to 5</td><td>up to 10</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mq-compare-note">Every plan runs on your own computer and your data stays local. Pro and Lifetime are purchased inside the app.</p>
     </div>
   </div>
 </section>
