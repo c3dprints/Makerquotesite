@@ -45,7 +45,7 @@ for its security, backups, and legal compliance.
 
 ## Service providers
 
-We use trusted third-party service providers to operate MakerQ — for example, payment processing
+We use trusted third-party service providers to operate MakerQ, for example, payment processing
 (**Stripe**), website analytics, transactional email delivery (from noreply@makerq.io), and hosting for
 your license record and for application downloads and updates. These providers process your data only
 as needed to perform their service for us and are bound by confidentiality obligations. **We do not

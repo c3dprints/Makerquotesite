@@ -141,6 +141,23 @@ gtag('js',new Date());gtag('config','{GA_ID}');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}, MakerQ</title>
 <meta name="description" content="{title} for MakerQ, quoting software for 3D print shops.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MakerQ">
+<meta property="og:url" content="https://makerq.io/{active}">
+<meta property="og:title" content="{title}, MakerQ">
+<meta property="og:description" content="{title} for MakerQ, quoting software for 3D print shops.">
+<meta property="og:image" content="https://makerq.io/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MakerQ, quoting software for 3D print shops">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}, MakerQ">
+<meta name="twitter:description" content="{title} for MakerQ, quoting software for 3D print shops.">
+<meta name="twitter:image" content="https://makerq.io/img/og-image.png">
+<link rel="canonical" href="https://makerq.io/{active}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
 :root{{--bg:#0b1623;--surface:#111e2e;--card:#162236;--input:#0d1928;--border:#1e3550;
   --blue:#00aaff;--blue-l:#33ccff;--orange:#ff6b1a;--orange-l:#ff8c3a;--green:#00e890;

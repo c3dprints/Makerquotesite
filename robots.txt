@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Internal / non-canonical pages, keep out of search
+Disallow: /pricing-backup.html
+Disallow: /shopify-page.html
+Disallow: /stats
+Disallow: /stats.html
+Disallow: /thanks
+Disallow: /thanks.html
+
+Sitemap: https://makerq.io/sitemap.xml

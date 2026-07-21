@@ -14,7 +14,7 @@ built-in **trial** before paying, so you know it fits your shop.
 [CHOOSE ONE — recommended: 14-day money-back]
 If you're not satisfied, email us within **[14] days** of your **initial** Pro purchase for a full
 refund. **Renewals are non-refundable**, but you can cancel anytime (Settings → License → Manage
-subscription) to stop future charges — your access continues until the end of the paid period.
+subscription) to stop future charges, your access continues until the end of the paid period.
 
 ## Lifetime
 
@@ -25,7 +25,7 @@ purchases are **non-refundable**.
 
 Email **[SUPPORT_EMAIL]** from the email address used for the purchase, with your name and (if you
 have it) your activation key or Stripe receipt. Refunds are issued to your **original payment method**
-via Stripe and typically appear within **5–10 business days**.
+via Stripe and typically appear within **5-10 business days**.
 
 ## After a refund
 
@@ -34,7 +34,7 @@ the Free plan.
 
 ## Chargebacks
 
-Please contact us **before** filing a card dispute — we can almost always resolve a refund faster than
+Please contact us **before** filing a card dispute, we can almost always resolve a refund faster than
 a chargeback. Purchases that are charged back are treated as refunded and the license is deactivated.
 
 ## Contact

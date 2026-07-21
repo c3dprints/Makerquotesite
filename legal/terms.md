@@ -16,9 +16,9 @@ computer; your business data stays on your machine (see our Privacy Policy).
 
 ## Plans & licenses
 
-- **Free** — up to 5 active projects and core features, at no cost.
-- **Pro** — **$8.99/month** or **$89.99/year** (subscription). Unlimited projects plus hosted features.
-- **Lifetime** — **$249.99 one-time.** Everything in Pro, perpetual, with additional user seats.
+- **Free**, up to 5 active projects and core features, at no cost.
+- **Pro**, **$8.99/month** or **$89.99/year** (subscription). Unlimited projects plus hosted features.
+- **Lifetime**, **$249.99 one-time.** Everything in Pro, perpetual, with additional user seats.
 
 We grant you a personal, non-exclusive, **non-transferable** license to use MakerQ according to your
 plan. Activation keys are issued to you individually. **Sharing, reselling, or publishing activation
@@ -51,7 +51,7 @@ create and store in MakerQ.
 ## Your responsibilities
 
 As the operator of a self-hosted application, **you are solely responsible for the customer
-information you collect, store, and process in MakerQ** — including its security, backups, and
+information you collect, store, and process in MakerQ**, including its security, backups, and
 compliance with applicable privacy and consumer-protection laws.
 
 ## Disclaimer of warranties
