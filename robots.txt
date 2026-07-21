@@ -8,5 +8,7 @@ Disallow: /stats
 Disallow: /stats.html
 Disallow: /thanks
 Disallow: /thanks.html
+Disallow: /message-sent
+Disallow: /message-sent.html
 
 Sitemap: https://makerq.io/sitemap.xml

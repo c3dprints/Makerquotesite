@@ -164,10 +164,10 @@ Shown on the landing pricing section (`#pricing`) as three cards + a **Compare p
 ---
 
 ## 9. Forms & Stripe touchpoints
-- **Contact form (`contact.html`):** submits on-page via **FormSubmit** to **MooseDesk's email-to-ticket intake**
+- **Contact form (`contact.html`):** submits via a **native HTML form POST** (no JavaScript, so it can't silently fail) to **FormSubmit** -> **MooseDesk's email-to-ticket intake**
   `c3dprints@email.moosedesk.com`, so submissions become MooseDesk tickets. No account, but needs a
   **one-time FormSubmit activation**: the first real submission emails a confirm link to that address
-  (it arrives as a MooseDesk ticket), click it once, then submissions flow. Honeypot field included.
+  (it arrives as a MooseDesk ticket), click it once, then submissions flow. Honeypot field included. On success it redirects to `/message-sent` (`_next`). Switched from the AJAX/fetch version to native POST 2026-07-20 after a reported 'button does nothing' (fetch was being blocked client-side).
   (Support email switched from Hi@c3dprints.com to MooseDesk on 2026-07-20.) The nav 'email' link on every page now reads **Support** and mailto's the MooseDesk
   address; the **legal pages keep `Hi@c3dprints.com`** as their formal contact (privacy data-rights,
   terms questions, refund requests, via `SUPPORT_EMAIL` in build-legal.py).
