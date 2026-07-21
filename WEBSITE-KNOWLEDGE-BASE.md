@@ -74,7 +74,7 @@ All at the site root unless noted. "indexed" = in sitemap / crawlable.
 | `/` | `index.html` | Landing: hero, value cards, feature sections (intake, pricing, manage, **customers**, **customer status page**, own-your-data), how-it-works, **pricing cards + compare grid** | yes |
 | `/get-started?plan=free\|pro\|lifetime` | `get-started.html` | Plan-aware onboarding + Windows download + activation steps. Pills switch plan without reload | yes |
 | `/download` | `download.html` | Download page. Windows live; macOS "coming soon" card | yes |
-| `/contact` | `contact.html` | Contact form → FormSubmit to MooseDesk intake (c3dprints@email.moosedesk.com) | yes |
+| `/contact` | `contact.html` | Links out to the MooseDesk-hosted contact form (native tickets) | yes |
 | `/demo/` | `demo/index.html` | Framed wrapper around the interactive demo (`demo/app.html` in an iframe) | yes |
 | `/privacy` `/terms` `/refund` | `privacy/terms/refund.html` | Legal (generated, see §10) | yes |
 | `/thanks?checkout=success` | `thanks.html` | **Stripe post-purchase** redirect target. `noindex` | no |
@@ -164,7 +164,7 @@ Shown on the landing pricing section (`#pricing`) as three cards + a **Compare p
 ---
 
 ## 9. Forms & Stripe touchpoints
-- **Contact form (`contact.html`):** submits via a **native HTML form POST** (no JavaScript, so it can't silently fail) to **FormSubmit** -> **MooseDesk's email-to-ticket intake**
+- **Contact form (`contact.html`):** **links out** to the **MooseDesk-hosted contact form** (`c3dprints.com/pages/982ef2a0-...`) via an 'Open the contact form' button (new tab), which creates tickets natively. FormSubmit was dropped
   `c3dprints@email.moosedesk.com`, so submissions become MooseDesk tickets. No account, but needs a
   **one-time FormSubmit activation**: the first real submission emails a confirm link to that address
   (it arrives as a MooseDesk ticket), click it once, then submissions flow. Honeypot field included. On success it redirects to `/message-sent` (`_next`). Switched from the AJAX/fetch version to native POST 2026-07-20 after a reported 'button does nothing' (fetch was being blocked client-side).
