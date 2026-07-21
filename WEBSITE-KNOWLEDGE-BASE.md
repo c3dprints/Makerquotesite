@@ -74,7 +74,7 @@ All at the site root unless noted. "indexed" = in sitemap / crawlable.
 | `/` | `index.html` | Landing: hero, value cards, feature sections (intake, pricing, manage, **customers**, **customer status page**, own-your-data), how-it-works, **pricing cards + compare grid** | yes |
 | `/get-started?plan=free\|pro\|lifetime` | `get-started.html` | Plan-aware onboarding + Windows download + activation steps. Pills switch plan without reload | yes |
 | `/download` | `download.html` | Download page. Windows live; macOS "coming soon" card | yes |
-| `/contact` | `contact.html` | Contact form → FormSubmit to Hi@c3dprints.com | yes |
+| `/contact` | `contact.html` | Contact form → FormSubmit to MooseDesk intake (c3dprints@email.moosedesk.com) | yes |
 | `/demo/` | `demo/index.html` | Framed wrapper around the interactive demo (`demo/app.html` in an iframe) | yes |
 | `/privacy` `/terms` `/refund` | `privacy/terms/refund.html` | Legal (generated, see §10) | yes |
 | `/thanks?checkout=success` | `thanks.html` | **Stripe post-purchase** redirect target. `noindex` | no |
@@ -164,10 +164,11 @@ Shown on the landing pricing section (`#pricing`) as three cards + a **Compare p
 ---
 
 ## 9. Forms & Stripe touchpoints
-- **Contact form (`contact.html`):** submits on-page via **FormSubmit** (`formsubmit.co/ajax/Hi@c3dprints.com`),
-  no account, but needs a **one-time activation** (first real submission emails a confirm link to
-  Hi@c3dprints.com; click it once). If that was never done, submissions silently fail, worth a live
-  test. Honeypot field included.
+- **Contact form (`contact.html`):** submits on-page via **FormSubmit** to **MooseDesk's email-to-ticket intake**
+  `c3dprints@email.moosedesk.com`, so submissions become MooseDesk tickets. No account, but needs a
+  **one-time FormSubmit activation**: the first real submission emails a confirm link to that address
+  (it arrives as a MooseDesk ticket), click it once, then submissions flow. Honeypot field included.
+  (Support email switched from Hi@c3dprints.com to MooseDesk on 2026-07-20.)
 - **Thanks page (`thanks.html`):** the Stripe **`BILLING_SUCCESS_URL`** redirect target is
   `https://makerq.io/thanks?checkout=success`. It reads fine without the param; the activation-key
   email is the source of truth, this page is reassurance ("Payment received, check your email,
