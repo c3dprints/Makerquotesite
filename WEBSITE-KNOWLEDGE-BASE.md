@@ -168,7 +168,9 @@ Shown on the landing pricing section (`#pricing`) as three cards + a **Compare p
   `c3dprints@email.moosedesk.com`, so submissions become MooseDesk tickets. No account, but needs a
   **one-time FormSubmit activation**: the first real submission emails a confirm link to that address
   (it arrives as a MooseDesk ticket), click it once, then submissions flow. Honeypot field included.
-  (Support email switched from Hi@c3dprints.com to MooseDesk on 2026-07-20.)
+  (Support email switched from Hi@c3dprints.com to MooseDesk on 2026-07-20.) The nav 'email' link on every page now reads **Support** and mailto's the MooseDesk
+  address; the **legal pages keep `Hi@c3dprints.com`** as their formal contact (privacy data-rights,
+  terms questions, refund requests, via `SUPPORT_EMAIL` in build-legal.py).
 - **Thanks page (`thanks.html`):** the Stripe **`BILLING_SUCCESS_URL`** redirect target is
   `https://makerq.io/thanks?checkout=success`. It reads fine without the param; the activation-key
   email is the source of truth, this page is reassurance ("Payment received, check your email,
