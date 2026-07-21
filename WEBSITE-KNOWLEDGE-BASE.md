@@ -164,13 +164,17 @@ Shown on the landing pricing section (`#pricing`) as three cards + a **Compare p
 ---
 
 ## 9. Forms & Stripe touchpoints
-- **Contact form (`contact.html`):** **links out** to the **MooseDesk-hosted contact form** (`c3dprints.com/pages/982ef2a0-...`) via an 'Open the contact form' button (new tab), which creates tickets natively. FormSubmit was dropped
-  `c3dprints@email.moosedesk.com`, so submissions become MooseDesk tickets. No account, but needs a
-  **one-time FormSubmit activation**: the first real submission emails a confirm link to that address
-  (it arrives as a MooseDesk ticket), click it once, then submissions flow. Honeypot field included. On success it redirects to `/message-sent` (`_next`). Switched from the AJAX/fetch version to native POST 2026-07-20 after a reported 'button does nothing' (fetch was being blocked client-side).
-  (Support email switched from Hi@c3dprints.com to MooseDesk on 2026-07-20.) The nav 'email' link on every page now reads **Support** and mailto's the MooseDesk
-  address; the **legal pages keep `Hi@c3dprints.com`** as their formal contact (privacy data-rights,
-  terms questions, refund requests, via `SUPPORT_EMAIL` in build-legal.py).
+- **Contact form (`contact.html`):** on-site AJAX form -> **Supabase Edge Function `contact`**
+  (`supabase/functions/contact/index.ts`) -> **Resend** (from `support@makerq.io`, a verified domain;
+  reply-to = the sender) -> `c3dprints@email.moosedesk.com`, so it authenticates (SPF/DKIM) and lands
+  as a MooseDesk ticket. Endpoint: `https://enyimtvgqzmpaiaeiyxj.supabase.co/functions/v1/contact`
+  (deploy with `--no-verify-jwt`; secret `RESEND_API_KEY`, optional `RESEND_FROM`/`CONTACT_TO`).
+  Honeypot + validation are server-side; on error the form falls back to the support mailto.
+  History (2026-07-20/21): FormSubmit's mail from `formsubmit.co` was spam-filtered by MooseDesk (no
+  allowlist), and MooseDesk's own Shopify-hosted form can't be iframed (`X-Frame-Options: DENY`), so
+  we send authenticated mail via our own relay instead. Support contact switched Hi@c3dprints.com ->
+  MooseDesk; the nav 'email' link reads **Support**; **legal pages keep `Hi@c3dprints.com`** as the
+  formal contact (`SUPPORT_EMAIL` in build-legal.py).
 - **Thanks page (`thanks.html`):** the Stripe **`BILLING_SUCCESS_URL`** redirect target is
   `https://makerq.io/thanks?checkout=success`. It reads fine without the param; the activation-key
   email is the source of truth, this page is reassurance ("Payment received, check your email,

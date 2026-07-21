@@ -117,17 +117,80 @@ html[data-theme="light"] .card{box-shadow:0 24px 60px rgba(20,45,80,.12)}
   <p class="lead">Questions, a demo, custom pricing, or just want to say hi? Send us a note and we'll get back to you.</p>
 
   <div class="card">
-    <div style="text-align:center;padding:8px 4px">
-      <p style="color:var(--text);font-size:18px;font-weight:700;margin:0 0 8px">Send us a message</p>
-      <p style="color:var(--muted);font-size:15px;margin:0 auto 24px;max-width:44ch">Tell us about your shop and how we can help. Our contact form goes straight to our support desk, and we'll reply to the email you provide.</p>
-      <a class="btn submit" href="https://c3dprints.com/pages/982ef2a0-df6c-4bbe-a5df-0be659f77353" target="_blank" rel="noopener" id="c-open" style="text-decoration:none">Open the contact form &rarr;</a>
-    </div>
+    <form id="contact-form" novalidate>
+      <!-- honeypot: bots fill this, humans never see it -->
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+      <div class="row">
+        <div class="field">
+          <label for="c-name">Name <span class="req">*</span></label>
+          <input id="c-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="c-email">Email <span class="req">*</span></label>
+          <input id="c-email" name="email" type="email" autocomplete="email" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="c-company">Company name</label>
+          <input id="c-company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="c-phone">Phone number</label>
+          <input id="c-phone" name="phone" type="tel" autocomplete="tel">
+        </div>
+      </div>
+      <div class="field">
+        <label for="c-message">How can we help? <span class="req">*</span></label>
+        <textarea id="c-message" name="message" required placeholder="Tell us a bit about your shop and what you're looking for..."></textarea>
+      </div>
+      <button class="btn submit" type="submit" id="c-submit">Send message</button>
+      <div class="msg" id="c-msg"></div>
+    </form>
     <p class="tiny">Prefer email? Reach our support desk at <a href="mailto:c3dprints@email.moosedesk.com" style="color:var(--blue-l);font-weight:700;">c3dprints@email.moosedesk.com</a>.</p>
   </div>
 </div>
 
 <footer class="footer"><div style="margin-bottom:8px"><a href="privacy.html" style="color:var(--muted);font-weight:600;margin:0 8px">Privacy</a><a href="terms.html" style="color:var(--muted);font-weight:600;margin:0 8px">Terms</a><a href="refund.html" style="color:var(--muted);font-weight:600;margin:0 8px">Refund</a></div>MakerQ.io &middot; &copy; C3D Prints. Made for makers.</footer>
 
+<script>
+/* Contact form -> Supabase Edge Function -> Resend (from a verified makerq.io
+   address) -> support desk, so it authenticates and lands as a MooseDesk ticket. */
+var ENDPOINT = "https://enyimtvgqzmpaiaeiyxj.supabase.co/functions/v1/contact";
+var FALLBACK = "c3dprints@email.moosedesk.com";
+(function(){
+  var f = document.getElementById("contact-form"); if(!f) return;
+  var msg = document.getElementById("c-msg");
+  var btn = document.getElementById("c-submit");
+  function show(t, ok){ msg.textContent = t; msg.className = "msg show " + (ok ? "ok" : "err"); }
+  function val(id){ return (document.getElementById(id).value || "").trim(); }
+  function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+  f.addEventListener("submit", function(e){
+    e.preventDefault();
+    if(f._honey && f._honey.value) return; // honeypot tripped
+    var name = val("c-name"), email = val("c-email"), message = val("c-message");
+    if(!name){ show("Please enter your name.", false); return; }
+    if(!validEmail(email)){ show("Please enter a valid email address.", false); return; }
+    if(!message){ show("Please add a short message.", false); return; }
+    btn.disabled = true; btn.textContent = "Sending...";
+    fetch(ENDPOINT, {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ name: name, email: email, company: val("c-company"),
+        phone: val("c-phone"), message: message, _honey: (f._honey ? f._honey.value : "") })
+    })
+    .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ return { ok: r.ok, d: d }; }); })
+    .then(function(x){
+      if(x.ok && x.d && x.d.success){
+        f.reset(); show("Thanks, " + name + "! Your message has been sent. We'll reply to " + email + " soon.", true);
+      } else {
+        show((x.d && x.d.error) ? x.d.error : ("Sorry, that didn't go through. Please email us at " + FALLBACK + "."), false);
+      }
+    })
+    .catch(function(){ show("Network error. Please email us at " + FALLBACK + ".", false); })
+    .finally(function(){ btn.disabled = false; btn.textContent = "Send message"; });
+  });
+})();
+</script>
 <script>
 /* Light/dark theme: saved choice wins, else follow the OS. */
 (function(){
