@@ -191,12 +191,12 @@ Shown on the landing pricing section (`#pricing`) as three cards + a **Compare p
 ---
 
 ## 9. Forms & Stripe touchpoints
-- **Contact form (`contact.html`):** on-site AJAX form -> **Supabase Edge Function `contact`**
+- **Contact form (`contact.html`):** on-site **native form POST** (no fetch, so it can't be blocked client-side) -> **Supabase Edge Function `contact`**
   (`supabase/functions/contact/index.ts`) -> **Resend** (from `support@makerq.io`, a verified domain;
   reply-to = the sender) -> `c3dprints@email.moosedesk.com`, so it authenticates (SPF/DKIM) and lands
   as a MooseDesk ticket. Endpoint: `https://enyimtvgqzmpaiaeiyxj.supabase.co/functions/v1/contact`
   (deploy with `--no-verify-jwt`; secret `RESEND_API_KEY`, optional `RESEND_FROM`/`CONTACT_TO`).
-  Honeypot + validation are server-side; on error the form falls back to the support mailto.
+  Honeypot + validation server-side; the function returns a **303 redirect to `/message-sent`** for native form posts (and JSON for AJAX). Delivery has a 1-3 min lag (Resend -> MooseDesk).
   History (2026-07-20/21): FormSubmit's mail from `formsubmit.co` was spam-filtered by MooseDesk (no
   allowlist), and MooseDesk's own Shopify-hosted form can't be iframed (`X-Frame-Options: DENY`), so
   we send authenticated mail via our own relay instead. Support contact switched Hi@c3dprints.com ->
