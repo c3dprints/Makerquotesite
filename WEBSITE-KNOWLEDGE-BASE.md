@@ -134,12 +134,39 @@ Shown on the landing pricing section (`#pricing`) as three cards + a **Compare p
   - `purchase` (thanks.html) fires **only** when `?checkout=success` is present. Currently has no
     `transaction_id`/`value` (open item).
   - `select_plan` (get-started pills).
-- **`/stats`** (hidden, noindex): a live dashboard that reads the **GitHub public API**
-  (`api.github.com/repos/c3dprints/MakerQ-download/releases`) client-side, sums `.exe` download
-  counts across releases, and shows total + per-release table + a refresh button. No auth (public
-  repo). GitHub's `download_count` is **per release** and resets each version; the page sums them.
+- **`/stats`** (hidden, noindex): a live dashboard with **two halves**.
+  - **GitHub half (top):** reads the **GitHub public API**
+    (`api.github.com/repos/c3dprints/MakerQ-download/releases`) client-side, sums `.exe` download
+    counts across releases, shows total + per-release table. No auth (public repo). GitHub's
+    `download_count` is **per release** and resets each version; the page sums them.
+  - **GA4 half (below):** "Website analytics" section, fed by the **`ga-stats` Supabase Edge
+    Function** (see next bullet). Shows download-click total + purchases + countries reached, bar
+    lists for country/device/source/purchases-by-country, and a 30-day sparkline. Degrades
+    gracefully: before the secrets are set the relay returns `{configured:false}` and the page shows
+    a "not connected yet" note; a relay error shows an inline error, neither breaks the GitHub half.
+  - A single refresh button reloads both halves.
+- **`ga-stats` Edge Function** (`supabase/functions/ga-stats/index.ts`): the GA4 relay. GA reporting
+  data **cannot** be pulled from a public static page (the Data API needs a service-account OAuth2
+  credential that must never live in page JS), so this authenticates server-side and returns
+  aggregated JSON. It signs a service-account JWT (Web Crypto, `RSASSA-PKCS1-v1_5`/SHA-256),
+  exchanges it at `oauth2.googleapis.com/token` for an access token
+  (scope `analytics.readonly`), then runs GA4 `runReport` calls filtered to
+  `eventName == "file_download"` (plus `purchase`) for country, `deviceCategory`,
+  `sessionSourceMedium`, and a 30-day `date` series, over a **last-30-days** window. Same pattern as
+  the `contact` function: CORS locked to `makerq.io`/`www.makerq.io`, `Deno.serve`, deploy with
+  **`--no-verify-jwt`** (public, so the page can call it). Endpoint:
+  `https://enyimtvgqzmpaiaeiyxj.supabase.co/functions/v1/ga-stats`.
+  - **Secrets:** `GA_PROPERTY_ID` = the GA4 **numeric** property id (Admin > Property Settings, the
+    number, NOT the `G-` id); `GA_SERVICE_ACCOUNT` = the full service-account JSON pasted as one
+    value. The service account (a Google Cloud service account with the **Analytics Data API**
+    enabled) must be added as a **Viewer** on the GA4 property (Admin > Property Access Management)
+    or the relay 502s.
+  - **Deploy:** `supabase functions deploy ga-stats --no-verify-jwt --project-ref enyimtvgqzmpaiaeiyxj`.
+    Smoke-test: `curl -s -H "Origin: https://makerq.io" .../functions/v1/ga-stats` → expect
+    `{"configured":true,...}`.
 - **Two different numbers:** GA `file_download` = clicks from the *site*; GitHub `download_count` =
-  *every* download of the installer (site + shared direct links). They won't match, by design.
+  *every* download of the installer (site + shared direct links). They won't match, by design (the
+  GA half runs lower).
 
 ---
 
