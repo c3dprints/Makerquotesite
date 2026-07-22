@@ -277,6 +277,7 @@ Shown on the landing pricing section (`#pricing`) as three cards + a **Compare p
 ---
 
 ## 15. Gotchas
+- **Honeypot autofill (contact form):** an off-screen `_honey` text field was being **autofilled by the browser/password manager**, so the relay's honeypot check silently dropped real submissions while still returning the success page (owner saw the thank-you page but no ticket). Fix: removed the honeypot field from the form. If re-adding spam protection, don't use an off-screen text input, autofill fills it; use `display:none` or a server-side check.
 - **Jekyll 503** fails deploys → fixed with `.nojekyll` (§3). If a deploy fails, re-run it.
 - **Release sync:** the site's Windows download won't update unless the release is also published to
   the public `MakerQ-download` repo with the asset named exactly `MakerQ-Setup.exe` (§8).
