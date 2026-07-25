@@ -17,7 +17,7 @@ REPO = os.path.expanduser("~/Documents/c3dprints-quote-portal")
 SITE = os.path.dirname(os.path.abspath(__file__))
 PORT = 8856
 BASE = f"http://127.0.0.1:{PORT}"
-APP_VERSION = "1.1.7"
+APP_VERSION = "1.1.38"
 
 sys.path.insert(0, os.path.join(REPO, "tools"))
 import gen_license  # noqa: E402
@@ -93,6 +93,19 @@ def enrich(canned):
     the /health version so the footer isn't stale."""
     try:
         canned.setdefault("/health", {})["version"] = APP_VERSION
+    except Exception:
+        pass
+    # Mark the demo account fully set up so the first-run "Welcome to MakerQ"
+    # email-gate modal (shown when email_configured is falsy) doesn't block the UI.
+    try:
+        acct = canned.get("/admin/account")
+        if not isinstance(acct, dict):
+            acct = {}
+        acct["email_configured"] = True
+        acct["admin_email"] = acct.get("admin_email") or "demo@makerq.io"
+        acct["username"] = acct.get("username") or "admin"
+        acct["password_is_default"] = False
+        canned["/admin/account"] = acct
     except Exception:
         pass
     reqs = canned.get("/admin/requests", []) or []
@@ -178,6 +191,8 @@ def build(canned):
 /* ===== MakerQ interactive demo shim: mock backend, sample data, nothing saved ===== */
 window.__DEMO__ = """ + json.dumps(canned) + """;
 try{ localStorage.setItem("c3d_admin_token","demo-token"); }catch(e){}
+/* Pre-dismiss the first-run guided-tour prompt so the demo opens straight to the board. */
+try{ localStorage.setItem("mq_tour_offered","1"); localStorage.setItem("mq_tour_done","1"); }catch(e){}
 (function(){
   var D = window.__DEMO__;
   var S={kwh:0.25,watts:150,spool_usd:25,spool_g:1000,nozzle_cost:12,nozzle_hours:600,
