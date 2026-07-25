@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-365JP65BHP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MakerQ FAQ, common questions answered</title>
+<!-- Open Graph / social share (managed) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MakerQ">
+<meta property="og:url" content="https://makerq.io/faq">
+<meta property="og:title" content="MakerQ FAQ, common questions answered">
+<meta property="og:description" content="What MakerQ is, how it runs on your own computer, mobile access, pricing, and how your data is handled.">
+<meta property="og:image" content="https://makerq.io/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MakerQ, quoting software for 3D print shops">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MakerQ FAQ, common questions answered">
+<meta name="twitter:description" content="What MakerQ is, how it runs on your own computer, mobile access, pricing, and how your data is handled.">
+<meta name="twitter:image" content="https://makerq.io/img/og-image.png">
+<link rel="canonical" href="https://makerq.io/faq">
+<meta name="description" content="What MakerQ is, how it runs on your own computer, mobile access, pricing, and how your data is handled.">
+<style>
+:root{--bg:#0b1623;--surface:#111e2e;--card:#162236;--input:#0d1928;--border:#1e3550;
+  --blue:#00aaff;--blue-l:#33ccff;--orange:#ff6b1a;--orange-l:#ff8c3a;--green:#00e890;
+  --red:#ff6b6b;--text:#ddeeff;--muted:#9fb6d0}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+a{color:inherit;text-decoration:none}
+/* Nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(11,22,35,.9);backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1120px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
+.brand{font-weight:800;font-size:20px;letter-spacing:-.5px}.brand span{color:var(--orange-l)}
+.links{display:flex;gap:4px;flex-wrap:wrap}
+.links a{padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:600;font-size:14px;transition:color .15s,background .15s}
+.links a:hover,.links a.active{color:var(--text);background:rgba(0,170,255,.12)}
+.right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.nav-mail{color:var(--muted);font-size:13px;font-weight:600}.nav-mail:hover{color:var(--blue-l)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:9px 18px;border-radius:11px;
+  cursor:pointer;border:none;background:linear-gradient(135deg,var(--orange),var(--orange-l));color:#fff;
+  box-shadow:0 8px 26px rgba(255,107,26,.35);transition:transform .12s,filter .2s}
+.btn:hover{filter:brightness(1.07);transform:translateY(-2px)}
+@media(max-width:820px){.nav-mail{display:none}.links a{padding:8px 8px;font-size:13px}}
+/* Page */
+.wrap{max-width:780px;margin:0 auto;padding:54px 24px 40px}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--blue-l);background:rgba(0,170,255,.1);border:1px solid rgba(0,170,255,.3);padding:6px 14px;border-radius:999px}
+h1{font-size:clamp(30px,5vw,44px);margin:16px 0 8px;letter-spacing:-.5px}
+h1 .grad{background:linear-gradient(100deg,var(--blue-l),var(--orange-l));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:17px;margin:0 0 22px;max-width:60ch}
+/* Category jump links */
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 34px}
+.toc a{font-size:13px;font-weight:700;color:var(--muted);border:1px solid var(--border);
+  background:var(--card);padding:7px 13px;border-radius:999px;transition:color .15s,border-color .15s,background .15s}
+.toc a:hover{color:var(--text);border-color:var(--blue);background:rgba(0,170,255,.1)}
+/* FAQ groups */
+.cat{margin:0 0 30px}
+.cat h2{font-size:14px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--blue-l);
+  margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+details{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:2px 18px;margin:10px 0;
+  transition:border-color .15s,box-shadow .15s}
+details[open]{border-color:rgba(0,170,255,.4);box-shadow:0 12px 34px rgba(0,0,0,.28)}
+summary{list-style:none;cursor:pointer;font-weight:700;font-size:16px;padding:15px 30px 15px 0;position:relative;
+  color:var(--text)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:2px;top:50%;transform:translateY(-50%);
+  font-size:22px;font-weight:400;color:var(--blue-l);transition:transform .2s ease}
+details[open] summary::after{content:"\2212";transform:translateY(-50%)}
+details p{color:var(--muted);font-size:15px;margin:0 0 15px;line-height:1.6}
+details p:first-of-type{margin-top:2px}
+details a.inline{color:var(--blue-l);font-weight:700}
+.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--orange-l);background:rgba(255,107,26,.12);border:1px solid rgba(255,107,26,.32);
+  padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:middle}
+/* CTA */
+.cta{margin:44px 0 10px;text-align:center;background:var(--card);border:1px solid var(--border);
+  border-radius:18px;padding:34px 24px;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.cta h3{margin:0 0 6px;font-size:23px}
+.cta p{color:var(--muted);margin:0 0 20px}
+.cta .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);box-shadow:none}
+.btn-ghost:hover{border-color:var(--blue);box-shadow:0 8px 22px rgba(0,170,255,.18)}
+.footer{padding:30px 0;color:var(--muted);font-size:14px;text-align:center;border-top:1px solid var(--border);margin-top:26px}
+.footer a{color:var(--muted);font-weight:600;margin:0 8px}.footer a:hover{color:var(--text)}
+/* Light / dark theme */
+html[data-theme="light"]{--bg:#eef3f9;--surface:#ffffff;--card:#ffffff;--input:#f1f5fb;
+  --border:#d7e2f0;--text:#13233a;--muted:#59708a}
+html[data-theme="light"] body{background:var(--bg)}
+html[data-theme="light"] .nav{background:rgba(255,255,255,.86)}
+html[data-theme="light"] .cta,html[data-theme="light"] details[open]{box-shadow:0 20px 50px rgba(20,45,80,.12)}
+.mq-theme-btn{width:38px;height:38px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;display:inline-grid;place-items:center;padding:0;
+  transition:transform .15s ease,border-color .2s,box-shadow .2s,background .2s}
+.mq-theme-btn:hover{transform:translateY(-2px) rotate(-8deg);border-color:var(--blue);box-shadow:0 8px 22px rgba(0,170,255,.22)}
+.mq-theme-btn svg{width:19px;height:19px}
+[id]{scroll-margin-top:80px}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<nav class="nav" aria-label="MakerQ">
+  <div class="nav-inner">
+    <a class="brand" href="./">Maker<span>Q</span></a>
+    <div class="links">
+      <a href="index.html#features">Features</a>
+      <a href="demo/">Demo</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="download.html">Download</a>
+      <a href="faq.html" class="active">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="right">
+      <a class="nav-mail" href="mailto:c3dprints@email.moosedesk.com">Support</a>
+      <button class="mq-theme-btn" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">
+        <svg class="mq-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="mq-moon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="btn" href="get-started?plan=free">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <span class="eyebrow">Help center</span>
+  <h1>Frequently asked <span class="grad">questions</span></h1>
+  <p class="lead">Everything about what MakerQ is, how it runs on your own computer, using it from your phone, pricing, and how your data is handled. Do not see your question? Reach our support desk any time.</p>
+
+  <nav class="toc" aria-label="FAQ categories">
+    <a href="#getting-started">Getting started</a>
+    <a href="#mobile">Mobile &amp; access</a>
+    <a href="#pricing">Pricing &amp; plans</a>
+    <a href="#quoting">Quoting &amp; features</a>
+    <a href="#data">Your data</a>
+  </nav>
+
+  <!-- GETTING STARTED -->
+  <section class="cat" id="getting-started">
+    <h2>Getting started</h2>
+
+    <details open>
+      <summary>What is MakerQ?</summary>
+      <p>MakerQ is quoting and job-tracking software made for 3D print shops. It turns scattered quote requests into one organized, priced, ready-to-send pipeline: capture a request, estimate material and print time, calculate a price, send the quote, and track the job from new to finished on a simple board.</p>
+      <p>It runs as an app on your own computer, so your customer data stays with you and there is no cloud account required to get going.</p>
+    </details>
+
+    <details>
+      <summary>How fast can I send my first quote?</summary>
+      <p>Minutes. Download the app, open it, and add a request or let the pricing calculator estimate material, time, and cost for you. Adjust the numbers, then send the quote by email. There is nothing to configure before you can try it end to end with the built in sample flow.</p>
+    </details>
+
+    <details>
+      <summary>Do I need an account or a credit card to try it?</summary>
+      <p>No. The free plan needs no account, no card, and no cloud. Just download MakerQ and start quoting. You only enter payment details later if you decide to upgrade to Pro or buy a Lifetime license.</p>
+    </details>
+
+    <details>
+      <summary>Which platforms does MakerQ run on?</summary>
+      <p>Windows is available now. A macOS build is coming soon. You can watch the <a class="inline" href="download.html">download page</a> for the latest builds.</p>
+    </details>
+
+    <details>
+      <summary>Can I try it without installing anything?</summary>
+      <p>Yes. The <a class="inline" href="demo/">interactive demo</a> runs the real dashboard with sample data right in your browser. Click around, drag jobs across the board, and open a request. Nothing is saved, so refresh to reset.</p>
+    </details>
+  </section>
+
+  <!-- MOBILE & ACCESS -->
+  <section class="cat" id="mobile">
+    <h2>Mobile &amp; access</h2>
+
+    <details>
+      <summary>Is there a mobile app? <span class="tag">In development</span></summary>
+      <p>A dedicated mobile app is in development. It is not out yet.</p>
+      <p>In the meantime, because MakerQ runs on your computer and serves its interface over your local network, you can open it from a phone or tablet that is on the same network, so you can check the board or update a job from your bench. See the next question for how that works today.</p>
+    </details>
+
+    <details>
+      <summary>Can I use MakerQ from my phone or tablet?</summary>
+      <p>Yes, on your local network for now. While MakerQ is running on your computer, any phone, tablet, or second computer connected to the same Wi-Fi or local network can open the app in a browser and use the same board and requests.</p>
+      <p>This is handy for updating job status from the printer or checking a quote away from your desk. Full on the go access from anywhere, and a native mobile app, are on the roadmap.</p>
+    </details>
+
+    <details>
+      <summary>Can I access it when I am away from the shop?</summary>
+      <p>Not from outside your local network yet. Today access is limited to devices on the same network as the computer running MakerQ. Remote access from anywhere is planned and will arrive alongside the mobile app that is currently in development.</p>
+    </details>
+  </section>
+
+  <!-- PRICING & PLANS -->
+  <section class="cat" id="pricing">
+    <h2>Pricing &amp; plans</h2>
+
+    <details>
+      <summary>How much does MakerQ cost?</summary>
+      <p>There are three options. Free is $0 to try. Pro is $8.99 per month, or $89.99 per year which is two months free. Lifetime is a one time $249.99 and includes all future updates. You can compare every feature on the <a class="inline" href="index.html#pricing">pricing section</a>.</p>
+    </details>
+
+    <details>
+      <summary>What is included in the free plan?</summary>
+      <p>The free plan covers the core workflow: up to 5 active projects, the pricing calculator with adjustable quotes, the List and Kanban views with priorities and statuses, quote emails through your own SMTP, and 1 printer. No account and no cloud needed.</p>
+    </details>
+
+    <details>
+      <summary>What is the difference between Pro and Lifetime?</summary>
+      <p>Both unlock everything: unlimited projects, the hosted intake form with uploads, customer status and approval pages, checkout links and invoices, AI quote assist, reports and history, and hosted email. Pro is billed monthly or yearly. Lifetime is a single payment you own forever, with all future updates and more team seats.</p>
+    </details>
+
+    <details>
+      <summary>How do I upgrade?</summary>
+      <p>Pro and Lifetime are purchased inside the app. Open MakerQ, choose your plan, and your license and activation key are tied to the email on your account.</p>
+    </details>
+
+    <details>
+      <summary>Can I cancel anytime?</summary>
+      <p>Yes. A Pro subscription can be cancelled whenever you like and it will not renew for the next period. You keep access through the end of the period you already paid for.</p>
+    </details>
+
+    <details>
+      <summary>What is your refund policy?</summary>
+      <p>If MakerQ is not the right fit, you can request a refund within 14 days of purchase. See the <a class="inline" href="refund.html">refund policy</a> for the details.</p>
+    </details>
+
+    <details>
+      <summary>What payment methods do you accept?</summary>
+      <p>Payments are handled securely through Stripe at checkout, which accepts major credit and debit cards. We never see or store your full card details.</p>
+    </details>
+  </section>
+
+  <!-- QUOTING & FEATURES -->
+  <section class="cat" id="quoting">
+    <h2>Quoting &amp; features</h2>
+
+    <details>
+      <summary>How does the pricing calculator work?</summary>
+      <p>You set your inputs once, things like filament cost per spool, electricity, nozzle and sheet wear, labor rate, markup, and tax. From estimated grams and print hours the calculator works out your true cost and a suggested price, including quantity, shipping, and any rush or design fees. You can always adjust the final number before sending.</p>
+    </details>
+
+    <details>
+      <summary>What is AI quote assist? <span class="tag">Pro</span></summary>
+      <p>AI quote assist reads the request and any uploaded model and suggests a recommended material, a complexity rating, an estimated weight and print time, and a price range, along with risk flags such as overhangs or thin walls. It gives you a fast, informed starting point that you can fine tune. AI quote assist is included with Pro and Lifetime.</p>
+    </details>
+
+    <details>
+      <summary>Can I send quotes and emails to customers?</summary>
+      <p>Yes. On the free plan you send quote emails through your own SMTP, so mail comes from your address. Pro and Lifetime add hosted email so you can send without configuring SMTP yourself.</p>
+    </details>
+
+    <details>
+      <summary>Can customers submit requests and upload files? <span class="tag">Pro</span></summary>
+      <p>Yes, with Pro or Lifetime. You get a hosted intake form, including a Shopify friendly option, where customers can describe the job and upload their files. Requests land straight in your board. Pro also adds customer status and approval pages so clients can follow along and approve a quote.</p>
+    </details>
+
+    <details>
+      <summary>Can I create invoices and checkout links? <span class="tag">Pro</span></summary>
+      <p>Yes. Pro and Lifetime include checkout links and invoices, so an approved quote can turn into a payment without leaving your workflow.</p>
+    </details>
+  </section>
+
+  <!-- YOUR DATA -->
+  <section class="cat" id="data">
+    <h2>Your data</h2>
+
+    <details>
+      <summary>Where is my data stored?</summary>
+      <p>On your own computer. MakerQ keeps your quotes, customers, and settings in a local database on the machine running the app. Your customer data never has to leave your desk.</p>
+    </details>
+
+    <details>
+      <summary>Is my data secure?</summary>
+      <p>Because everything is local by default, your data is only as exposed as the computer it lives on. There is no cloud account required, and the optional hosted features, such as the intake form and hosted email, only handle the pieces you choose to turn on.</p>
+    </details>
+
+    <details>
+      <summary>Will I lose my data if I downgrade or cancel?</summary>
+      <p>No. Your data lives in your local database, so it stays put. If you move from Pro back to Free, the Pro only features are simply switched off, but your quotes, customers, and history remain.</p>
+    </details>
+
+    <details>
+      <summary>Can I back up my data?</summary>
+      <p>Yes. Since the database is a file on your computer, you can back it up like any other file. Higher plans also include a backup option in the app settings.</p>
+    </details>
+  </section>
+
+  <div class="cta">
+    <h3>Still have a question?</h3>
+    <p>We are happy to help. Reach out and we will get back to you.</p>
+    <div class="row">
+      <a class="btn btn-ghost" href="contact.html">Contact us</a>
+      <a class="btn" href="get-started?plan=free">Start free</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div style="margin-bottom:8px">
+    <a href="faq.html">FAQ</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="refund.html">Refund</a>
+  </div>
+  MakerQ.io &middot; &copy; C3D Prints. Made for makers.
+</footer>
+
+<script>
+/* Light/dark theme: saved choice wins, else follow the OS. */
+(function(){
+  var KEY="mq-theme",root=document.documentElement;
+  function apply(t){root.setAttribute("data-theme",t);
+    document.querySelectorAll(".mq-theme-btn").forEach(function(b){
+      var s=b.querySelector(".mq-sun"),m=b.querySelector(".mq-moon");
+      if(s)s.style.display=(t==="light")?"none":"block";
+      if(m)m.style.display=(t==="light")?"block":"none";
+      b.setAttribute("aria-label",(t==="light")?"Switch to dark theme":"Switch to light theme");});
+  }
+  var saved;try{saved=localStorage.getItem(KEY)}catch(e){}
+  var t=saved||((window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark");
+  apply(t);
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest(".mq-theme-btn");if(!b)return;e.preventDefault();
+    t=(root.getAttribute("data-theme")==="light")?"dark":"light";
+    apply(t);try{localStorage.setItem(KEY,t)}catch(e){}});
+})();
+</script>
+</body>
+</html>
