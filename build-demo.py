@@ -17,7 +17,7 @@ REPO = os.path.expanduser("~/Documents/c3dprints-quote-portal")
 SITE = os.path.dirname(os.path.abspath(__file__))
 PORT = 8856
 BASE = f"http://127.0.0.1:{PORT}"
-APP_VERSION = "1.1.38"
+APP_VERSION = "1.1.42"
 
 sys.path.insert(0, os.path.join(REPO, "tools"))
 import gen_license  # noqa: E402
@@ -106,6 +106,26 @@ def enrich(canned):
         acct["username"] = acct.get("username") or "admin"
         acct["password_is_default"] = False
         canned["/admin/account"] = acct
+    except Exception:
+        pass
+    # The seed requests carry no prices/payments, so the analytics view is all
+    # zeros. Fill in coherent numbers (4 approved-or-beyond of 6 quotes sent, a
+    # handful of completed/paid jobs) so the dashboard reads like a real shop.
+    try:
+        a = canned.get("/admin/analytics")
+        if isinstance(a, dict):
+            a.update({
+                "quotes_sent_count": 6,        # conversion = 4 of 6 -> ~67%
+                "approved_or_beyond_count": 4,
+                "average_quote": 78.5,
+                "quoted_open_value": 214.0,    # 2 open quotes still out
+                "active_job_value": 312.0,     # approved + printing in progress
+                "revenue_tracked": 402.0,
+                "actual_cost_tracked": 179.0,
+                "estimated_profit": 223.0,     # margin = 223/402 -> ~55%
+                "collected_revenue": 402.0,
+                "paid_orders_count": 3,
+            })
     except Exception:
         pass
     reqs = canned.get("/admin/requests", []) or []
