@@ -120,6 +120,16 @@ html[data-theme="light"] .card{box-shadow:0 24px 60px rgba(20,45,80,.12)}
   <div class="card">
     <form id="contact-form" action="https://enyimtvgqzmpaiaeiyxj.supabase.co/functions/v1/contact" method="POST">
       <input type="hidden" name="_next" value="https://makerq.io/message-sent">
+      <!-- Anti-spam honeypot: hidden off-screen, not tabbable, not autofilled.
+           Real people never see or fill it; bots fill every field. Do NOT rename
+           this to an autofill-prone name (email/name/phone) or password managers
+           may populate it and silently drop real messages. -->
+      <div class="hp" aria-hidden="true">
+        <label for="c-website">Leave this field blank</label>
+        <input id="c-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <!-- Set on load; the server rejects submissions completed impossibly fast. -->
+      <input type="hidden" name="ts" id="c-ts" value="">
       <div class="row">
         <div class="field">
           <label for="c-name">Name <span class="req">*</span></label>
@@ -153,6 +163,8 @@ html[data-theme="light"] .card{box-shadow:0 24px 60px rgba(20,45,80,.12)}
 <footer class="footer"><div style="margin-bottom:8px"><a href="privacy.html" style="color:var(--muted);font-weight:600;margin:0 8px">Privacy</a><a href="terms.html" style="color:var(--muted);font-weight:600;margin:0 8px">Terms</a><a href="refund.html" style="color:var(--muted);font-weight:600;margin:0 8px">Refund</a></div>MakerQ.io &middot; &copy; C3D Prints. Made for makers.</footer>
 
 <script>
+/* Stamp when the form was shown, so the server can reject instant (bot) submits. */
+(function(){var t=document.getElementById("c-ts");if(t)t.value=String(Date.now());})();
 /* Light/dark theme: saved choice wins, else follow the OS. */
 (function(){
   var KEY="mq-theme",root=document.documentElement;

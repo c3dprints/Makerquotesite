@@ -63,7 +63,14 @@ Deno.serve(async (req) => {
         { status: code, headers: { ...cors, "content-type": "text/html; charset=utf-8" } })
     : new Response(JSON.stringify({ error: msg }), { status: code, headers: jsonHeaders });
 
-  if ((body._honey || "").toString().trim()) return ok(); // honeypot: pretend success, drop the bot
+  // Honeypot: real users never see or fill these hidden fields; bots fill every
+  // field. Pretend success so the bot doesn't learn it was dropped.
+  if ((body._honey || "").toString().trim() ||
+      (body.website || "").toString().trim() ||
+      (body.url || "").toString().trim()) return ok();
+  // Time-trap: a genuine person can't read the form and submit in under ~2.5s.
+  const ts = parseInt((body.ts || "").toString(), 10);
+  if (ts && Date.now() - ts < 2500) return ok();
 
   const name = (body.name || "").toString().trim();
   const email = (body.email || "").toString().trim();
