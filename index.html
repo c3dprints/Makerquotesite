@@ -314,6 +314,31 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
 .mq-ic{transition:transform .25s ease}
 .mq-card:hover .mq-ic{transform:translateY(-3px) scale(1.08) rotate(-4deg)}
 @media(prefers-reduced-motion:reduce){.mq-grad,.mq-hero-bg::after,.mq-tier.pop{animation:none!important}}
+
+/* ---- Mobile nav: hamburger + dropdown panel (under 760px only) ----- */
+.mq-nav-burger{display:none;width:38px;height:38px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;padding:0;
+  flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.mq-nav-burger span{display:block;width:18px;height:2px;border-radius:2px;background:currentColor;
+  transition:transform .2s ease,opacity .2s ease}
+.mq-nav-menu{display:none}
+@media(max-width:760px){
+  .mq-nav-links{display:none}
+  .mq-nav-mail{display:none}
+  .mq-nav-right .mq-btn{display:none}
+  .mq-nav-burger{display:flex}
+  .mq-nav.mq-nav-open .mq-nav-menu{display:block}
+  .mq-nav-menu{padding:8px 24px 18px;border-top:1px solid var(--border)}
+  .mq-nav-menu a{display:block;padding:12px;border-radius:10px;color:var(--muted);font-weight:600;font-size:15px}
+  .mq-nav-menu a:hover{color:var(--text);background:rgba(0,170,255,.12)}
+  .mq-nav-menu a.mq-nav-menu-cta{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;
+    color:#fff;font-weight:700;font-size:15px;padding:13px;border-radius:11px;
+    background:linear-gradient(135deg,var(--orange),var(--orange-l));box-shadow:0 8px 26px rgba(255,107,26,.35)}
+  .mq-nav-menu a.mq-nav-menu-mail{text-align:center;color:var(--muted);font-size:13px;margin-top:6px}
+  .mq-nav.mq-nav-open .mq-nav-burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .mq-nav.mq-nav-open .mq-nav-burger span:nth-child(2){opacity:0}
+  .mq-nav.mq-nav-open .mq-nav-burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+}
 </style>
 
 <button class="mq-theme-btn mq-theme-fab" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">
@@ -340,7 +365,21 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
         <svg class="mq-moon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
       <a class="mq-btn mq-btn-primary mq-btn-sm" href="get-started?plan=free">Start free <span class="arr">&rarr;</span></a>
+      <button class="mq-nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mq-nav-menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </div>
+  <div class="mq-nav-menu" id="mq-nav-menu">
+    <a href="#features">Features</a>
+    <a href="demo/">Demo</a>
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="download.html">Download</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a class="mq-nav-menu-cta" href="get-started?plan=free">Start free <span class="arr">&rarr;</span></a>
+    <a class="mq-nav-menu-mail" href="mailto:c3dprints@email.moosedesk.com">Support</a>
   </div>
 </nav>
 
@@ -670,6 +709,24 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
       e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'});
     });
   });
+})();
+
+/* Mobile menu: hamburger toggles the dropdown; closes on link tap, Escape, or a tap outside the nav. */
+(function(){
+  var nav=document.getElementById('mq-nav'); if(!nav) return;
+  var btn=nav.querySelector('.mq-nav-burger'); if(!btn) return;
+  function setOpen(open){
+    nav.classList.toggle('mq-nav-open',open);
+    btn.setAttribute('aria-expanded',open?'true':'false');
+  }
+  btn.addEventListener('click',function(){ setOpen(!nav.classList.contains('mq-nav-open')); });
+  nav.querySelectorAll('.mq-nav-menu a').forEach(function(a){
+    a.addEventListener('click',function(){ setOpen(false); });
+  });
+  document.addEventListener('click',function(e){
+    if(nav.classList.contains('mq-nav-open')&&!nav.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') setOpen(false); });
 })();
 </script>
 </div><!-- /.mq-landing -->

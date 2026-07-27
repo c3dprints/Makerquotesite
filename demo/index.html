@@ -129,6 +129,30 @@ html[data-theme="light"] .frame{background:#dce7f4}
 @media(max-width:900px){.mq-tiers.three{grid-template-columns:1fr;max-width:460px}}
 html[data-theme="light"] .mq-tier{box-shadow:0 10px 30px rgba(20,45,80,.07)}
 @media(prefers-reduced-motion:reduce){.mq-tier.pop{animation:none!important}}
+/* Mobile nav: hamburger + dropdown panel (under 760px only) */
+.nav-burger{display:none;width:38px;height:38px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;padding:0;
+  flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.nav-burger span{display:block;width:18px;height:2px;border-radius:2px;background:currentColor;
+  transition:transform .2s ease,opacity .2s ease}
+.nav-menu{display:none}
+@media(max-width:760px){
+  .links{display:none}
+  .mail{display:none}
+  .right .btn{display:none}
+  .nav-burger{display:flex}
+  .nav.nav-open .nav-menu{display:block}
+  .nav-menu{padding:8px 24px 18px;border-top:1px solid var(--border)}
+  .nav-menu a{display:block;padding:12px;border-radius:10px;color:var(--muted);font-weight:600;font-size:15px}
+  .nav-menu a:hover{color:var(--text);background:rgba(0,170,255,.12)}
+  .nav-menu a.nav-menu-cta{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;
+    color:#fff;font-weight:700;font-size:15px;padding:13px;border-radius:11px;
+    background:linear-gradient(135deg,var(--orange),var(--orange-l));box-shadow:0 8px 26px rgba(255,107,26,.35)}
+  .nav-menu a.nav-menu-mail{text-align:center;color:var(--muted);font-size:13px;margin-top:6px}
+  .nav.nav-open .nav-burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .nav.nav-open .nav-burger span:nth-child(2){opacity:0}
+  .nav.nav-open .nav-burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -154,7 +178,21 @@ html[data-theme="light"] .mq-tier{box-shadow:0 10px 30px rgba(20,45,80,.07)}
         <svg class="mq-moon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
       <a class="btn" href="../get-started?plan=free">Start free</a>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </div>
+  <div class="nav-menu" id="nav-menu">
+    <a href="../#features">Features</a>
+    <a href="./">Demo</a>
+    <a href="../#how">How it works</a>
+    <a href="../#pricing">Pricing</a>
+    <a href="../download.html">Download</a>
+    <a href="../faq.html">FAQ</a>
+    <a href="../contact.html">Contact</a>
+    <a class="nav-menu-cta" href="../get-started?plan=free">Start free</a>
+    <a class="nav-menu-mail" href="mailto:c3dprints@email.moosedesk.com">Support</a>
   </div>
 </nav>
 <div class="wrap">
@@ -265,6 +303,19 @@ html[data-theme="light"] .mq-tier{box-shadow:0 10px 30px rgba(20,45,80,.07)}
   apply(saved||((window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark"));
   document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".mq-theme-btn");if(!b)return;
     var t=(root.getAttribute("data-theme")==="light")?"dark":"light";apply(t);try{localStorage.setItem(KEY,t)}catch(e){}});
+})();
+/* Mobile menu: hamburger toggles the dropdown; closes on link tap, Escape, or a tap outside the nav. */
+(function(){
+  var nav=document.querySelector(".nav"),btn=document.querySelector(".nav-burger");
+  if(!nav||!btn)return;
+  function setOpen(open){nav.classList.toggle("nav-open",open);
+    btn.setAttribute("aria-expanded",open?"true":"false");}
+  btn.addEventListener("click",function(){setOpen(!nav.classList.contains("nav-open"))});
+  nav.querySelectorAll(".nav-menu a").forEach(function(a){
+    a.addEventListener("click",function(){setOpen(false)});});
+  document.addEventListener("click",function(e){
+    if(nav.classList.contains("nav-open")&&!nav.contains(e.target))setOpen(false);});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")setOpen(false)});
 })();
 </script>
 </body>
