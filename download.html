@@ -173,6 +173,7 @@ html[data-theme="light"] .disabled{color:#8aa0b8}
   </div>
 
   <div class="notify">
+    <p class="tiny" id="mac-note" style="display:none">Opening on a Mac for the first time? If macOS says MakerQ cannot be verified, Control-click (or right-click) MakerQ in your Applications folder and choose Open, then confirm. If it still will not open, go to System Settings, Privacy and Security, and click Open Anyway.</p>
     <p class="tiny">Free trial. No account, no cloud, runs on your own computer.</p>
   </div>
 </div>
@@ -229,6 +230,7 @@ html[data-theme="light"] .disabled{color:#8aa0b8}
         {file_name:dmg.name,file_extension:"dmg",platform:"mac",source:"download_page"});}catch(e){}});
       slot.replaceWith(a);
       if(badge){badge.textContent="Available now";badge.className="soon ready";}
+      var note=document.getElementById("mac-note");if(note)note.style.display="";
     })
     .catch(function(){});
 })();
