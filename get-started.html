@@ -175,8 +175,10 @@ html[data-theme="light"] .dl-box{box-shadow:0 20px 50px rgba(20,45,80,.10)}
 
   <div class="dl-box">
     <a class="btn" id="gs-download" href="https://github.com/c3dprints/MakerQ-download/releases/latest/download/MakerQ-Setup.exe" download>Download MakerQ for Windows</a>
-    <p class="sub">Windows 10/11. macOS coming soon.</p>
+    <a class="btn" id="gs-download-mac" href="https://github.com/c3dprints/MakerQ-download/releases/latest/download/MakerQ.dmg" download>Download MakerQ for Mac</a>
+    <p class="sub">Windows 10/11 and macOS 12 or later.</p>
     <p class="warn">If Windows shows an <strong>&ldquo;unknown publisher&rdquo;</strong> warning, click <strong>More info &rarr; Run anyway</strong>. That's expected until the app is code-signed, and it's safe.</p>
+    <p class="warn">On macOS, if you see <strong>&ldquo;MakerQ can't be opened&rdquo;</strong>, right-click the app and choose <strong>Open</strong>, then <strong>Open</strong> again. That's expected until the app is notarized, and it's safe.</p>
   </div>
 
   <div class="stepshead">How to activate</div>
@@ -287,6 +289,10 @@ html[data-theme="light"] .dl-box{box-shadow:0 20px 50px rgba(20,45,80,.10)}
   var dl=document.getElementById("gs-download");
   if(dl) dl.addEventListener("click", function(){
     try{ gtag('event','file_download',{file_name:'MakerQ-Setup.exe',file_extension:'exe',platform:'windows',source:'get_started',plan:currentPlan()}); }catch(e){}
+  });
+  var dlMac=document.getElementById("gs-download-mac");
+  if(dlMac) dlMac.addEventListener("click", function(){
+    try{ gtag('event','file_download',{file_name:'MakerQ.dmg',file_extension:'dmg',platform:'mac',source:'get_started',plan:currentPlan()}); }catch(e){}
   });
   // switch plans without a full reload
   document.getElementById("gs-plans").addEventListener("click", function(e){
