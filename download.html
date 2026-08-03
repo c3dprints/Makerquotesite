@@ -8,23 +8,23 @@ gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Download MakerQ for Windows</title>
+<title>Download MakerQ for Windows and Mac</title>
 <!-- Open Graph / social share (managed) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MakerQ">
 <meta property="og:url" content="https://makerq.io/download">
-<meta property="og:title" content="Download MakerQ for Windows">
-<meta property="og:description" content="MakerQ for Windows is ready to download. Free trial, no account, no cloud, and it runs on your own computer. The Mac app is coming soon.">
+<meta property="og:title" content="Download MakerQ for Windows and Mac">
+<meta property="og:description" content="MakerQ is ready to download for Windows and macOS. Free trial, no account, no cloud, and it runs on your own computer.">
 <meta property="og:image" content="https://makerq.io/img/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="MakerQ, quoting software for 3D print shops">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Download MakerQ for Windows">
-<meta name="twitter:description" content="MakerQ for Windows is ready to download. Free trial, no account, no cloud, and it runs on your own computer. The Mac app is coming soon.">
+<meta name="twitter:title" content="Download MakerQ for Windows and Mac">
+<meta name="twitter:description" content="MakerQ is ready to download for Windows and macOS. Free trial, no account, no cloud, and it runs on your own computer.">
 <meta name="twitter:image" content="https://makerq.io/img/og-image.png">
 <link rel="canonical" href="https://makerq.io/download">
-<meta name="description" content="MakerQ for Windows is ready to download. Free trial, no account, no cloud, and it runs on your own computer. The Mac app is coming soon.">
+<meta name="description" content="MakerQ is ready to download for Windows and macOS. Free trial, no account, no cloud, and it runs on your own computer.">
 <style>
 :root{--bg:#0b1623;--surface:#111e2e;--card:#162236;--input:#0d1928;--border:#1e3550;
   --blue:#00aaff;--blue-l:#33ccff;--orange:#ff6b1a;--orange-l:#ff8c3a;--green:#00e890;
@@ -151,9 +151,9 @@ html[data-theme="light"] .disabled{color:#8aa0b8}
 </nav>
 
 <div class="wrap">
-  <span class="badge">Now available for Windows</span>
+  <span class="badge">Now available for Windows and Mac</span>
   <h1>Download <span class="grad">MakerQ</span></h1>
-  <p class="lead">MakerQ for Windows is ready to download. The Mac app is on the way, tell us where to reach you and we'll let you know the moment it lands.</p>
+  <p class="lead">MakerQ is ready to download for Windows and macOS. Pick your platform below, then start your free trial. No account, no cloud, it runs on your own computer.</p>
 
   <div class="cards">
     <div class="plat">
@@ -164,16 +164,15 @@ html[data-theme="light"] .disabled{color:#8aa0b8}
       <a class="btn dl" href="https://github.com/c3dprints/MakerQ-download/releases/latest/download/MakerQ-Setup.exe" download onclick="try{gtag('event','file_download',{file_name:'MakerQ-Setup.exe',file_extension:'exe',platform:'windows',source:'download_page'})}catch(e){}">Download for Windows</a>
     </div>
     <div class="plat">
-      <span class="soon">Coming soon</span>
+      <span class="soon" id="mac-badge">Coming soon</span>
       <svg class="ic" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
       <h2>macOS</h2>
       <p>macOS 12 and later. Universal (.dmg).</p>
-      <button class="btn disabled" type="button" disabled>Coming soon</button>
+      <button class="btn disabled" id="mac-dl" type="button" disabled>Coming soon</button>
     </div>
   </div>
 
   <div class="notify">
-    <a class="btn" href="contact.html">Get notified when the Mac app is ready</a>
     <p class="tiny">Free trial. No account, no cloud, runs on your own computer.</p>
   </div>
 </div>
@@ -210,6 +209,28 @@ html[data-theme="light"] .disabled{color:#8aa0b8}
   document.addEventListener("click",function(e){
     if(nav.classList.contains("nav-open")&&!nav.contains(e.target))setOpen(false);});
   document.addEventListener("keydown",function(e){if(e.key==="Escape")setOpen(false)});
+})();
+/* macOS: activate the download only once a .dmg is attached to the latest public
+   release, so the button never 404s before the Mac build ships. Any .dmg name works. */
+(function(){
+  var badge=document.getElementById("mac-badge"),slot=document.getElementById("mac-dl");
+  if(!slot)return;
+  fetch("https://api.github.com/repos/c3dprints/MakerQ-download/releases/latest",
+        {headers:{Accept:"application/vnd.github+json"}})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(d){
+      if(!d||!d.assets)return;
+      var dmg=d.assets.filter(function(a){return /\.dmg$/i.test(a.name);})[0];
+      if(!dmg)return;
+      var a=document.createElement("a");
+      a.className="btn dl";a.href=dmg.browser_download_url;a.setAttribute("download","");
+      a.textContent="Download for Mac";
+      a.addEventListener("click",function(){try{gtag("event","file_download",
+        {file_name:dmg.name,file_extension:"dmg",platform:"mac",source:"download_page"});}catch(e){}});
+      slot.replaceWith(a);
+      if(badge){badge.textContent="Available now";badge.className="soon ready";}
+    })
+    .catch(function(){});
 })();
 </script>
 </body>
