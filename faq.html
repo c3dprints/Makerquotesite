@@ -14,17 +14,17 @@ gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
 <meta property="og:site_name" content="MakerQ">
 <meta property="og:url" content="https://makerq.io/faq">
 <meta property="og:title" content="MakerQ FAQ, common questions answered">
-<meta property="og:description" content="What MakerQ is, how it runs on your own computer, mobile access, pricing, and how your data is handled.">
+<meta property="og:description" content="What MakerQ is, how it runs on your own computer, mobile and secure remote access, pricing, and how your data is handled.">
 <meta property="og:image" content="https://makerq.io/img/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="MakerQ, quoting software for 3D print shops">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MakerQ FAQ, common questions answered">
-<meta name="twitter:description" content="What MakerQ is, how it runs on your own computer, mobile access, pricing, and how your data is handled.">
+<meta name="twitter:description" content="What MakerQ is, how it runs on your own computer, mobile and secure remote access, pricing, and how your data is handled.">
 <meta name="twitter:image" content="https://makerq.io/img/og-image.png">
 <link rel="canonical" href="https://makerq.io/faq">
-<meta name="description" content="What MakerQ is, how it runs on your own computer, mobile access, pricing, and how your data is handled.">
+<meta name="description" content="What MakerQ is, how it runs on your own computer, mobile and secure remote access, pricing, and how your data is handled.">
 <style>
 :root{--bg:#0b1623;--surface:#111e2e;--card:#162236;--input:#0d1928;--border:#1e3550;
   --blue:#00aaff;--blue-l:#33ccff;--orange:#ff6b1a;--orange-l:#ff8c3a;--green:#00e890;
@@ -218,19 +218,29 @@ html[data-theme="light"] .cta,html[data-theme="light"] details[open]{box-shadow:
 
     <details>
       <summary>Is there a mobile app? <span class="tag">In development</span></summary>
-      <p>A dedicated mobile app is in development. It is not out yet.</p>
-      <p>In the meantime, because MakerQ runs on your computer and serves its interface over your local network, you can open it from a phone or tablet that is on the same network, so you can check the board or update a job from your bench. See the next question for how that works today.</p>
+      <p>A dedicated mobile app is in development and is not out yet.</p>
+      <p>You do not have to wait to use MakerQ from your phone, though. Because MakerQ serves its interface in the browser, any phone or tablet on the same network can open it today on any plan, and with Pro or Lifetime you can reach it securely from anywhere using Tailscale. The next two questions cover both.</p>
     </details>
 
     <details>
       <summary>Can I use MakerQ from my phone or tablet?</summary>
-      <p>Yes, on your local network for now. While MakerQ is running on your computer, any phone, tablet, or second computer connected to the same Wi-Fi or local network can open the app in a browser and use the same board and requests.</p>
-      <p>This is handy for updating job status from the printer or checking a quote away from your desk. Full on the go access from anywhere, and a native mobile app, are on the roadmap.</p>
+      <p>Yes. While MakerQ is running on your computer, any phone, tablet, or second computer on the same Wi-Fi or local network can open the app in a browser and use the same board and requests. This works on every plan and needs no setup.</p>
+      <p>To use it away from that network, Pro and Lifetime add secure remote access over Tailscale, so your phone can reach MakerQ from anywhere. A native mobile app is also on the way.</p>
     </details>
 
     <details>
-      <summary>Can I access it when I am away from the shop?</summary>
-      <p>Not from outside your local network yet. Today access is limited to devices on the same network as the computer running MakerQ. Remote access from anywhere is planned and will arrive alongside the mobile app that is currently in development.</p>
+      <summary>Can I access it when I am away from the shop? <span class="tag">Pro</span></summary>
+      <p>Yes, with Pro or Lifetime. MakerQ works with Tailscale, a free and secure networking app, so you can reach the exact instance running on your shop computer from anywhere, on your phone or a laptop, without exposing your network to the public internet.</p>
+      <p>Your data still lives only on your own computer. Tailscale just creates a private, encrypted connection between your own devices and the machine running MakerQ. The next question walks through the setup.</p>
+    </details>
+
+    <details>
+      <summary>How do I set up remote access with Tailscale? <span class="tag">Pro</span></summary>
+      <p>It is a one time setup that takes a few minutes:</p>
+      <p>1. Install the free Tailscale app on the computer running MakerQ and sign in to create your private network.<br>
+      2. Install Tailscale on your phone, tablet, or laptop and sign in with the same account, so both devices join the same network.<br>
+      3. In MakerQ, open Network settings. When Tailscale is on, MakerQ shows your Tailscale address there. Open that address in a browser on your other device, and you are connected, from anywhere.</p>
+      <p>Because the link is private and encrypted end to end, your customer data never touches a public server. Remote access over Tailscale is included with Pro and Lifetime.</p>
     </details>
   </section>
 
