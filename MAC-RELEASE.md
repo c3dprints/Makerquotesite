@@ -85,5 +85,5 @@ curl -s -o /dev/null -w 'mac-dmg %{http_code}\n' -I -L https://github.com/cdezbc
 ## Current state (2026-08-12)
 
 - Windows latest: v1.1.49
-- Mac latest (cdezbch/MakerQ-mac-releases): v1.1.44  <- behind; run the build
-  script with --publish to bring Mac to 1.1.49.
+- Mac latest (cdezbch/MakerQ-mac-releases): v1.1.49  (in sync; built + published
+  via tools/mac-release-from-main.sh --publish)
