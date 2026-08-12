@@ -1,78 +1,89 @@
 # MakerQ Downloads and Mac Release Sync
 
-How the website download buttons work, and how the Mac build stays in sync with
-Windows. Written because the Mac download kept falling behind the Windows release.
+How the website download buttons work, and how the Mac build is produced and
+published. Windows and Mac use SEPARATE release repos, which is the thing that
+trips people up.
 
-## Where the downloads live
+## Two separate release repos
 
-- Public release repo: **`c3dprints/MakerQ-download`** (GitHub Releases).
-- The website links to the "latest release" permalinks, so they always point at
-  whatever the newest release is:
-  - Windows: `https://github.com/c3dprints/MakerQ-download/releases/latest/download/MakerQ-Setup.exe`
-  - Mac: the download page does NOT hardcode the dmg. It calls the GitHub API
-    (`/repos/c3dprints/MakerQ-download/releases/latest`) and activates the Mac
-    card if that release has ANY `.dmg` asset (any filename). See `download.html`
-    bottom script (`#mac-badge` / `#mac-dl` / `#mac-note`).
+- **Windows** -> `c3dprints/MakerQ-download`
+  - Site links directly to
+    `https://github.com/c3dprints/MakerQ-download/releases/latest/download/MakerQ-Setup.exe`
+- **Mac** -> `cdezbch/MakerQ-mac-releases`  (this is ALSO the Mac auto-updater feed)
+  - The build script uploads a stable-named `MakerQ-mac.dmg` on every release so
+    the site can hardlink the newest build:
+    `https://github.com/cdezbch/MakerQ-mac-releases/releases/latest/download/MakerQ-mac.dmg`
+  - It also keeps the versioned `MakerQ-<version>.dmg` alongside it.
 
-Because the Mac card reads the LATEST release, a Windows-only release makes the
-Mac download disappear ("Coming soon") until a `.dmg` is attached to that same
-release.
+The website's macOS button (`download.html`) points at the stable Mac URL above,
+mirroring the Windows button. (Earlier it wrongly auto-detected against the
+Windows repo, which never has a `.dmg`, so the Mac card showed "Coming soon"
+even though a Mac build existed. Fixed 2026-08-12.)
 
-## The recurring problem
+## Why Mac can look "behind"
 
-Windows releases are cut from a Windows machine and keep advancing (1.1.44 ->
-1.1.48 -> 1.1.49 ...). Each new release is a new tag with only `MakerQ-Setup.exe`
-attached. The Mac side is NOT rebuilt each time, so:
+Windows releases are cut from the Windows machine and advance the version
+(1.1.44 -> 1.1.49 ...). The Mac dmg is only produced when someone runs the Mac
+build script below. If that has not been run for the latest version, the Mac
+release repo (and the site download) still serves the previous Mac version even
+though the app "works" locally via the auto-updater.
 
-- The latest release has no `.dmg` -> the Mac permalink 404s -> the site shows
-  "Coming soon".
-- The last Mac build that actually exists is whatever was last built on the Mac
-  (as of this writing, **1.1.44**, in
-  `~/Library/Application Support/C3DPrints/updates/MakerQ-1.1.44.dmg`, and the
-  installed `/Applications/MakerQ.app` is also 1.1.44).
+## Building + publishing a matching Mac release
 
-"The app works on my Mac" (installed 1.1.44, auto-updater) is separate from "the
-Mac download on the site is current." The download only has whatever `.dmg` was
-uploaded to the latest release.
+Script: **`tools/mac-release-from-main.sh`** in the app repo
+(`~/Documents/c3dprints-quote-portal`). It builds the Mac app+dmg from
+`origin/main` (the live Windows source, highest version) and can publish it.
 
-## To publish a Mac build that matches Windows
+```
+# build only -> prints the DMG path (no upload)
+tools/mac-release-from-main.sh
 
-1. Get the current source (the version Windows just shipped, e.g. 1.1.49) onto the
-   Mac. The local checkout at `~/Documents/c3dprints-quote-portal` may be behind
-   (it was at 1.1.44); pull/sync it to the released version first.
-2. Build the Mac app + dmg with the normal pipeline (staging dirs seen on this
-   machine: `/private/tmp/mq-macbuild`, `/private/tmp/mqbuild`; output lands in
-   `backend/dist/`). Confirm the built `MakerQ.app` version matches:
-   `/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' backend/dist/MakerQ.app/Contents/Info.plist`
-3. Upload the dmg to the SAME release tag as the Windows build. Any `.dmg` name
-   works (the site detects by extension); `MakerQ.dmg` keeps the URL clean:
-   ```
-   gh release upload vX.Y.Z "/path/to/MakerQ.dmg" --repo c3dprints/MakerQ-download --clobber
-   ```
-4. The website needs no change. On the next load the Mac card auto-flips to
-   "Available now" pointing at the new dmg.
+# build + upload the dmg (and the stable MakerQ-mac.dmg) to
+# cdezbch/MakerQ-mac-releases at v<version>
+tools/mac-release-from-main.sh --publish
+```
 
-## Access
+What it does: finds the live app on `origin/main`, extracts it, applies the two
+Mac-only deltas (transparent-corner icon + baked read-only update token from
+`backend/_secrets_baked.py`, and repoints the updater at the Mac releases repo),
+runs pyinstaller (`backend/c3dprints.spec`), packages the dmg
+(`backend/make-dmg.command`), and with `--publish` uploads to the matching
+release tag.
 
-The `cdezbch` GitHub account has Write on `c3dprints/MakerQ-download` (accepted
-the collaborator invite), so it can upload release assets via `gh`.
+Prerequisites (all verified present on this Mac as of 2026-08-12):
+- `backend/.buildvenv` Python 3.12 with PyInstaller
+- `backend/_secrets_baked.py` (the update token)
+- `gh` authed as `cdezbch` (admin on `cdezbch/MakerQ-mac-releases`)
+
+NOTE: this pipeline bakes a real update token into the distributable and, with
+`--publish`, ships a production release to end users. Treat it as a real deploy.
+
+No website change is needed after publishing: the stable `MakerQ-mac.dmg` URL the
+site links to always serves the newest Mac build.
 
 ## Signing / Gatekeeper
 
-The 1.1.44 dmg is ad-hoc signed and NOT notarized (`Signature=adhoc`,
+The Mac build is ad-hoc signed and NOT notarized (`Signature=adhoc`,
 `TeamIdentifier=not set`). The in-app auto-updater bypasses Gatekeeper, so updates
-are fine, but a fresh download from GitHub trips Gatekeeper ("cannot be verified").
-The download page shows a first-open note (Control-click > Open, or System
-Settings > Privacy and Security > Open Anyway) whenever the Mac download is live.
-For a friction-free install, Developer-ID sign + notarize + staple the dmg before
-uploading; then the note can be removed.
+are fine, but a fresh download from GitHub trips Gatekeeper ("cannot be
+verified"). The download page shows a first-open note (Control-click > Open, or
+System Settings > Privacy and Security > Open Anyway). For a friction-free
+install, Developer-ID sign + notarize + staple the dmg before uploading; then the
+note can be removed.
 
 ## Quick status check
 
 ```
-# latest release tag
-curl -s -o /dev/null -w '%{redirect_url}\n' https://github.com/c3dprints/MakerQ-download/releases/latest
-# do the assets resolve?
+# latest Windows tag + asset
+curl -s -o /dev/null -w 'win-latest %{redirect_url}\n' https://github.com/c3dprints/MakerQ-download/releases/latest
 curl -s -o /dev/null -w 'exe %{http_code}\n' -I -L https://github.com/c3dprints/MakerQ-download/releases/latest/download/MakerQ-Setup.exe
-curl -s -o /dev/null -w 'dmg %{http_code}\n' -I -L https://github.com/c3dprints/MakerQ-download/releases/latest/download/MakerQ.dmg
+# latest Mac tag + stable asset
+curl -s -o /dev/null -w 'mac-latest %{redirect_url}\n' https://github.com/cdezbch/MakerQ-mac-releases/releases/latest
+curl -s -o /dev/null -w 'mac-dmg %{http_code}\n' -I -L https://github.com/cdezbch/MakerQ-mac-releases/releases/latest/download/MakerQ-mac.dmg
 ```
+
+## Current state (2026-08-12)
+
+- Windows latest: v1.1.49
+- Mac latest (cdezbch/MakerQ-mac-releases): v1.1.44  <- behind; run the build
+  script with --publish to bring Mac to 1.1.49.
