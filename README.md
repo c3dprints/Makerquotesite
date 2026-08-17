@@ -6,12 +6,13 @@ wired in from `img/` (hero, queue, calculator, analytics, settings); to swap any
 for your own, just replace the file in `img/` or change the `<img src="...">`.
 
 ## Files
-- `index.html` — the live page (**prices hidden, "Contact us"**), for GitHub Pages.
-- `shopify-page.html` — the same "Contact us" page as a scoped block to paste into a
-  **Shopify page** (instructions are in the comment at the top of the file).
-- `pricing-backup.html` — backup/reference copy that **shows the real prices**
-  (Standard $10/mo, Pro $20/mo, Lifetime $300). Not linked publicly; swap it in
-  if you ever want to show prices again.
+- `index.html` — the live landing page for GitHub Pages. Shows the real plans:
+  **Free $0, Starter $4/mo or $48/yr, Pro $8.99/mo or $89.99/yr**.
+- `shopify-page.html` — a scoped block to paste into a **Shopify page** (instructions are
+  in the comment at the top of the file). **Stale**: still shows a 7-day trial, an old
+  "Standard" tier, and dead `makerquote.c3dprints.com` links. Refresh before using.
+- `pricing-backup.html` — backup/reference copy of the priced landing page. `noindex` and
+  robots-blocked, kept in sync with `index.html`.
 
 ## Host on GitHub Pages
 1. Put `index.html` in a repo (its own repo, or a `/docs` or `gh-pages` branch).

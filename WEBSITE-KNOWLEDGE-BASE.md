@@ -72,7 +72,7 @@ All at the site root unless noted. "indexed" = in sitemap / crawlable.
 | URL | File | Purpose | Indexed |
 |---|---|---|---|
 | `/` | `index.html` | Landing: hero, value cards, feature sections (intake, pricing, manage, **customers**, **customer status page**, own-your-data), how-it-works, **pricing cards + compare grid** | yes |
-| `/get-started?plan=free\|pro\|lifetime` | `get-started.html` | Plan-aware onboarding + Windows download + activation steps. Pills switch plan without reload | yes |
+| `/get-started?plan=free\|starter\|pro` | `get-started.html` | Plan-aware onboarding + Windows download + activation steps. Pills switch plan without reload | yes |
 | `/download` | `download.html` | Download page. Windows live; macOS "coming soon" card | yes |
 | `/contact` | `contact.html` | Links out to the MooseDesk-hosted contact form (native tickets) | yes |
 | `/demo/` | `demo/index.html` | Framed wrapper around the interactive demo (`demo/app.html` in an iframe) | yes |
@@ -84,7 +84,7 @@ All at the site root unless noted. "indexed" = in sitemap / crawlable.
 | `/demo/app.html` | `demo/app.html` | Auto-generated mocked app UI (see §11). Not linked as a page | no |
 
 Primary CTAs ("Start free", "Get the app", "Get MakerQ") → `get-started?plan=free`. The three
-pricing buttons → `get-started?plan={free\|pro\|lifetime}`. The plain nav **Download** → `download.html`.
+pricing buttons → `get-started?plan={free\|starter\|pro}`. The plain nav **Download** → `download.html`.
 
 ---
 
@@ -112,15 +112,21 @@ Shown on the landing pricing section (`#pricing`) as three cards + a **Compare p
 
 | Plan | Price shown | Notes |
 |---|---|---|
-| **Free** | **$0 · to try** | Framed as a **free trial / "start free"** (NOT "free forever", that wording was removed 2026-07-20). Real caps: 5 active projects, 1 printer, local features. |
-| **Pro** | **$8.99/mo** or **$89.99/yr** | "Most popular", everything unlocked. |
-| **Lifetime** | **$249.99** one-time | "Own it **forever**" is fine here (accurate, one-time). |
+| **Free** | **$0 · to start** | Organize + price only: 5 active projects, quote requests in list/Kanban, roll calculator & inventory. Free **cannot send quotes** or set its own material/labour costs (changed 2026-08-17). NOT "free forever" wording. |
+| **Starter** | **$4/mo** or **$48/yr** | The core "quote, price and get paid" loop. $4 × 12 = $48 exactly, so annual has **no discount**, word it "billed annually" and never claim savings. |
+| **Pro** | **$8.99/mo** or **$89.99/yr** | "Most popular", everything unlocked. Annual genuinely is 2 months free. |
 
+- **Lifetime ($249.99 one-time) was retired 2026-08-17**; don't reintroduce. Existing Lifetime
+  licenses stay valid and keep every feature, say so wherever plans are listed.
+- Source of truth for the tier split is `MakerQ-Plans.pdf` (Desktop). Card copy, the compare grid,
+  the FAQ, and `legal/terms.md` all mirror it.
 - **All payment happens inside the desktop app** (Stripe). The site has **no** Stripe keys / price
   IDs / checkout, and must not. Pricing buttons route to `/get-started?plan=…`.
-- The **Compare plans** grid (`.mq-compare` in index) lists 13 features across Free/Pro/Lifetime
-  with the Pro column highlighted. Keep it in sync with the tier model if features change.
-- Founder/Standard tiers were removed; don't reintroduce. "no monthly fees" phrasing was removed
+- The **Compare plans** grid (`.mq-compare` in index) lists 15 features across Free/Starter/Pro
+  with the Pro column highlighted (`.colpro`, now the **last** column). Keep it in sync with the
+  tier model if features change. The same grid is duplicated in `demo/index.html` and the cards in
+  `pricing-backup.html`, update all three together.
+- Founder/Standard/Lifetime tiers were removed; don't reintroduce. "no monthly fees" phrasing was removed
   from meta descriptions (Pro is monthly).
 
 ---

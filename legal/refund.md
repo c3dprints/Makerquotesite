@@ -9,17 +9,18 @@
 We want you to be confident in MakerQ. You can evaluate it first with the **Free plan** and the
 built-in **trial** before paying, so you know it fits your shop.
 
-## Pro (monthly / annual)
+## Starter and Pro (monthly / annual)
 
 [CHOOSE ONE — recommended: 14-day money-back]
-If you're not satisfied, email us within **[14] days** of your **initial** Pro purchase for a full
-refund. **Renewals are non-refundable**, but you can cancel anytime (Settings → License → Manage
+If you're not satisfied, email us within **[14] days** of your **initial** Starter or Pro purchase for
+a full refund. **Renewals are non-refundable**, but you can cancel anytime (Settings → License → Manage
 subscription) to stop future charges, your access continues until the end of the paid period.
 
 ## Lifetime
 
-Lifetime purchases are refundable within **[14] days** of purchase. After **[14] days**, Lifetime
-purchases are **non-refundable**.
+The Lifetime plan is **no longer sold**. Existing Lifetime licenses remain valid and keep every feature
+they already had. Any Lifetime purchase made while the plan was offered was refundable within **[14]
+days** of purchase, and is **non-refundable** after that.
 
 ## How to request a refund
 

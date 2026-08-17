@@ -16,9 +16,16 @@ computer; your business data stays on your machine (see our Privacy Policy).
 
 ## Plans & licenses
 
-- **Free**, up to 5 active projects and core features, at no cost.
-- **Pro**, **$8.99/month** or **$89.99/year** (subscription). Unlimited projects plus hosted features.
-- **Lifetime**, **$249.99 one-time.** Everything in Pro, perpetual, with additional user seats.
+- **Free**, up to 5 active projects, at no cost. Managing quote requests, the roll calculator, and
+  inventory tracking.
+- **Starter**, **$4/month** or **$48/year** (subscription). Unlimited projects, your own material and
+  labour costs, sending quotes to customers, and payment or checkout links in those emails.
+- **Pro**, **$8.99/month** or **$89.99/year** (subscription). Everything in Starter plus invoices,
+  customer CSV import and export, AI triage and quote assist, hosted customer pages and intake forms,
+  hosted email, and network sharing.
+
+The **Lifetime** plan is no longer offered. Existing Lifetime licenses remain valid and keep every
+feature they already had.
 
 We grant you a personal, non-exclusive, **non-transferable** license to use MakerQ according to your
 plan. Activation keys are issued to you individually. **Sharing, reselling, or publishing activation
@@ -34,8 +41,7 @@ keys is prohibited** and may result in termination without refund.
 
 ## Refunds
 
-See our [Refund Policy](refund.md). In short: [SUMMARY — e.g., "14-day refund on Pro; Lifetime
-refundable within 14 days of purchase; renewals are non-refundable but cancelable anytime."]
+See our [Refund Policy](refund.md). In short: [SUMMARY — e.g., "14-day refund on an initial Starter or Pro purchase; renewals are non-refundable but cancelable anytime."]
 
 ## Acceptable use
 

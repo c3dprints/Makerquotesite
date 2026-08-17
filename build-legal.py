@@ -95,9 +95,9 @@ def build_terms(md):
     md = sub_common(md)
     md = md.replace("[Refund Policy](refund.md)", "[Refund Policy](refund.html)")
     md = md.replace(
-        '[SUMMARY — e.g., "14-day refund on Pro; Lifetime\nrefundable within 14 days of purchase; renewals are non-refundable but cancelable anytime."]',
-        f"you have a {CONFIG['REFUND_DAYS']}-day money-back window on your initial Pro purchase and on "
-        f"Lifetime; renewals are non-refundable but you can cancel anytime to stop future charges.")
+        '[SUMMARY — e.g., "14-day refund on an initial Starter or Pro purchase; renewals are non-refundable but cancelable anytime."]',
+        f"you have a {CONFIG['REFUND_DAYS']}-day money-back window on your initial Starter or Pro "
+        f"purchase; renewals are non-refundable but you can cancel anytime to stop future charges.")
     md = md.replace("[STATE/COUNTRY]", fill(CONFIG["GOVERNING_STATE"], "your state / country"))
     md = md.replace("[VENUE]", fill(CONFIG["VENUE"], "your county / state"))
     return md

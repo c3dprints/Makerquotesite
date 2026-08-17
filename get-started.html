@@ -14,17 +14,17 @@ gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
 <meta property="og:site_name" content="MakerQ">
 <meta property="og:url" content="https://makerq.io/get-started">
 <meta property="og:title" content="Get your plan, MakerQ">
-<meta property="og:description" content="Download MakerQ, set your email, and choose your plan inside the app. Free, Pro, and Lifetime, all activated in the desktop app.">
+<meta property="og:description" content="Download MakerQ, set your email, and choose your plan inside the app. Free, Starter, and Pro, all activated in the desktop app.">
 <meta property="og:image" content="https://makerq.io/img/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="MakerQ, quoting software for 3D print shops">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Get your plan, MakerQ">
-<meta name="twitter:description" content="Download MakerQ, set your email, and choose your plan inside the app. Free, Pro, and Lifetime, all activated in the desktop app.">
+<meta name="twitter:description" content="Download MakerQ, set your email, and choose your plan inside the app. Free, Starter, and Pro, all activated in the desktop app.">
 <meta name="twitter:image" content="https://makerq.io/img/og-image.png">
 <link rel="canonical" href="https://makerq.io/get-started">
-<meta name="description" content="Download MakerQ, set your email, and choose your plan inside the app. Free, Pro, and Lifetime, all activated in the desktop app.">
+<meta name="description" content="Download MakerQ, set your email, and choose your plan inside the app. Free, Starter, and Pro, all activated in the desktop app.">
 <style>
 :root{--bg:#0b1623;--surface:#111e2e;--card:#162236;--input:#0d1928;--border:#1e3550;
   --blue:#00aaff;--blue-l:#33ccff;--orange:#ff6b1a;--orange-l:#ff8c3a;--green:#00e890;
@@ -169,8 +169,8 @@ html[data-theme="light"] .dl-box{box-shadow:0 20px 50px rgba(20,45,80,.10)}
 
   <div class="plans" id="gs-plans">
     <a class="pill" data-plan="free" href="?plan=free">Free</a>
+    <a class="pill" data-plan="starter" href="?plan=starter">Starter</a>
     <a class="pill" data-plan="pro" href="?plan=pro">Pro</a>
-    <a class="pill" data-plan="lifetime" href="?plan=lifetime">Lifetime</a>
   </div>
 
   <div class="dl-box">
@@ -233,13 +233,20 @@ html[data-theme="light"] .dl-box{box-shadow:0 20px 50px rgba(20,45,80,.10)}
     free: {
       eyebrow: "Free plan",
       title: 'Get started with MakerQ, <span class="grad">free</span>',
-      lead: "MakerQ is free for up to 5 active projects, no account, no card. Just download, set your email, and start quoting.",
+      lead: "MakerQ is free for up to 5 active projects, no account, no card. Just download, set your email, and start organizing your quote requests.",
       steps: [
         'Download &amp; install MakerQ using the button above.',
         "Launch it. On first run it asks for your email, enter yours (it's your account email).",
-        "That's it, you're on the free tier. Start creating quotes. You can upgrade to Pro or Lifetime any time from <strong>Settings &rarr; License</strong> inside the app."
+        "That's it, you're on the free tier. Start tracking requests and pricing jobs. You can upgrade to Starter or Pro any time from <strong>Settings &rarr; License</strong> inside the app."
       ],
       note: null
+    },
+    starter: {
+      eyebrow: "Starter plan",
+      title: 'Get MakerQ <span class="grad">Starter</span>',
+      lead: "Starter is the core quote, price and get paid loop, <strong>$4/month</strong> or <strong>$48/year</strong>. You buy it securely inside the app, the website never handles payment.",
+      steps: paidSteps('<strong>&ldquo;Starter, $4/mo&rdquo;</strong> or <strong>&ldquo;Starter, $48/yr&rdquo;</strong>'),
+      note: PAID_NOTE
     },
     pro: {
       eyebrow: "Pro plan",
@@ -248,22 +255,15 @@ html[data-theme="light"] .dl-box{box-shadow:0 20px 50px rgba(20,45,80,.10)}
       steps: paidSteps('<strong>&ldquo;Pro, $8.99/mo&rdquo;</strong> or <strong>&ldquo;Pro, $89.99/yr&rdquo;</strong>'),
       note: PAID_NOTE
     },
-    lifetime: {
-      eyebrow: "Lifetime plan",
-      title: 'Get MakerQ <span class="grad">Lifetime</span>',
-      lead: "Lifetime is every feature, forever, one payment of <strong>$249.99</strong>. You buy it securely inside the app, the website never handles payment.",
-      steps: paidSteps('<strong>&ldquo;Lifetime, $249.99&rdquo;</strong>'),
-      note: PAID_NOTE
-    },
     generic: {
       eyebrow: "Get started",
       title: 'Get started with <span class="grad">MakerQ</span>',
-      lead: "Download the app, set your email, then pick your plan inside it. Free needs no purchase; Pro and Lifetime are bought securely in-app.",
+      lead: "Download the app, set your email, then pick your plan inside it. Free needs no purchase; Starter and Pro are bought securely in-app.",
       steps: [
         'Download &amp; install MakerQ using the button above, then launch it.',
         setEmail,
         "You're on the <strong>Free</strong> plan right away (up to 5 active projects). To go further, open <strong>Settings &rarr; License</strong>.",
-        'Under <strong>Upgrade</strong>, pick a plan, <strong>Pro $8.99/mo</strong> or <strong>$89.99/yr</strong>, or <strong>Lifetime $249.99</strong>. A secure Stripe checkout opens in your browser.',
+        'Under <strong>Upgrade</strong>, pick a plan, <strong>Starter $4/mo</strong> or <strong>$48/yr</strong>, or <strong>Pro $8.99/mo</strong> or <strong>$89.99/yr</strong>. A secure Stripe checkout opens in your browser.',
         'Pay. We email you an activation key right after checkout.',
         'Back in <strong>Settings &rarr; License</strong>, paste the key and click <strong>Activate</strong>. Everything unlocks.'
       ],
@@ -283,7 +283,7 @@ html[data-theme="light"] .dl-box{box-shadow:0 20px 50px rgba(20,45,80,.10)}
   }
   function currentPlan(){
     var p=(new URLSearchParams(location.search).get("plan")||"").toLowerCase();
-    return (p==="free"||p==="pro"||p==="lifetime")?p:"generic";
+    return (p==="free"||p==="starter"||p==="pro")?p:"generic";
   }
   render(currentPlan());
   var dl=document.getElementById("gs-download");

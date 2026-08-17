@@ -21,7 +21,7 @@ for its security, backups, and legal compliance.
 
 - **Account & license:** your name and email address, used to issue and validate your license and to
   provide support.
-- **Payments:** when you buy Pro or Lifetime, payment is processed by **Stripe**. We do **not** receive
+- **Payments:** when you buy Starter or Pro, payment is processed by **Stripe**. We do **not** receive
   or store your full card number. We receive limited transaction data (e.g., email, plan, payment
   status, card brand/last4) needed to grant your license.
 - **Activation keys:** we generate and email you an activation key, and store your email and that key
