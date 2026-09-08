@@ -224,7 +224,7 @@ html[data-theme="light"] .cta,html[data-theme="light"] details[open]{box-shadow:
 
     <details>
       <summary>Can I use MakerQ from my phone or tablet? <span class="tag">Pro</span></summary>
-      <p>Yes, with Pro. While MakerQ is running on your computer, any phone, tablet, or second computer on the same Wi-Fi or local network can open the app in a browser and use the same board and requests. Network sharing needs no setup beyond being on Pro.</p>
+      <p>Yes, with Pro. While MakerQ is running on your computer, any phone, tablet, or second computer on the same Wi-Fi or local network can open the app in a browser and use the same board and requests. Network sharing needs no setup beyond being on Pro: the app shows a QR code you scan to connect. One person edits at a time, so two computers can never overwrite each other.</p>
       <p>To use it away from that network, Pro also adds secure remote access over Tailscale, so your phone can reach MakerQ from anywhere. A native mobile app is on the way.</p>
     </details>
 
@@ -255,12 +255,12 @@ html[data-theme="light"] .cta,html[data-theme="light"] details[open]{box-shadow:
 
     <details>
       <summary>What is included in the free plan?</summary>
-      <p>The free plan covers organizing and pricing: up to 5 active projects, quote requests in the List and Kanban views with priorities and statuses, and the roll calculator with inventory tracking. No account and no cloud needed. Setting your own material and labour costs, and sending quotes to customers, start at Starter.</p>
+      <p>The free plan covers organizing and pricing: up to 5 active projects, quote requests in the List and Kanban views with priorities and statuses, the roll calculator with inventory tracking, and the Sticker Calculator. No account and no cloud needed. Setting your own material and labour costs, Quick Quote, and sending quotes to customers start at Starter.</p>
     </details>
 
     <details>
       <summary>What is the difference between Starter and Pro?</summary>
-      <p>Starter is the core quote, price and get paid loop: unlimited projects, your own material and labour costs, sending quotes to customers, and payment or checkout links in those emails. Pro adds everything else: invoices, CSV import and export of customers, custom shop and social links in emails, settings and client-info backup, AI triage and quote assist, hosted customer status and approval pages, embeddable web and Shopify intake forms, hosted email with no SMTP setup, and network sharing to a second computer or your phone.</p>
+      <p>Starter is the core quote, price and get paid loop: unlimited projects, your own material and labour costs, Quick Quote for pricing a print with no project attached, sending quotes to customers, and payment or checkout links in those emails. Pro adds everything else: invoices, CSV import and export of customers, custom shop and social links in emails, settings and client-info backup, AI triage and quote assist, hosted customer status and approval pages, embeddable web and Shopify intake forms, hosted email with no SMTP setup, and network sharing to a second computer or your phone.</p>
     </details>
 
     <details>
@@ -296,6 +296,19 @@ html[data-theme="light"] .cta,html[data-theme="light"] details[open]{box-shadow:
     <details>
       <summary>How does the pricing calculator work?</summary>
       <p>You set your inputs once, things like filament cost per spool, electricity, nozzle and sheet wear, labor rate, markup, and tax. From estimated grams and print hours the calculator works out your true cost and a suggested price, including quantity, shipping, and any rush or design fees. You can always adjust the final number before sending.</p>
+      <p>Jobs that need more than filament are covered too. Add outside materials such as paint, primer, epoxy, magnets, or heat-set inserts as saved presets, per unit or for the whole job. They join the cost after fail rate and complexity but before markup and tax, so a failed print does not inflate the tin of paint, and you still make margin on it. If a quote dips below your margin floor, the calculator warns you before it goes out.</p>
+    </details>
+
+    <details>
+      <summary>Can I price something without creating a project first? <span class="tag">Starter</span></summary>
+      <p>Yes. Quick Quote is the full 3D print calculator with no project attached, for the customer at the counter, on the phone, or in a DM who just wants a number. It uses the same engine and the same saved settings as the calculator on a project: grams, hours, quantity, fail rate, complexity, shipping, and outside materials. It ends in a customer reply you can copy, and a Save as New Request button that turns the quote into a real project with the price attached if they say yes.</p>
+      <p>Quick Quote is included with Starter and Pro. The calculator on a project is on every plan.</p>
+    </details>
+
+    <details>
+      <summary>Does MakerQ only quote 3D prints?</summary>
+      <p>No. The Sticker Calculator prices sticker and decal work, which has no grams and no hours, so it is priced by the sheet and divided by how many stickers fit on one. It accounts for paper, laminate, ink, printer wear, cutter wear, blade, mat, and your labour, multiplied by waste and reprints, then packaging, shipping, design or rush fees, markup, and tax. Anything with a lifespan is spread out for you: ink per set, printer per sheet, cutter per hour of cut time.</p>
+      <p>Paper and laminate are entered as pack price plus sheets per pack, and the per-sheet cost updates as you type, so you never do that arithmetic by hand. Letter, legal, and tabloid sheets are built in, and you can add your own sizes with a name plus width and height in inches, a 12x12 mat, 4x6 labels, or the same size in a different paper. Fill sizes from letter count estimates how many fit on the bigger sheets by area. It ends in the same copyable reply and the same Save as New Request as Quick Quote, and if you leave its markup and tax blank it uses the ones from your main calculator.</p>
     </details>
 
     <details>
