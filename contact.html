@@ -70,6 +70,7 @@ textarea{min-height:130px;resize:vertical}
 .msg.show{display:block}
 .msg.ok{background:rgba(0,232,144,.12);border:1px solid rgba(0,232,144,.4);color:#7ef0c0}
 .msg.err{background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.4);color:#ffb0b0}
+.captcha{margin:4px 0 10px;min-height:65px}
 .tiny{color:var(--muted);font-size:12px;margin-top:14px;text-align:center}
 .footer{padding:30px 0;color:var(--muted);font-size:14px;text-align:center;border-top:1px solid var(--border);margin-top:10px}
 /* Light / dark theme */
@@ -192,7 +193,11 @@ html[data-theme="light"] .card{box-shadow:0 24px 60px rgba(20,45,80,.12)}
         <label for="c-message">How can we help? <span class="req">*</span></label>
         <textarea id="c-message" name="message" required placeholder="Tell us a bit about your shop and what you're looking for..."></textarea>
       </div>
+      <!-- Cloudflare Turnstile. The widget adds a hidden "cf-turnstile-response"
+           field to this form; the contact function verifies it server-side. -->
+      <div class="captcha" id="c-captcha"></div>
       <button class="btn submit" type="submit" id="c-submit">Send message</button>
+      <div class="msg err" id="c-msg" role="alert"></div>
     </form>
     <p class="tiny">Prefer email? Reach our support desk at <a href="mailto:c3dprints@email.moosedesk.com" style="color:var(--blue-l);font-weight:700;">c3dprints@email.moosedesk.com</a>.</p>
   </div>
@@ -201,6 +206,28 @@ html[data-theme="light"] .card{box-shadow:0 24px 60px rgba(20,45,80,.12)}
 <footer class="footer"><div style="margin-bottom:8px"><a href="privacy.html" style="color:var(--muted);font-weight:600;margin:0 8px">Privacy</a><a href="terms.html" style="color:var(--muted);font-weight:600;margin:0 8px">Terms</a><a href="refund.html" style="color:var(--muted);font-weight:600;margin:0 8px">Refund</a></div>MakerQ.io &middot; &copy; C3D Prints. Made for makers.</footer>
 
 <script>
+/* Cloudflare Turnstile (anti-bot). Rendered explicitly so it matches the site theme. */
+var MQ_TURNSTILE_SITEKEY="0x4AAAAAAE_2k2K5ZMIY-soL";
+var mqCaptchaId=null;
+function mqTurnstileReady(){
+  var theme=document.documentElement.getAttribute("data-theme")==="light"?"light":"dark";
+  mqCaptchaId=turnstile.render("#c-captcha",{sitekey:MQ_TURNSTILE_SITEKEY,theme:theme,action:"contact"});
+}
+(function(){
+  var form=document.getElementById("contact-form"),msg=document.getElementById("c-msg");
+  form.addEventListener("submit",function(e){
+    var tok=form.querySelector('[name="cf-turnstile-response"]');
+    if(window.turnstile&&(!tok||!tok.value)){
+      e.preventDefault();
+      msg.textContent="Please complete the verification check above, then send again.";
+      msg.classList.add("show");
+    }
+  });
+  /* Tokens are single-use: after Back from the result page, get a fresh one. */
+  window.addEventListener("pageshow",function(e){
+    if(e.persisted&&window.turnstile&&mqCaptchaId!==null)turnstile.reset(mqCaptchaId);
+  });
+})();
 /* Stamp when the form was shown, so the server can reject instant (bot) submits. */
 (function(){var t=document.getElementById("c-ts");if(t)t.value=String(Date.now());})();
 /* Light/dark theme: saved choice wins, else follow the OS. */
@@ -235,5 +262,6 @@ html[data-theme="light"] .card{box-shadow:0 24px 60px rgba(20,45,80,.12)}
   document.addEventListener("keydown",function(e){if(e.key==="Escape")setOpen(false)});
 })();
 </script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=mqTurnstileReady" async defer></script>
 </body>
 </html>
