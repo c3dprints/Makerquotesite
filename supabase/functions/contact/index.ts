@@ -1,5 +1,5 @@
-// MakerQ contact-form relay (Supabase Edge Function).
-// Sends the makerq.io contact form via Resend FROM a verified makerq.io address
+// MakerQ / C3D Prints contact-form relay (Supabase Edge Function).
+// Serves the makerq.io and c3dprints.com (Shopify) contact forms. Sends via Resend FROM a verified makerq.io address
 // (so it passes SPF/DKIM and MooseDesk ticketizes it instead of spam-filtering),
 // with reply-to set to the sender.
 //
@@ -12,13 +12,22 @@
 // Secret:  RESEND_API_KEY  (RESEND_FROM / CONTACT_TO optional)
 //          RECAPTCHA_SECRET_KEY  (Google reCAPTCHA v2 checkbox; enforced when set)
 
-const ALLOWED = new Set(["https://makerq.io", "https://www.makerq.io"]);
+// Sites allowed to use this relay. The brand labels the ticket; "back" is the
+// form URL linked from the error page.
+type Site = { brand: string; back: string };
+const MAKERQ: Site = { brand: "MakerQ", back: "https://makerq.io/contact" };
+const C3D: Site = { brand: "C3D Prints", back: "https://c3dprints.com/pages/contact" };
+const SITES = new Map<string, Site>([
+  ["makerq.io", MAKERQ], ["www.makerq.io", MAKERQ],
+  ["c3dprints.com", C3D], ["www.c3dprints.com", C3D],
+]);
+const ALLOWED = new Set([...SITES.keys()].map((h) => `https://${h}`));
+const hostOf = (u: string | null) => { try { return u ? new URL(u).hostname : ""; } catch { return ""; } };
 const TO = Deno.env.get("CONTACT_TO") ?? "c3dprints@email.moosedesk.com";
 const FROM = Deno.env.get("RESEND_FROM") ?? "MakerQ <support@makerq.io>";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
 const SUPPORT = "c3dprints@email.moosedesk.com";
 const RECAPTCHA_SECRET = Deno.env.get("RECAPTCHA_SECRET_KEY") ?? "";
-const ALLOWED_HOSTS = new Set(["makerq.io", "www.makerq.io"]);
 
 // Verify a reCAPTCHA v2 token with Google. Tokens are single-use and expire
 // after 2 minutes, so this runs only once the form fields have validated.
@@ -30,7 +39,7 @@ async function verifyRecaptcha(token: string, ip: string | null): Promise<boolea
     const r = await fetch("https://www.google.com/recaptcha/api/siteverify", { method: "POST", body: form });
     const d = await r.json();
     if (!d.success) console.warn("reCAPTCHA rejected", d["error-codes"]);
-    return d.success === true && ALLOWED_HOSTS.has(d.hostname);
+    return d.success === true && SITES.has(d.hostname);
   } catch (e) {
     console.error("reCAPTCHA verify error", e);
     return false;
@@ -68,7 +77,10 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ error: "Bad request" }), { status: 400, headers: jsonHeaders });
   }
 
-  const next = (body._next || "").toString().trim();
+  // Only redirect back to our own sites (no open redirect).
+  const rawNext = (body._next || "").toString().trim();
+  const next = SITES.has(hostOf(rawNext)) ? rawNext : "";
+  const site = SITES.get(hostOf(next)) ?? SITES.get(hostOf(origin)) ?? MAKERQ;
   // Native (form POST) responses redirect; AJAX responses return JSON.
   const ok = () => next
     ? new Response(null, { status: 303, headers: { ...cors, Location: next } })
@@ -79,7 +91,7 @@ Deno.serve(async (req) => {
         `<body style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0b1623;color:#ddeeff;text-align:center;padding:64px 24px">` +
         `<h2 style="margin:0 0 10px">Sorry, that didn't go through</h2><p style="color:#9fb6d0">${esc(msg)}</p>` +
         `<p>Please email us at <a style="color:#33ccff" href="mailto:${SUPPORT}">${SUPPORT}</a>.</p>` +
-        `<p style="margin-top:22px"><a style="color:#33ccff" href="https://makerq.io/contact">Back to the form</a></p></body>`,
+        `<p style="margin-top:22px"><a style="color:#33ccff" href="${site.back}">Back to the form</a></p></body>`,
         { status: code, headers: { ...cors, "content-type": "text/html; charset=utf-8" } })
     : new Response(JSON.stringify({ error: msg }), { status: code, headers: jsonHeaders });
 
@@ -117,20 +129,20 @@ Deno.serve(async (req) => {
   }
 
   const html =
-    `<h2 style="margin:0 0 12px">New MakerQ contact</h2>` +
+    `<h2 style="margin:0 0 12px">New ${esc(site.brand)} contact</h2>` +
     `<p><strong>Name:</strong> ${esc(name)}</p><p><strong>Email:</strong> ${esc(email)}</p>` +
     (company ? `<p><strong>Company:</strong> ${esc(company)}</p>` : "") +
     (phone ? `<p><strong>Phone:</strong> ${esc(phone)}</p>` : "") +
     `<p><strong>Message:</strong></p><p>${esc(message).replace(/\n/g, "<br>")}</p>`;
   const text =
-    `New MakerQ contact\n\nName: ${name}\nEmail: ${email}\n` +
+    `New ${site.brand} contact\n\nName: ${name}\nEmail: ${email}\n` +
     (company ? `Company: ${company}\n` : "") + (phone ? `Phone: ${phone}\n` : "") +
     `\nMessage:\n${message}`;
 
   const resp = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "content-type": "application/json" },
-    body: JSON.stringify({ from: FROM, to: [TO], reply_to: email, subject: `New MakerQ contact from ${name}`, html, text }),
+    body: JSON.stringify({ from: FROM, to: [TO], reply_to: email, subject: `New ${site.brand} contact from ${name}`, html, text }),
   });
   if (!resp.ok) {
     console.error("Resend error", resp.status, await resp.text());
