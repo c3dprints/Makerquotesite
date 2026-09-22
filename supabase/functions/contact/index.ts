@@ -37,6 +37,20 @@ async function verifyRecaptcha(token: string, ip: string | null): Promise<boolea
   }
 }
 
+function corsHeaders(origin: string | null): HeadersInit {
+  const allow = origin && ALLOWED.has(origin) ? origin : "https://makerq.io";
+  return {
+    "Access-Control-Allow-Origin": allow,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "content-type",
+    "Vary": "Origin",
+  };
+}
+function esc(s: string): string {
+  return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c] as string));
+}
+const isEmail = (e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
 Deno.serve(async (req) => {
   const origin = req.headers.get("origin");
   const cors = corsHeaders(origin);
