@@ -10,48 +10,32 @@
 //
 // Deploy:  supabase functions deploy contact --no-verify-jwt --project-ref enyimtvgqzmpaiaeiyxj
 // Secret:  RESEND_API_KEY  (RESEND_FROM / CONTACT_TO optional)
-//          TURNSTILE_SECRET_KEY  (Cloudflare Turnstile captcha; enforced when set)
+//          RECAPTCHA_SECRET_KEY  (Google reCAPTCHA v2 checkbox; enforced when set)
 
 const ALLOWED = new Set(["https://makerq.io", "https://www.makerq.io"]);
 const TO = Deno.env.get("CONTACT_TO") ?? "c3dprints@email.moosedesk.com";
 const FROM = Deno.env.get("RESEND_FROM") ?? "MakerQ <support@makerq.io>";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
 const SUPPORT = "c3dprints@email.moosedesk.com";
-const TURNSTILE_SECRET = Deno.env.get("TURNSTILE_SECRET_KEY") ?? "";
+const RECAPTCHA_SECRET = Deno.env.get("RECAPTCHA_SECRET_KEY") ?? "";
 const ALLOWED_HOSTS = new Set(["makerq.io", "www.makerq.io"]);
 
-// Verify a Turnstile token with Cloudflare. Tokens are single-use and expire
-// after 5 minutes, so this runs only once the form fields have validated.
-async function verifyTurnstile(token: string, ip: string | null): Promise<boolean> {
+// Verify a reCAPTCHA v2 token with Google. Tokens are single-use and expire
+// after 2 minutes, so this runs only once the form fields have validated.
+async function verifyRecaptcha(token: string, ip: string | null): Promise<boolean> {
   if (!token) return false;
-  const form = new FormData();
-  form.append("secret", TURNSTILE_SECRET);
-  form.append("response", token);
+  const form = new URLSearchParams({ secret: RECAPTCHA_SECRET, response: token });
   if (ip) form.append("remoteip", ip);
   try {
-    const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: form });
+    const r = await fetch("https://www.google.com/recaptcha/api/siteverify", { method: "POST", body: form });
     const d = await r.json();
-    if (!d.success) console.warn("Turnstile rejected", d["error-codes"]);
+    if (!d.success) console.warn("reCAPTCHA rejected", d["error-codes"]);
     return d.success === true && ALLOWED_HOSTS.has(d.hostname);
   } catch (e) {
-    console.error("Turnstile verify error", e);
+    console.error("reCAPTCHA verify error", e);
     return false;
   }
 }
-
-function corsHeaders(origin: string | null): HeadersInit {
-  const allow = origin && ALLOWED.has(origin) ? origin : "https://makerq.io";
-  return {
-    "Access-Control-Allow-Origin": allow,
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "content-type",
-    "Vary": "Origin",
-  };
-}
-function esc(s: string): string {
-  return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c] as string));
-}
-const isEmail = (e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 
 Deno.serve(async (req) => {
   const origin = req.headers.get("origin");
@@ -106,16 +90,16 @@ Deno.serve(async (req) => {
   if (message.length > 5000) return fail("Message is too long.", 422);
   if (!RESEND_API_KEY) return fail("Server not configured.", 500);
 
-  // Captcha: enforced once TURNSTILE_SECRET_KEY is set (lets the page and the
+  // Captcha: enforced once RECAPTCHA_SECRET_KEY is set (lets the page and the
   // function deploy in either order without dropping real messages).
-  if (TURNSTILE_SECRET) {
+  if (RECAPTCHA_SECRET) {
     const ip = req.headers.get("cf-connecting-ip") ?? req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? null;
-    const token = (body["cf-turnstile-response"] || "").toString();
-    if (!(await verifyTurnstile(token, ip))) {
+    const token = (body["g-recaptcha-response"] || "").toString();
+    if (!(await verifyRecaptcha(token, ip))) {
       return fail("We couldn't verify you're human. Please go back, refresh the page, and try again.", 403);
     }
   } else {
-    console.warn("TURNSTILE_SECRET_KEY not set; captcha not enforced");
+    console.warn("RECAPTCHA_SECRET_KEY not set; captcha not enforced");
   }
 
   const html =
