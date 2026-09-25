@@ -136,6 +136,14 @@ gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
 .mq-card p{margin:0;color:var(--muted);font-size:15px}
 /* Two-up tool cards (Quick Quote + Sticker Calculator) */
 .mq-grid.two{grid-template-columns:repeat(2,1fr);max-width:1020px;margin:0 auto}
+.mq-card.wide{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center}
+.mq-card.wide h3{margin:0 0 6px}
+.mq-card.wide p{margin:0}
+.mq-card.wide .mq-ic{margin-bottom:0}
+.mq-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  color:var(--green);background:rgba(0,232,144,.12);border:1px solid rgba(0,232,144,.35);
+  padding:4px 10px;border-radius:999px;margin-bottom:8px}
+@media(max-width:860px){.mq-card.wide{grid-template-columns:1fr;gap:14px}}
 .mq-card.tool{position:relative;padding:28px}
 .mq-card.tool h3{font-size:22px}
 .mq-card.tool p{margin-bottom:16px}
@@ -423,6 +431,15 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
       <div class="mq-card mq-reveal"><div class="mq-ic">🧮</div><h3>Price automatically</h3><p>Set your rates once. MakerQ prices each print from material, weight, and time, and sticker work by the sheet. No mental math.</p></div>
       <div class="mq-card mq-reveal"><div class="mq-ic">🗂️</div><h3>Track visually</h3><p>Move jobs across a Kanban board and production queue so nothing slips through the cracks.</p></div>
       <div class="mq-card mq-reveal"><div class="mq-ic">✉️</div><h3>Send &amp; get paid</h3><p>Send branded quotes with checkout links from your own email in a couple of clicks.</p></div>
+      <div class="mq-card wide mq-reveal">
+        <div class="mq-ic">&#128248;</div>
+        <div>
+          <span class="mq-tag">New</span>
+          <h3>Trace a real part from a photo</h3>
+          <p>Lay your parts on a sheet of paper, photograph it from above, and the Outline Tracer gives you their true-size outlines as SVG or DXF, ready to turn into a drawer insert or tool tray. No calipers, no CAD sketching.</p>
+        </div>
+        <a class="mq-btn mq-btn-ghost" href="#tracer">See how it works</a>
+      </div>
     </div>
   </div>
 </section>
@@ -499,6 +516,28 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
       </div>
     </div>
     <p class="mq-compare-note mq-reveal" style="margin-top:24px">Quick Quote is included with Starter and Pro. The Sticker Calculator is on every plan, and if you leave its markup and tax blank it uses the ones from your main calculator.</p>
+  </div>
+</section>
+
+<!-- FEATURE: Outline Tracer -->
+<section class="mq-section alt" id="tracer">
+  <div class="mq-container mq-feature mq-reveal">
+    <div class="mq-feature-media">
+      <img class="mq-shotimg" src="img/tracer.jpg" alt="MakerQ Outline Tracer: a photographed sheet of paper with parts on it, traced into true-size outlines">
+    </div>
+    <div>
+      <span class="mq-eyebrow">Outline Tracer</span>
+      <h2 class="mq-h2" style="margin-top:14px">Turn a photo of your parts into a real-size outline</h2>
+      <p>Making a drawer insert, a Gridfinity pocket, a tool tray, or a foam cut-out means measuring awkward shapes. Instead, lay the parts on a sheet of paper, take a photo from straight above, and MakerQ traces their outlines at true size. The paper is the ruler: MakerQ knows how big a Letter or A4 sheet is, so it corrects the angle of your photo and gets the scale right.</p>
+      <ul class="mq-list">
+        <li>Exports SVG and DXF in real millimetres, ready for Fusion, Onshape, Inkscape, or your slicer</li>
+        <li>Drag the four corner markers for a tighter result: auto-detected corners land within about a millimetre, placed by hand around a tenth</li>
+        <li>Add clearance so the part drops into the pocket instead of jamming</li>
+        <li>Smooth the edges, ignore specks of dust, bridge a shiny edge that broke the outline, or keep a real hole like a handle opening</li>
+        <li>Works from a flatbed scan too, which skips the angle correction entirely</li>
+      </ul>
+      <p class="mq-compare-note" style="margin-top:18px">Included with Starter and Pro, and in the free trial. Check one known-size object before you print.</p>
+    </div>
   </div>
 </section>
 
@@ -627,6 +666,7 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
           <li>Everything in Free, unlimited projects</li>
           <li>Set your own material &amp; labour costs</li>
           <li>Quick Quote, price a print with no project</li>
+          <li>Outline Tracer, photo to true-size SVG or DXF</li>
           <li>Send quotes to customers</li>
           <li>Payment and checkout links in emails</li>
         </ul>
@@ -665,6 +705,7 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
             <tr><th>Active projects</th><td>Up to 5</td><td>Unlimited</td><td class="colpro">Unlimited</td></tr>
             <tr><th>Set your own material &amp; labour costs</th><td class="off">-</td><td class="on">&#10003;</td><td class="colpro on">&#10003;</td></tr>
             <tr><th>Quick Quote (price a print with no project)</th><td class="off">-</td><td class="on">&#10003;</td><td class="colpro on">&#10003;</td></tr>
+            <tr><th>Outline Tracer (photo to true-size SVG / DXF)</th><td class="off">-</td><td class="on">&#10003;</td><td class="colpro on">&#10003;</td></tr>
             <tr><th>Send quotes to customers</th><td class="off">-</td><td class="on">&#10003;</td><td class="colpro on">&#10003;</td></tr>
             <tr><th>Payment / checkout links in emails</th><td class="off">-</td><td class="on">&#10003;</td><td class="colpro on">&#10003;</td></tr>
             <tr><th>Invoices</th><td class="off">-</td><td class="off">-</td><td class="colpro on">&#10003;</td></tr>
