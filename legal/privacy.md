@@ -5,7 +5,7 @@
 
 **Effective date:** [EFFECTIVE_DATE]
 
-MakerQ is a product of [C3D Prints — your legal entity, e.g. "C3D Prints, LLC"] ("we", "us", "our").
+MakerQ is a product of C3D Prints ("we", "us", "our").
 This Privacy Policy explains what we collect when you visit makerq.io, purchase a license, or use
 the MakerQ desktop application.
 
@@ -16,6 +16,24 @@ customer details, uploaded files, and business settings you enter into MakerQ ar
 your machine** and are **never transmitted to, collected by, or stored by us.** We cannot see your
 business data or your customers' data. For that data, **you** are the controller and are responsible
 for its security, backups, and legal compliance.
+
+## MakerQ Cloud (optional)
+
+MakerQ Cloud is an optional online version of MakerQ, included with Pro and Lifetime. If you create a
+Cloud account, the quote requests, customer details, uploaded files and settings you put into it are
+stored by us, using our hosting providers, so that you can reach them from any browser or computer.
+The self-hosted desktop app described above does not change: nothing is sent to us unless you choose
+to use Cloud or to move your desktop data into it.
+
+- **What we store:** your shop name, your sign-in email, a securely hashed password, and the business
+  data you enter or move into your Cloud shop.
+- **How we use it:** only to provide MakerQ Cloud to you. We do not sell it, and we do not use your
+  customers' data for anything else.
+- **Separation:** each Cloud shop is kept apart from every other shop. A sign-in only opens its own shop.
+- **Email verification:** new Cloud accounts confirm their email address with a one-time code.
+- **Deleting your data:** email [SUPPORT_EMAIL] to close your Cloud account and delete its data.
+
+For your customers' data in Cloud, you remain the controller and we process it on your behalf.
 
 ## Information we collect
 
@@ -79,5 +97,5 @@ makerq.io.
 
 ## Contact
 
-[C3D Prints — legal entity].
+C3D Prints.
 Email: [SUPPORT_EMAIL].

@@ -15,7 +15,7 @@ GA_ID = "G-365JP65BHP"
 
 # --- Fill these in, then re-run to finalize -------------------------------
 CONFIG = {
-    "EFFECTIVE_DATE": "July 15, 2026",
+    "EFFECTIVE_DATE": "September 26, 2026",
     "LEGAL_ENTITY":   "C3D Prints",
     "SUPPORT_EMAIL":  "Hi@c3dprints.com",
     "MAILING_ADDRESS": "42 Revere Beach Pkwy, Chelsea, MA, USA",
