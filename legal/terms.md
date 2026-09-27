@@ -19,9 +19,10 @@ computer; your business data stays on your machine (see our Privacy Policy).
 - **Free**, up to 5 active projects, at no cost. Managing quote requests, the roll calculator, and
   inventory tracking.
 - **Starter**, **$4/month** or **$48/year** (subscription). Unlimited projects, your own material and
-  labour costs, sending quotes to customers, and payment or checkout links in those emails.
-- **Pro**, **$8.99/month** or **$89.99/year** (subscription). Everything in Starter plus invoices,
-  customer CSV import and export, AI triage and quote assist, hosted customer pages and intake forms,
+  labour costs, sending quotes to customers, payment or checkout links in those emails, invoices,
+  customer CSV import and export, custom shop and social links, and settings backup.
+- **Pro**, **$8.99/month** or **$89.99/year** (subscription). Everything in Starter plus AI triage
+  and quote assist, hosted customer pages and intake forms,
   hosted email, and network sharing.
 
 The **Lifetime** plan is no longer offered. Existing Lifetime licenses remain valid and keep every
