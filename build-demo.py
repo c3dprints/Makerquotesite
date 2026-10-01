@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Rebuild demo/app.html from the CURRENT app source (admin.html).
 
-    ~/Documents/c3dprints-quote-portal/backend/.venv/bin/python build-demo.py
+    "D:/git projects/printcost/c3dprints-quote-portal/backend/backend/.buildvenv/Scripts/python.exe" build-demo.py
+    (or set MAKERQ_REPO to the c3dprints-quote-portal checkout)
 
 Boots the real backend with sample data, records the API responses the UI
 needs, then writes demo/app.html: the real admin UI + a fetch mock serving
@@ -10,14 +11,26 @@ disabled (with a toast), smaller header logo for the framed view, demo pill.
 Run this whenever admin.html changes so the demo matches the app.
 """
 
-import json, os, re, signal, subprocess, sys, tempfile, time
+import datetime, json, os, re, signal, subprocess, sys, tempfile, time
 import urllib.request
 
-REPO = os.path.expanduser("~/Documents/c3dprints-quote-portal")
+_REPO_CANDIDATES = [os.environ.get("MAKERQ_REPO") or "",
+                    "D:/git projects/printcost/c3dprints-quote-portal",
+                    os.path.expanduser("~/Documents/c3dprints-quote-portal")]
+REPO = next(p for p in _REPO_CANDIDATES if p and os.path.isdir(p))
+# The live app tree is backend/backend (main.py + updater.py); older checkouts had it in backend/.
+BACKEND = next(p for p in (os.path.join(REPO, "backend", "backend"), os.path.join(REPO, "backend"))
+               if os.path.isfile(os.path.join(p, "main.py")))
 SITE = os.path.dirname(os.path.abspath(__file__))
 PORT = 8856
 BASE = f"http://127.0.0.1:{PORT}"
-APP_VERSION = "1.1.42"
+APP_VERSION = re.search(r'VERSION\s*=\s*"([^"]+)"',
+                        open(os.path.join(BACKEND, "updater.py"), encoding="utf-8").read()).group(1)
+TODAY = datetime.date.today()
+
+
+def days_from_today(n):
+    return (TODAY + datetime.timedelta(days=n)).isoformat()
 
 sys.path.insert(0, os.path.join(REPO, "tools"))
 import gen_license  # noqa: E402
@@ -31,17 +44,45 @@ def http(method, path, token=None, body=None):
     with urllib.request.urlopen(req, data, timeout=15) as r:
         return json.loads(r.read().decode())
 
+def demo_license():
+    """Sign the sample "Demo Shop" lifetime license.
+
+    Uses the vendor key when this machine has it. Otherwise it makes a throwaway Ed25519
+    pair that lives only in memory for this run: the temporary recording server below is
+    told to trust its public half, the shipped app is untouched, and the demo page never
+    contains a key (only the /admin/license status, which has no key in it)."""
+    try:
+        gen_license._load_private_key("")
+        return gen_license.mint_key("Demo Shop", "demo@makerq.io", "lifetime", 0)[0], None
+    except SystemExit:
+        from cryptography.hazmat.primitives import serialization
+        from cryptography.hazmat.primitives.asymmetric import ed25519
+        priv = ed25519.Ed25519PrivateKey.generate()
+        raw = priv.private_bytes(serialization.Encoding.Raw, serialization.PrivateFormat.Raw,
+                                 serialization.NoEncryption())
+        pub = priv.public_key().public_bytes(serialization.Encoding.Raw, serialization.PublicFormat.Raw)
+        print("vendor key not found: signing the demo license with a throwaway key")
+        return gen_license.mint_key("Demo Shop", "demo@makerq.io", "lifetime", 0, private_key=raw.hex())[0], pub.hex()
+
+
 def record_canned():
     data_dir = tempfile.mkdtemp(prefix="mq_demo_")
-    key, _ = gen_license.mint_key("Demo Shop", "demo@makerq.io", "lifetime", 0)
+    key, demo_pub = demo_license()
     json.dump({"license_key": key}, open(os.path.join(data_dir, "license.json"), "w"))
     env = dict(os.environ, DB_ENGINE="sqlite", SQLITE_PATH=os.path.join(data_dir, "c3d.db"),
                STORAGE_BACKEND="local", UPLOAD_DIR=os.path.join(data_dir, "uploads"),
                LICENSE_STATE_PATH=os.path.join(data_dir, "license.json"),
-               JWT_SECRET="demo", ADMIN_USERNAME="admin", ADMIN_PASSWORD="admin", PORT=str(PORT))
-    proc = subprocess.Popen([sys.executable, "-m", "uvicorn", "main:app", "--host", "127.0.0.1",
-                             "--port", str(PORT), "--log-level", "warning"],
-                            cwd=os.path.join(REPO, "backend"), env=env)
+               JWT_SECRET="demo", ADMIN_USERNAME="admin", ADMIN_PASSWORD="admin", PORT=str(PORT),
+               MAKERQ_DATA_DIR=data_dir, MAKERQ_CLOUD_BETA="0")
+    if demo_pub:
+        cmd = [sys.executable, "-c",
+               "import sys, licensing; licensing.LICENSE_PUBLIC_KEY_HEX = sys.argv[1]; import uvicorn; "
+               "uvicorn.run('main:app', host='127.0.0.1', port=int(sys.argv[2]), log_level='warning')",
+               demo_pub, str(PORT)]
+    else:
+        cmd = [sys.executable, "-m", "uvicorn", "main:app", "--host", "127.0.0.1",
+               "--port", str(PORT), "--log-level", "warning"]
+    proc = subprocess.Popen(cmd, cwd=BACKEND, env=env)
     try:
         for _ in range(80):
             try:
@@ -50,6 +91,11 @@ def record_canned():
             except Exception:
                 time.sleep(0.5)
         tok = http("POST", "/admin/login", body={"username": "admin", "password": "admin"})["token"]
+        try:
+            http("PUT", "/admin/settings/project-number", tok,
+                 {"enabled": True, "prefix": "MQ-", "suffix": "", "digits": 4, "next": 1})
+        except Exception as ex:
+            print("project numbers:", ex)
         seed = [("Jordan Alvarez", "jordan@example.com", "Cosplay helmet, smooth finish", "PLA", "Metallic Silver", "Quoted", 2),
                 ("Marisol Chen", "marisol@example.com", "FPV drone frame, carbon look", "PETG", "Black", "Approved", 4),
                 ("Devin Wright", "devin@example.com", "Tabletop miniatures set (12)", "Resin", "Grey Primer", "Printing", 12),
@@ -61,7 +107,7 @@ def record_canned():
         for n, e, d, mt, c, s, q in seed:
             http("POST", "/admin/requests", tok, {"name": n, "email": e, "project_description": d,
                  "material_preference": mt, "color_preference": c, "quantity": q,
-                 "delivery_method": "Ship", "deadline": "2026-07-25"})
+                 "delivery_method": "Ship", "deadline": days_from_today(10)})
         want = {n: s for (n, _, _, _, _, s, _) in seed}
         for r in http("GET", "/admin/requests", tok):
             nm = r.get("name")
@@ -74,10 +120,33 @@ def record_canned():
             http("POST", "/admin/printers", tok, {"name": "Bambu X1C", "model": "X1 Carbon", "status": "Printing"})
         except Exception:
             pass
+        # Folders, including a subfolder, so the demo shows the folder tree and drag and drop.
+        try:
+            ids = {r.get("name"): r["id"] for r in http("GET", "/admin/requests", tok)}
+            cos = http("POST", "/admin/folders", tok, {"name": "Cosplay"})
+            cos_id = (cos.get("folder") or cos).get("id")
+            hel = http("POST", "/admin/folders", tok, {"name": "Helmets", "parent_id": cos_id})
+            hel_id = (hel.get("folder") or hel).get("id")
+            dr = http("POST", "/admin/folders", tok, {"name": "Drone builds"})
+            dr_id = (dr.get("folder") or dr).get("id")
+            for who, fid in (("Jordan Alvarez", hel_id), ("Marisol Chen", dr_id), ("Devin Wright", cos_id)):
+                if who in ids and fid:
+                    http("PATCH", f"/admin/requests/{ids[who]}/folder", tok, {"folder_id": fid})
+        except Exception as ex:
+            print("folders:", ex)
+        try:
+            http("POST", "/admin/edit-lock/acquire", tok, {"device": "Demo", "force": True})
+        except Exception:
+            pass
         canned = {}
         for ep in ["/health", "/admin/requests", "/admin/license", "/admin/analytics", "/admin/account",
                    "/admin/settings/email", "/admin/settings/smtp", "/admin/settings/shop-links",
-                   "/admin/settings/pricing", "/admin/forms", "/admin/production-queue"]:
+                   "/admin/settings/pricing", "/admin/forms", "/admin/production-queue",
+                   "/admin/folders", "/admin/printers", "/admin/edit-lock", "/cloud/info",
+                   "/admin/settings/project-number", "/admin/settings/invoice", "/admin/settings/inventory",
+                   "/admin/settings/workform", "/admin/settings/roll-products", "/admin/settings/supplies",
+                   "/admin/settings/quote-template", "/admin/settings/checkout-links",
+                   "/admin/settings/auto-logout", "/admin/failures/summary"]:
             try:
                 canned[ep] = http("GET", ep, tok)
             except Exception as ex:
@@ -163,9 +232,9 @@ def enrich(canned):
                                      "hollow to save material, add drain holes. ~95g resin, ~9.5h print + cure."),
     }
     extra = {
-        "Owen Brooks": dict(phone="(415) 555-0142", use_case="Desk accessory", due="2026-07-24"),
-        "Marisol Chen": dict(phone="(408) 555-0177", use_case="FPV racing drone", due="2026-07-26"),
-        "Devin Wright": dict(phone="(503) 555-0119", use_case="Tabletop gaming", due="2026-07-29"),
+        "Owen Brooks": dict(phone="(415) 555-0142", use_case="Desk accessory", due=days_from_today(3)),
+        "Marisol Chen": dict(phone="(408) 555-0177", use_case="FPV racing drone", due=days_from_today(6)),
+        "Devin Wright": dict(phone="(503) 555-0119", use_case="Tabletop gaming", due=days_from_today(9)),
     }
     for name, cfg in plan.items():
         r = by_name.get(name)
@@ -190,7 +259,7 @@ def enrich(canned):
     log_plan = {"Owen Brooks": [("Quote sent", True), ("Checkout link sent", True)],
                 "Marisol Chen": [("Quote sent", True), ("Approval link sent", True), ("Order approved", True)],
                 "Lena Fischer": [("Quote sent", True), ("Tracking link sent", True), ("Order completed", True)]}
-    stamps = ["2026-07-12T15:04:00", "2026-07-13T09:22:00", "2026-07-13T16:41:00"]
+    stamps = [days_from_today(-4) + "T15:04:00", days_from_today(-3) + "T09:22:00", days_from_today(-3) + "T16:41:00"]
     for name, items in log_plan.items():
         r = by_name.get(name)
         if not r:
@@ -205,7 +274,7 @@ def enrich(canned):
 def build(canned):
     _cands = [os.path.join(REPO, "backend", "admin.html"), os.path.join(REPO, "admin.html")]
     admin_path = next((p for p in _cands if os.path.exists(p)), _cands[-1])
-    admin = open(admin_path).read()
+    admin = open(admin_path, encoding="utf-8").read()
     print("admin source:", admin_path)
     shim = """<script>
 /* ===== MakerQ interactive demo shim: mock backend, sample data, nothing saved ===== */
@@ -272,6 +341,32 @@ try{ localStorage.setItem("mq_tour_offered","1"); localStorage.setItem("mq_tour_
     }
     var list = D["/admin/requests"]||[];
     function findReq(id){ return list.find(function(r){ return Number(r.id)===Number(id); }); }
+    var F = D["/admin/folders"] = (D["/admin/folders"]||[]);
+    function recount(){ F.forEach(function(f){ f.count = list.filter(function(r){
+      return Number(r.folder_id)===Number(f.id) && r.status!=="Archived"; }).length; }); }
+    if (/^\\/admin\\/edit-lock\\//.test(path)) return J(Object.assign({success:true}, D["/admin/edit-lock"]||{}));
+    var mv = path.match(/^\\/admin\\/requests\\/(\\d+)\\/folder$/);
+    if (mv) { var rq=findReq(mv[1]); if(rq){ rq.folder_id = body.folder_id==null?null:Number(body.folder_id); } recount();
+      return J({success:true, request:{id:Number(mv[1]), folder_id:rq?rq.folder_id:null}}); }
+    if (path === "/admin/folders" && method === "POST") {
+      var fid = F.length ? Math.max.apply(null, F.map(function(f){return f.id}))+1 : 1;
+      var nf = {id:fid, name:String(body.name||"New folder"), position:F.length+1,
+                parent_id:body.parent_id==null?null:Number(body.parent_id), count:0};
+      F.push(nf); return J(Object.assign({success:true, folder:nf}, nf));
+    }
+    if ((path === "/admin/folders/layout" || path === "/admin/folders/order") && method === "PUT") {
+      (body.items||body.ids||[]).forEach(function(it, i){ var id = typeof it==="object" ? it.id : it;
+        var f = F.find(function(x){return Number(x.id)===Number(id)}); if(!f) return;
+        f.position = i+1; if (typeof it==="object") f.parent_id = it.parent_id==null?null:Number(it.parent_id); });
+      F.sort(function(a,b){return a.position-b.position}); return J({success:true, folders:F});
+    }
+    var fm = path.match(/^\\/admin\\/folders\\/(\\d+)$/);
+    if (fm) { var fo = F.find(function(x){return Number(x.id)===Number(fm[1])});
+      if (method === "PATCH" && fo && body.name) { fo.name = String(body.name); return J(Object.assign({success:true, folder:fo}, fo)); }
+      if (method === "DELETE" && fo) { var up = fo.parent_id==null?null:fo.parent_id;
+        list.forEach(function(r){ if(Number(r.folder_id)===Number(fo.id)) r.folder_id = up; });
+        F.forEach(function(x){ if(Number(x.parent_id)===Number(fo.id)) x.parent_id = up; });
+        F.splice(F.indexOf(fo),1); recount(); return J({success:true}); } }
     var mid = path.match(/^\\/admin\\/requests\\/(\\d+)\\/([a-z-]+)$/);
     if (mid) {
       var r = findReq(mid[1]); var act = mid[2];
@@ -360,7 +455,7 @@ window.openEmailImport = function(){ try{ toast("Settings are disabled in this d
     if "<title>" in demo and "MakerQ Demo" not in demo:
         demo = demo.replace("<title>", "<title>MakerQ Demo - ", 1)
     out = os.path.join(SITE, "demo", "app.html")
-    open(out, "w").write(demo)
+    open(out, "w", encoding="utf-8", newline="\n").write(demo)
     print("wrote", out, round(len(demo) / 1024), "KB")
 
 if __name__ == "__main__":

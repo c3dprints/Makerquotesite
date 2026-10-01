@@ -406,13 +406,13 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
     <div class="mq-hero-copy">
       <span class="mq-eyebrow">For 3D print shops</span>
       <h1 class="mq-h1" style="margin-top:18px">Quote 3D prints in minutes, <span class="mq-grad">not emails.</span></h1>
-      <p class="mq-lead" style="margin-top:18px">MakerQ turns scattered quote requests into one organized, auto-priced, ready-to-send pipeline. It runs on your own computer, so your customer data never leaves your desk.</p>
+      <p class="mq-lead" style="margin-top:18px">MakerQ turns scattered quote requests into one organized, auto-priced, ready-to-send pipeline. Run it on your own computer and your customer data never leaves your desk, or use MakerQ Cloud and open your shop in any browser.</p>
       <div class="mq-hero-actions">
         <a class="mq-btn mq-btn-primary" href="get-started?plan=free">Get the app <span class="arr">&rarr;</span></a>
         <a class="mq-btn mq-btn-ghost" href="demo/">Try the live demo</a>
         <a class="mq-btn mq-btn-ghost" href="#how">See how it works</a>
       </div>
-      <p class="mq-note">Start free, no account, no cloud. Windows and macOS.</p>
+      <p class="mq-note">Start free on Windows or macOS, no account needed. MakerQ Cloud is included with Pro.</p>
     </div>
     <!-- Hero visual (swap for your own screenshot anytime) -->
     <img class="mq-heroimg" src="img/kanban.png" alt="MakerQ Kanban board tracking print jobs">
@@ -430,11 +430,19 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
       <div class="mq-card mq-reveal"><div class="mq-ic">📥</div><h3>Collect requests</h3><p>An intake form you can embed on your website or Shopify store drops every request straight into your queue.</p></div>
       <div class="mq-card mq-reveal"><div class="mq-ic">🧮</div><h3>Price automatically</h3><p>Set your rates once. MakerQ prices each print from material, weight, and time, and sticker work by the sheet. No mental math.</p></div>
       <div class="mq-card mq-reveal"><div class="mq-ic">🗂️</div><h3>Track visually</h3><p>Move jobs across a Kanban board and production queue so nothing slips through the cracks.</p></div>
-      <div class="mq-card mq-reveal"><div class="mq-ic">✉️</div><h3>Send &amp; get paid</h3><p>Send branded quotes with checkout links from your own email in a couple of clicks.</p></div>
+      <div class="mq-card mq-reveal"><div class="mq-ic">✉️</div><h3>Send &amp; get paid</h3><p>Send quotes in your own words with checkout links, let customers approve and message you from their status page, then send an invoice when the job is done.</p></div>
+      <div class="mq-card wide mq-reveal">
+        <div class="mq-ic">&#9729;&#65039;</div>
+        <div>
+          <span class="mq-tag">New</span>
+          <h3>MakerQ Cloud: your shop in any browser</h3>
+          <p>The same MakerQ on the web and in the desktop app, with the same projects everywhere. Start a quote on the shop PC and finish it on your laptop. Included with Pro and existing Lifetime licenses, and your desktop data moves over in a few clicks.</p>
+        </div>
+        <a class="mq-btn mq-btn-ghost" href="#cloud">See MakerQ Cloud</a>
+      </div>
       <div class="mq-card wide mq-reveal">
         <div class="mq-ic">&#128248;</div>
         <div>
-          <span class="mq-tag">New</span>
           <h3>Trace a real part from a photo</h3>
           <p>Lay your parts on a sheet of paper, photograph it from above, and the Outline Tracer gives you their true-size outlines as SVG or DXF, ready to turn into a drawer insert or tool tray. No calipers, no CAD sketching.</p>
         </div>
@@ -457,6 +465,8 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
       <ul class="mq-list">
         <li>Drag-and-drop STL and 3MF file uploads, download them all as one zip</li>
         <li>Embeddable intake forms for your website or Shopify, with bot spam quarantined before it reaches your board</li>
+        <li>An optional human check (free Cloudflare Turnstile, usually invisible to real customers) to stop bots at the door</li>
+        <li>Duplicate a form, and change any field's type or make it required or optional without rebuilding it</li>
         <li>Import requests straight from your inbox</li>
         <li>Lay out the project view your way: show, hide, and reorder every section</li>
       </ul>
@@ -478,7 +488,8 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
         <li>Fully adjustable pricing settings</li>
         <li>Auto-price by material, weight, and print time</li>
         <li>Outside materials too: paint, epoxy, heat-set inserts, priced per unit or per job</li>
-        <li>Optional AI quote assistant on Pro</li>
+        <li>Write your own quote emails: up to three templates with placeholders and a live preview</li>
+        <li>Optional AI quote assistant on Pro, or switch AI off entirely in one click</li>
       </ul>
     </div>
   </div>
@@ -502,6 +513,7 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
           <li>Your saved rates and settings, nothing to re-enter</li>
           <li>Ends in a customer reply you can copy and send</li>
           <li>If they say yes, Save as New Request turns it into a real project with the price attached</li>
+          <li>A built-in inches and millimetres converter for customers who measure differently than you model</li>
         </ul>
       </div>
       <div class="mq-card tool mq-reveal">
@@ -550,9 +562,12 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
     <div>
       <span class="mq-eyebrow">Manage</span>
       <h2 class="mq-h2" style="margin-top:14px">See your whole shop at a glance</h2>
-      <p>Track every job from new request to shipped on a visual Kanban board, and keep your printers busy with a production queue sorted by due date. Search the whole board, group jobs into folders, and draft a follow-up for a quote that has gone quiet in one click.</p>
+      <p>Track every job from new request to shipped on a visual Kanban board, and keep your printers busy with a production queue sorted by due date. Search the whole board, organize jobs into folders and subfolders, and draft a follow-up for a quote that has gone quiet in one click.</p>
       <ul class="mq-list">
-        <li>Kanban pipeline with search, folders, due-date chips, and collapsible columns</li>
+        <li>Kanban pipeline with search, due-date chips, and collapsible columns</li>
+        <li>Folders and subfolders: drag projects and folders wherever you want them</li>
+        <li>Project numbers with your own prefix, like MQ-0001, and search by number</li>
+        <li>Changes save automatically as you work</li>
         <li>Production queue and printer tracking</li>
         <li>Stock deducts itself the moment a job starts printing</li>
         <li>Business analytics: revenue and pipeline</li>
@@ -575,6 +590,8 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
         <li>Per-customer order history and status</li>
         <li>Deadlines, prices, and deposits at a glance</li>
         <li>A log of every quote email you've sent</li>
+        <li>Invoices you can print or email, with your own message and your shop's websites</li>
+        <li>Import and export your customer list as CSV</li>
       </ul>
     </div>
   </div>
@@ -589,12 +606,14 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
     <div>
       <span class="mq-eyebrow">Customer status page</span>
       <h2 class="mq-h2" style="margin-top:14px">Send a tracking link, cut the &ldquo;where's my order?&rdquo; emails</h2>
-      <p>With one click you send each customer a private status link. They open a clean page that shows exactly where their order stands, the price, and every step from quote to shipped, no account, no app, no phone tag. Add a progress note or mark a deposit as partially paid and they see it on the same page.</p>
+      <p>With one click you send each customer a private status link. They open a clean page that shows exactly where their order stands, the price, and every step from quote to shipped, no account, no app, no phone tag. Post an update with a photo, send a design proof to approve, and answer their questions, all on the same page.</p>
       <ul class="mq-list">
         <li>One-click tracking &amp; approval links per order</li>
-        <li>Customers see live status, price, progress, and your notes</li>
-        <li>Partial payments reflected as they happen</li>
-        <li>Your shop's name and logo, on your own status page</li>
+        <li>Customers message you from their page, and your reply shows up right there (or reply straight from your email)</li>
+        <li>Design proofs they approve with one click, so they see the artwork before the price</li>
+        <li>Updates with photos, plus a &ldquo;new since your last visit&rdquo; marker</li>
+        <li>Live status, price, progress, and partial payments as they happen</li>
+        <li>Your shop's name, logo, and shop links, in light or dark to suit their phone</li>
       </ul>
     </div>
   </div>
@@ -608,12 +627,13 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
     </div>
     <div>
       <span class="mq-eyebrow">Yours to keep</span>
-      <h2 class="mq-h2" style="margin-top:14px">Runs on your computer, not someone's cloud</h2>
-      <p>MakerQ is a real desktop app for Windows and macOS. Your quotes, files, and customer list stay on your machine, not a vendor's cloud, and it quietly updates itself. When you are away from the shop, you can reach your own instance securely from anywhere, including your phone.</p>
+      <h2 class="mq-h2" style="margin-top:14px">Runs on your computer, or in MakerQ Cloud. Your choice.</h2>
+      <p>MakerQ is a real desktop app for Windows and macOS. Your quotes, files, and customer list stay on your machine, and it quietly updates itself. When you are away from the shop, you can reach your own instance securely from anywhere, including your phone. Want it in the browser instead? MakerQ Cloud on Pro puts the same shop online, and the desktop app keeps working exactly as it does today.</p>
       <ul class="mq-list">
         <li>Works offline, your data stays local</li>
         <li>Share with a second PC or your phone on Pro, one person edits at a time so nobody overwrites anyone</li>
         <li>Secure remote access from anywhere, including mobile</li>
+        <li>Or MakerQ Cloud on Pro: the same projects in any browser, each shop kept private</li>
         <li>Simple monthly or yearly plans, no per-quote fees</li>
         <li>Automatic updates built in</li>
       </ul>

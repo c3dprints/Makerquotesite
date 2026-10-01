@@ -17,7 +17,8 @@
     ["Kanban and production",    "manage"],
     ["Customers and orders",     "customers"],
     ["Customer status pages",    "status"],
-    ["Runs on your computer",    "local"]
+    ["Runs on your computer",    "local"],
+    ["MakerQ Cloud",             "cloud"]
   ];
 
   // On index.html the links are bare hashes; elsewhere they have to point back at it.
