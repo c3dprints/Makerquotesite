@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-365JP65BHP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your data and security | MakerQ</title>
+<!-- Open Graph / social share (managed) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MakerQ">
+<meta property="og:url" content="https://makerq.io/security">
+<meta property="og:title" content="Your data and security | MakerQ">
+<meta property="og:description" content="Where MakerQ keeps your shop's data on the desktop app and in MakerQ Cloud, exactly what leaves your computer and when, and how Cloud keeps every shop separate.">
+<meta property="og:image" content="https://makerq.io/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MakerQ, quoting software for 3D print shops">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Your data and security | MakerQ">
+<meta name="twitter:description" content="Where MakerQ keeps your shop's data on the desktop app and in MakerQ Cloud, exactly what leaves your computer and when, and how Cloud keeps every shop separate.">
+<meta name="twitter:image" content="https://makerq.io/img/og-image.png">
+<link rel="canonical" href="https://makerq.io/security">
+<meta name="description" content="Where MakerQ keeps your shop's data on the desktop app and in MakerQ Cloud, exactly what leaves your computer and when, and how Cloud keeps every shop separate.">
+<style>
+:root{--bg:#0b1623;--surface:#111e2e;--card:#162236;--input:#0d1928;--border:#1e3550;
+  --blue:#00aaff;--blue-l:#33ccff;--orange:#ff6b1a;--orange-l:#ff8c3a;--green:#00e890;
+  --text:#ddeeff;--muted:#9fb6d0}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:100;background:rgba(11,22,35,.9);backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1120px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
+.brand{font-weight:800;font-size:20px;letter-spacing:-.5px}.brand span{color:var(--orange-l)}
+.links{display:flex;gap:4px}
+.links a{padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:600;font-size:14px;transition:color .15s,background .15s}
+.links a:hover,.links a.active{color:var(--text);background:rgba(0,170,255,.12)}
+.right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.nav-mail{color:var(--muted);font-size:13px;font-weight:600}.nav-mail:hover{color:var(--blue-l)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14px;padding:9px 18px;
+  border-radius:11px;cursor:pointer;border:none;background:linear-gradient(135deg,var(--orange),var(--orange-l));color:#fff;
+  box-shadow:0 8px 26px rgba(255,107,26,.35);transition:transform .12s,filter .2s}
+.btn:hover{filter:brightness(1.07);transform:translateY(-2px)}
+@media(max-width:820px){.links a{padding:8px 8px;font-size:13px}}
+.wrap{max-width:840px;margin:0 auto;padding:60px 24px 70px;text-align:center}
+.badge{display:inline-block;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--orange-l);background:rgba(255,107,26,.12);border:1px solid rgba(255,107,26,.4);padding:6px 14px;border-radius:999px}
+h1{font-size:clamp(32px,5vw,50px);margin:18px 0 10px;letter-spacing:-.5px}
+h1 .grad{background:linear-gradient(100deg,var(--blue-l),var(--orange-l));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:18px;max-width:52ch;margin:0 auto 38px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:40px;text-align:left}
+.plat{position:relative;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;
+  box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.plat .soon{position:absolute;top:18px;right:18px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  color:var(--orange-l);background:rgba(255,107,26,.14);border:1px solid rgba(255,107,26,.4);padding:3px 10px;border-radius:999px}
+.plat .ic{width:52px;height:52px;color:var(--blue-l);margin-bottom:16px}
+.plat h2{margin:0 0 4px;font-size:22px}
+.plat p{margin:0 0 20px;color:var(--muted);font-size:14px}
+.disabled{width:100%;justify-content:center;background:var(--input);color:var(--muted);
+  border:1px solid var(--border);box-shadow:none;cursor:not-allowed;font-size:15px;padding:13px}
+.disabled:hover{transform:none;filter:none}
+.dl{width:100%;justify-content:center;font-size:15px;padding:13px}
+.plat .soon.ready{color:var(--green);background:rgba(0,232,144,.12);border-color:rgba(0,232,144,.4)}
+.notify{margin-top:36px}
+.notify .btn{font-size:16px;padding:14px 28px}
+.tiny{color:var(--muted);font-size:13px;margin-top:16px}
+.footer{padding:30px 0;color:var(--muted);font-size:14px;text-align:center;border-top:1px solid var(--border);margin-top:20px}
+@media(max-width:640px){.cards{grid-template-columns:1fr;gap:24px}}
+/* Light / dark theme */
+html[data-theme="light"]{--bg:#eef3f9;--surface:#ffffff;--card:#ffffff;--input:#eef2f8;
+  --border:#d7e2f0;--text:#13233a;--muted:#59708a}
+html[data-theme="light"] body{background:var(--bg)}
+html[data-theme="light"] .nav{background:rgba(255,255,255,.86)}
+html[data-theme="light"] .plat{box-shadow:0 20px 50px rgba(20,45,80,.10)}
+html[data-theme="light"] .disabled{color:#8aa0b8}
+.mq-theme-btn{width:38px;height:38px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;display:inline-grid;place-items:center;padding:0;
+  transition:transform .15s ease,border-color .2s,box-shadow .2s,background .2s}
+.mq-theme-btn:hover{transform:translateY(-2px) rotate(-8deg);border-color:var(--blue);box-shadow:0 8px 22px rgba(0,170,255,.22)}
+.mq-theme-btn svg{width:19px;height:19px}
+/* Mobile nav: hamburger + dropdown panel (under 760px only) */
+.nav-burger{display:none;width:38px;height:38px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;padding:0;
+  flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.nav-burger span{display:block;width:18px;height:2px;border-radius:2px;background:currentColor;
+  transition:transform .2s ease,opacity .2s ease}
+.nav-menu{display:none}
+@media(max-width:760px){
+  .links{display:none}
+  .nav-mail{display:none}
+  .right .btn{display:none}
+  .nav-burger{display:flex}
+  .nav.nav-open .nav-menu{display:block}
+  .nav-menu{padding:8px 24px 18px;border-top:1px solid var(--border)}
+  .nav-menu a{display:block;padding:12px;border-radius:10px;color:var(--muted);font-weight:600;font-size:15px}
+  .nav-menu a:hover,.nav-menu a.active{color:var(--text);background:rgba(0,170,255,.12)}
+  .nav-menu a.nav-menu-cta{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;
+    color:#fff;font-weight:700;font-size:15px;padding:13px;border-radius:11px;
+    background:linear-gradient(135deg,var(--orange),var(--orange-l));box-shadow:0 8px 26px rgba(255,107,26,.35)}
+  .nav-menu a.nav-menu-mail{text-align:center;color:var(--muted);font-size:13px;margin-top:6px}
+  .nav.nav-open .nav-burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .nav.nav-open .nav-burger span:nth-child(2){opacity:0}
+  .nav.nav-open .nav-burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+}
+.doc{max-width:820px;margin:0 auto;padding:54px 24px 60px}
+.doc .badge{margin-bottom:6px}
+.doc h1{text-align:left;font-size:clamp(30px,4.6vw,44px)}
+.doc .updated{color:var(--muted);font-size:14px;margin:0 0 26px}
+.doc h2{font-size:24px;margin:40px 0 10px;letter-spacing:-.3px}
+.doc h3{font-size:18px;margin:26px 0 8px}
+.doc p,.doc li{color:var(--text);font-size:16px}
+.doc p{margin:0 0 14px}
+.doc ul,.doc ol{padding-left:22px;margin:0 0 16px}
+.doc li{margin:6px 0}
+.doc .muted{color:var(--muted)}
+.doc a.inl{color:var(--blue-l);font-weight:600}
+.doc a.inl:hover{text-decoration:underline}
+.short{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:8px 0 10px}
+.short ol{margin:0}
+.tbl{width:100%;overflow-x:auto;margin:6px 0 14px;border:1px solid var(--border);border-radius:14px}
+.tbl table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--border)}
+.tbl tr:last-child td{border-bottom:0}
+.tbl thead th{background:var(--surface);color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em}
+.tbl td:first-child{font-weight:700;width:27%}
+.tbl td:nth-child(2){color:var(--muted);white-space:nowrap}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.cta-row .ghost{display:inline-flex;align-items:center;padding:9px 18px;border-radius:11px;border:1px solid var(--border);font-weight:700;font-size:14px}
+.cta-row .ghost:hover{border-color:var(--blue)}
+@media(max-width:640px){.tbl td:first-child,.tbl td:nth-child(2){white-space:normal}}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<nav class="nav" aria-label="MakerQ">
+  <div class="nav-inner">
+    <a class="brand" href="./">Maker<span>Q</span></a>
+    <div class="links">
+      <a href="index.html#features">Features</a>
+      <a href="demo/">Demo</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="download.html">Download</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="right">
+      <a class="nav-mail" href="login.html">Sign in</a>
+      <button class="mq-theme-btn" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">
+        <svg class="mq-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="mq-moon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="btn" href="get-started?plan=free">Start free</a>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav-menu" id="nav-menu">
+    <a href="index.html#features">Features</a>
+    <a href="demo/">Demo</a>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="download.html">Download</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a class="nav-menu-cta" href="get-started?plan=free">Start free</a>
+    <a href="login.html">Sign in</a>
+  </div>
+</nav>
+
+<main class="doc">
+  <span class="badge">Your data</span>
+  <h1>How MakerQ handles your data</h1>
+  <p class="updated">Last updated October 1, 2026</p>
+
+  <div class="short">
+    <p><strong>The short version.</strong> You can run MakerQ two ways:</p>
+    <ol>
+      <li><strong>As a desktop app</strong> on Windows or macOS. Your quotes, customers and files live in a database on your own computer. No account is needed to start, and the Free plan does not use any MakerQ server. The only thing it checks online is GitHub, for app updates.</li>
+      <li><strong>As MakerQ Cloud</strong> at app.makerq.io, the same app in your web browser, run on servers we operate, with every shop's data kept separate from every other shop's.</li>
+    </ol>
+  </div>
+  <p>Both are the same product with the same features. You choose, and you can move from the desktop app to Cloud whenever you like. The copy on your computer stays exactly as it was.</p>
+
+  <h2>Where your data lives on the desktop app</h2>
+  <p>On your computer. MakerQ keeps your projects, customers, pricing settings and quote history in a database file in the MakerQ data folder, with uploaded 3D files and photos next to it. You can back the folder up like any other files, and paid plans add a settings backup in the app.</p>
+  <ul>
+    <li>MakerQ works offline. Your shop does not stop if your internet does.</li>
+    <li>We cannot see your customers, prices or files. We do not have them.</li>
+    <li>If you downgrade or cancel, features above your plan switch off, but your data stays put and the app keeps opening.</li>
+    <li>The Free plan needs no account, no card and no sign-in.</li>
+  </ul>
+
+  <h3>What does leave your computer, and when</h3>
+  <p>Here is every feature that talks to a server. The optional ones stay off until you turn them on.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Feature</th><th>Plan</th><th>What is sent, and to whom</th></tr></thead>
+    <tbody>
+      <tr><td>App updates</td><td>All</td><td>The app checks GitHub for a newer version of MakerQ. No shop data is sent.</td></tr>
+      <tr><td>License</td><td>Paid plans</td><td>License keys are digitally signed and checked on your computer, so they work offline. If you bought your plan online through Stripe, the app looks that purchase up by its activation key when you activate it and every 6 hours after, and remembers the answer so it keeps working through short internet outages.</td></tr>
+      <tr><td>Quote emails from your own account</td><td>Starter and up</td><td>Sent from your own email account through your own mail provider. They do not pass through MakerQ.</td></tr>
+      <tr><td>Hosted email (optional)</td><td>Pro</td><td>If you use MakerQ's email sender instead of your own account, the email and the recipient's address go through our mail service, which delivers it with Resend.</td></tr>
+      <tr><td>Email import (optional)</td><td>All</td><td>MakerQ signs in to your own mailbox to pick up quote requests. It connects directly; nothing passes through MakerQ's servers.</td></tr>
+      <tr><td>Website and Shopify forms (optional)</td><td>Pro</td><td>Customers submit their request and files to MakerQ's hosted form service, and your app collects them from there. Uploaded files are deleted from our storage as soon as your app has collected them, and the submission is marked as collected. If you turn on the human check, your customer's browser also talks to Cloudflare to confirm they are not a bot.</td></tr>
+      <tr><td>Customer status and approval pages (optional)</td><td>Pro</td><td>The order's status, price, progress, and any notes, photos and design proofs you choose to share are published to a private link on MakerQ's hosted service, along with messages between you and your customer. Messages are deleted after 30 days, or as soon as you mark the job Completed.</td></tr>
+      <tr><td>AI triage and quote help (optional)</td><td>Pro</td><td>The request's details (customer name, project description, quantity, size, material, colour, use, deadline, delivery and notes) are sent to OpenAI to suggest a material, time and price. Your customer's email, phone number and address are never sent. You can switch AI off entirely in Settings.</td></tr>
+      <tr><td>Payment links</td><td>Starter and up</td><td>Your own payment links (Stripe, PayPal, Square, Shopify or any link you add) go in your quote emails. Customers pay on that provider's site. MakerQ never sees their card details.</td></tr>
+      <tr><td>Network sharing and remote access (optional)</td><td>Pro</td><td>A second PC or your phone opens the app running on your shop computer, over your own network or through your own Tailscale account. No MakerQ server is involved.</td></tr>
+      <tr><td>Crash logs (optional)</td><td>All</td><td>Off by default. If you enter an address in Settings, crash logs are emailed to that address.</td></tr>
+      <tr><td>Feedback</td><td>All</td><td>Only when you send feedback from the app: your message is emailed to us.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted">If anything in this table is wrong or missing, that is a bug in this page and we want to hear about it.</p>
+
+  <h2>How MakerQ Cloud keeps shops separate</h2>
+  <p>MakerQ Cloud runs the same app on Render, in the United States (Oregon). Many shops share the same servers, so the important question is how one shop is kept from seeing another.</p>
+  <ul>
+    <li><strong>The database enforces it.</strong> Every row of data is tagged with the shop it belongs to, and PostgreSQL row-level security only lets a signed-in shop read or write its own rows. Because the database enforces this, not just the app, an app bug cannot on its own expose one shop's data to another.</li>
+    <li><strong>Files are private.</strong> Photos and 3D files are kept in a private storage bucket. They are never public: the app only hands out a link to a file after checking it belongs to your shop, and every link expires after an hour.</li>
+    <li><strong>Accounts.</strong> Every account confirms its email address with a code before it works. Your email and password only ever open your own shop, and people you invite only join your shop. Passwords are stored as salted PBKDF2-SHA256 hashes, never as the password itself, and repeated failed sign-in attempts are temporarily blocked.</li>
+    <li><strong>Encryption in transit.</strong> Everything between your browser and app.makerq.io is encrypted with HTTPS.</li>
+    <li><strong>Backups.</strong> The Cloud database is backed up continuously, and can be restored to any point in at least the past three days.</li>
+    <li><strong>Who can get in.</strong> Only the MakerQ team, which today is our founder, has access to the production systems.</li>
+  </ul>
+  <p>What Cloud does not have yet: there is no independent security audit or SOC 2 report. MakerQ is built and run by a small team, and we would rather tell you that than suggest otherwise.</p>
+
+  <h2>Moving between the desktop app and Cloud</h2>
+  <p>In the desktop app, open Settings and choose MakerQ Cloud. It creates your Cloud shop, copies your projects, customers, uploaded files and settings, and gives you the link to open it. The copy on your computer is left exactly as it was.</p>
+  <p>Getting your data out of Cloud: you can export your customer list as a CSV file and back up your settings from the app. A one-click export of a whole Cloud shop is not built yet. If you need a full copy, or want your Cloud shop closed and its data deleted, <a class="inl" href="contact.html">contact us</a>.</p>
+
+  <h2>Your customers' data</h2>
+  <p>Your customers trust you with their names, emails, addresses and design files. MakerQ is built so that trust does not have to extend to us.</p>
+  <ul>
+    <li>On the desktop app, customer data stays on your computer unless you turn on one of the hosted features above.</li>
+    <li>A customer's status page shows only their own order. It needs no account, and it never shows other orders or other customers.</li>
+    <li>We do not sell your data or your customers' data, and we do not use it for advertising. MakerQ makes its money from plan subscriptions.</li>
+  </ul>
+
+  <h2>Plans</h2>
+  <ul>
+    <li><strong>Free</strong>, $0: up to 5 active projects, list and Kanban views, the roll calculator with inventory tracking, and the Sticker Calculator. No account.</li>
+    <li><strong>Starter</strong>, $4 a month or $48 a year: unlimited projects, your own material and labour costs, Quick Quote, the Outline Tracer, sending quotes, payment links, invoices, CSV import and export, shop links and settings backup.</li>
+    <li><strong>Pro</strong>, $8.99 a month or $89.99 a year: everything in Starter, plus AI help, customer status and approval pages, website and Shopify forms, hosted email, network sharing and MakerQ Cloud.</li>
+  </ul>
+  <p>Lifetime licenses are no longer sold. Anyone who already has one keeps every feature they had, including MakerQ Cloud at no extra cost. There are no per-quote fees, and nothing extra for the number of customers or files.</p>
+
+  <h2>Who builds MakerQ</h2>
+  <p>MakerQ is made by C3D Prints, a 3D print shop. It started as the tool we built to run our own quotes and order queue, and we still run our own orders on it every day.</p>
+
+  <h2>Questions</h2>
+  <p>If something here is unclear, or you want a question answered before you trust MakerQ with your customer list, <a class="inl" href="contact.html">contact us</a>. Our <a class="inl" href="privacy.html">privacy policy</a>, <a class="inl" href="terms.html">terms</a> and <a class="inl" href="refund.html">refund policy</a> have the formal details.</p>
+  <div class="cta-row">
+    <a class="btn" href="get-started?plan=free">Start free</a>
+    <a class="ghost" href="index.html#cloud">See MakerQ Cloud</a>
+  </div>
+</main>
+
+<footer class="footer"><div style="margin-bottom:8px"><a href="privacy.html" style="color:var(--muted);font-weight:600;margin:0 8px">Privacy</a><a href="terms.html" style="color:var(--muted);font-weight:600;margin:0 8px">Terms</a><a href="refund.html" style="color:var(--muted);font-weight:600;margin:0 8px">Refund</a><a href="security.html" style="color:var(--muted);font-weight:600;margin:0 8px">Security</a></div>MakerQ.io &middot; &copy; C3D Prints. Made for makers.</footer>
+<script>
+/* Light/dark theme: saved choice wins, else follow the OS. */
+(function(){
+  var KEY="mq-theme",root=document.documentElement;
+  function apply(t){root.setAttribute("data-theme",t);
+    document.querySelectorAll(".mq-theme-btn").forEach(function(b){
+      var s=b.querySelector(".mq-sun"),m=b.querySelector(".mq-moon");
+      if(s)s.style.display=(t==="light")?"none":"block";
+      if(m)m.style.display=(t==="light")?"block":"none";
+      b.setAttribute("aria-label",(t==="light")?"Switch to dark theme":"Switch to light theme");});
+  }
+  var saved;try{saved=localStorage.getItem(KEY)}catch(e){}
+  var t=saved||((window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark");
+  apply(t);
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest(".mq-theme-btn");if(!b)return;e.preventDefault();
+    t=(root.getAttribute("data-theme")==="light")?"dark":"light";
+    apply(t);try{localStorage.setItem(KEY,t)}catch(e){}});
+})();
+/* Mobile menu: hamburger toggles the dropdown; closes on link tap, Escape, or a tap outside the nav. */
+(function(){
+  var nav=document.querySelector(".nav"),btn=document.querySelector(".nav-burger");
+  if(!nav||!btn)return;
+  function setOpen(open){nav.classList.toggle("nav-open",open);
+    btn.setAttribute("aria-expanded",open?"true":"false");}
+  btn.addEventListener("click",function(){setOpen(!nav.classList.contains("nav-open"))});
+  nav.querySelectorAll(".nav-menu a").forEach(function(a){
+    a.addEventListener("click",function(){setOpen(false)});});
+  document.addEventListener("click",function(e){
+    if(nav.classList.contains("nav-open")&&!nav.contains(e.target))setOpen(false);});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")setOpen(false)});
+})();
+</script>
+<script src="nav-features.js" defer></script>
+</body>
+</html>
