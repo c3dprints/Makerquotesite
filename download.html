@@ -107,6 +107,13 @@ html[data-theme="light"] .disabled{color:#8aa0b8}
   .nav.nav-open .nav-burger span:nth-child(2){opacity:0}
   .nav.nav-open .nav-burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 }
+
+/* Line-art wallpaper (same as the home page) */
+body{position:relative;z-index:0;--art:rgba(159,182,208,.07)}
+html[data-theme="light"] body{--art:rgba(19,35,58,.05)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-color:var(--art);
+  -webkit-mask:url(img/lineart.svg) 0 0/1200px auto repeat;mask:url(img/lineart.svg) 0 0/1200px auto repeat}
+@media(max-width:700px){body::before{-webkit-mask-size:760px auto;mask-size:760px auto}}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -173,7 +180,6 @@ html[data-theme="light"] .disabled{color:#8aa0b8}
   </div>
 
   <div class="notify">
-    <p class="tiny" id="mac-note">Opening on a Mac for the first time? If macOS says MakerQ cannot be verified, Control-click (or right-click) MakerQ in your Applications folder and choose Open, then confirm. If it still will not open, go to System Settings, Privacy and Security, and click Open Anyway.</p>
     <p class="tiny">Free trial. No account, no cloud, runs on your own computer.</p>
   </div>
 </div>

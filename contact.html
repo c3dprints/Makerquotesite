@@ -108,6 +108,13 @@ html[data-theme="light"] .card{box-shadow:0 24px 60px rgba(20,45,80,.12)}
   .nav.nav-open .nav-burger span:nth-child(2){opacity:0}
   .nav.nav-open .nav-burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 }
+
+/* Line-art wallpaper (same as the home page) */
+body{position:relative;z-index:0;--art:rgba(159,182,208,.07)}
+html[data-theme="light"] body{--art:rgba(19,35,58,.05)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-color:var(--art);
+  -webkit-mask:url(img/lineart.svg) 0 0/1200px auto repeat;mask:url(img/lineart.svg) 0 0/1200px auto repeat}
+@media(max-width:700px){body::before{-webkit-mask-size:760px auto;mask-size:760px auto}}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">

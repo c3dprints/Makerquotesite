@@ -10,15 +10,15 @@
  */
 (function () {
   var FEATURES = [
-    ["Intake forms and queue",   "intake"],
-    ["Pricing calculator",       "quoting"],
+    ["How it works",             "how"],
+    ["1. Collect requests",      "intake"],
+    ["2. Quote from your costs", "quoting"],
+    ["3. Produce on a board",    "manage"],
+    ["4. Deliver and get paid",  "customers"],
+    ["Customer status page",     "status"],
+    ["Desktop or Cloud",         "local"],
     ["Quick Quote and stickers", "calculators"],
-    ["Outline Tracer",           "tracer"],
-    ["Kanban and production",    "manage"],
-    ["Customers and orders",     "customers"],
-    ["Customer status pages",    "status"],
-    ["Runs on your computer",    "local"],
-    ["MakerQ Cloud",             "cloud"]
+    ["Outline Tracer",           "tracer"]
   ];
 
   // On index.html the links are bare hashes; elsewhere they have to point back at it.

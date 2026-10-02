@@ -41,6 +41,13 @@ h1{font-size:clamp(28px,5vw,42px);margin:16px 0 12px;letter-spacing:-.5px}
 html[data-theme="light"]{--bg:#eef3f9;--surface:#ffffff;--card:#ffffff;--border:#d7e2f0;--text:#13233a;--muted:#59708a}
 html[data-theme="light"] body{background:var(--bg)}
 html[data-theme="light"] .nav{background:rgba(255,255,255,.86)}
+
+/* Line-art wallpaper (same as the home page) */
+body{position:relative;z-index:0;--art:rgba(159,182,208,.07)}
+html[data-theme="light"] body{--art:rgba(19,35,58,.05)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-color:var(--art);
+  -webkit-mask:url(img/lineart.svg) 0 0/1200px auto repeat;mask:url(img/lineart.svg) 0 0/1200px auto repeat}
+@media(max-width:700px){body::before{-webkit-mask-size:760px auto;mask-size:760px auto}}
 </style>
 </head>
 <body>

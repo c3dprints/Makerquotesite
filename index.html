@@ -254,7 +254,7 @@ gtag('js',new Date());gtag('config','G-365JP65BHP');</script>
 .mq-nav-mail{color:var(--muted);font-size:13px;font-weight:600;transition:color .15s}
 .mq-nav-mail:hover{color:var(--blue-l)}
 .mq-btn-sm{padding:9px 18px;font-size:14px;border-radius:11px}
-#features,#how,#pricing{scroll-margin-top:74px}
+#features,#how,#pricing,#status,#local,#calculators,#faq,#about{scroll-margin-top:74px}
 @media(max-width:820px){.mq-nav-links a{padding:8px 8px;font-size:13px}}
 /* Button micro-interactions */
 .mq-btn{position:relative;overflow:hidden}
@@ -298,7 +298,7 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
 .mq-grad{background-image:linear-gradient(100deg,var(--blue-l),var(--orange-l),var(--blue-l));
   background-size:220% auto;animation:mq-shimmer 7s linear infinite}
 @keyframes mq-shimmer{to{background-position:220% center}}
-.mq-hero-bg::after{content:"";position:absolute;inset:0;
+.mq-hero-bg::after{display:none;content:"";position:absolute;inset:0;
   background-image:radial-gradient(rgba(159,182,208,.18) 1px,transparent 1px);background-size:26px 26px;
   -webkit-mask:radial-gradient(1000px 520px at 50% 0,#000,transparent 72%);
   mask:radial-gradient(1000px 520px at 50% 0,#000,transparent 72%);
@@ -330,6 +330,79 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
 .mq-card:hover .mq-ic{transform:translateY(-3px) scale(1.08) rotate(-4deg)}
 @media(prefers-reduced-motion:reduce){.mq-grad,.mq-hero-bg::after,.mq-tier.pop{animation:none!important}}
 
+
+/* ---- v2: line-art wallpaper + new sections ------------------------- */
+.mq-landing{position:relative;z-index:0;--art:rgba(159,182,208,.075)}
+.mq-hero-copy>*{opacity:1!important;animation:none!important}
+.mq-js .mq-reveal{opacity:1!important;transform:none!important}
+html[data-theme="light"] .mq-landing{--art:rgba(19,35,58,.055)}
+.mq-landing::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-color:var(--art);
+  -webkit-mask:url(img/lineart.svg) 0 0/1200px auto repeat;mask:url(img/lineart.svg) 0 0/1200px auto repeat}
+@media(max-width:700px){.mq-landing::before{-webkit-mask-size:760px auto;mask-size:760px auto}}
+.mq-hero{padding:118px 0 54px}
+@media(min-width:901px){.mq-hero-grid{grid-template-columns:1.05fr .95fr}}
+.mq-hero-art{width:100%;max-width:620px;margin-left:auto;display:block;color:var(--muted);opacity:.55}
+.mq-hero-art .acc{stroke:var(--orange-l)}
+html[data-theme="light"] .mq-hero-art{opacity:.5}
+.mq-btn-blue{background:var(--blue);color:#04121e;box-shadow:0 8px 26px rgba(0,170,255,.28)}
+.mq-btn-blue:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.mq-demo{position:relative;display:block;max-width:1120px;margin:0 auto;border-radius:20px;overflow:hidden;
+  border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.mq-demo img{display:block;width:100%}
+.mq-demo .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:12px;
+  padding:16px 26px;border-radius:999px;background:rgba(11,22,35,.86);color:#fff;font-weight:800;font-size:18px;
+  border:2px solid var(--blue);transition:background .2s,color .2s;white-space:nowrap}
+.mq-demo .play svg{width:22px;height:22px}
+.mq-demo:hover .play,.mq-demo:focus-visible .play{background:var(--blue);color:#04121e}
+.mq-cap{text-align:center;color:var(--muted);font-size:14px;margin:14px auto 0;max-width:70ch}
+.mq-pain{max-width:860px;margin:0 auto;text-align:center}
+.mq-pain p{color:var(--muted);font-size:18px;margin:16px auto 0;max-width:60ch}
+.mq-scraps{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.mq-scraps span{padding:7px 14px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);
+  font-size:14px;text-decoration:line-through;text-decoration-color:var(--orange)}
+.mq-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.mq-flow-step{position:relative;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;scroll-margin-top:86px}
+.mq-flow-step .k{font-size:13px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--orange-l)}
+.mq-flow-step h3{font-size:22px;margin:6px 0 8px}
+.mq-flow-step p{color:var(--muted);font-size:15px;margin:0 0 12px}
+.mq-flow-step ul{list-style:none;padding:0;margin:0;display:grid;gap:7px;font-size:14px}
+.mq-flow-step li{position:relative;padding-left:16px}
+.mq-flow-step li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:2px;background:var(--blue-l)}
+.mq-flow-step:not(:last-child)::after{content:"";position:absolute;right:-17px;top:34px;width:9px;height:9px;
+  border-top:2px solid var(--muted);border-right:2px solid var(--muted);transform:rotate(45deg)}
+.mq-bigshot{max-width:1180px;margin:0 auto}
+.mq-outcomes{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:1040px;margin:0 auto}
+.mq-outcome{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--orange);border-radius:14px;padding:22px 24px}
+.mq-outcome h3{font-size:20px;margin-bottom:6px}
+.mq-outcome p{margin:0;color:var(--muted)}
+.mq-choice{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1040px;margin:0 auto}
+.mq-choice-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;display:flex;flex-direction:column;scroll-margin-top:86px}
+.mq-choice-card h3{font-size:24px;margin-bottom:4px}
+.mq-choice-card .sub{color:var(--muted);margin:0 0 18px}
+.mq-choice-card .mq-list{margin-bottom:24px;font-size:15px}
+.mq-choice-card .acts{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+.mq-choice-card .acts .mq-btn{padding:11px 20px;font-size:15px}
+.mq-grid.three{grid-template-columns:repeat(3,1fr)}
+.mq-card.tool{scroll-margin-top:86px}
+.mq-card.tool .more{display:inline-block;margin-top:14px;color:var(--blue-l);font-weight:700}
+.mq-faq{max-width:840px;margin:0 auto}
+.mq-faq details{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:10px}
+.mq-faq summary{cursor:pointer;padding:18px 22px;font-weight:700;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.mq-faq summary::-webkit-details-marker{display:none}
+.mq-faq summary::after{content:"+";color:var(--blue-l);font-weight:800}
+.mq-faq details[open] summary::after{content:"\2212"}
+.mq-faq details p{margin:0;padding:0 22px 18px;color:var(--muted)}
+.mq-faq .all{text-align:center;margin-top:18px}
+.mq-faq .all a,.mq-founder a{color:var(--blue-l);font-weight:700}
+.mq-founder{max-width:780px;margin:0 auto;display:grid;grid-template-columns:72px 1fr;gap:24px;align-items:start}
+.mq-founder img{width:72px;height:72px;border-radius:18px;display:block}
+.mq-founder h2{margin-bottom:12px}
+.mq-founder p{color:var(--muted);font-size:17px;margin:0 0 12px}
+@media(max-width:900px){.mq-flow{grid-template-columns:1fr 1fr}.mq-flow-step::after{display:none}
+  .mq-grid.three{grid-template-columns:1fr}.mq-hero-art{max-width:520px;margin:10px auto 0}}
+@media(max-width:860px){.mq-choice,.mq-outcomes{grid-template-columns:1fr}}
+@media(max-width:560px){.mq-flow{grid-template-columns:1fr}.mq-founder{grid-template-columns:1fr}
+  .mq-demo .play{font-size:15px;padding:12px 18px}}
 /* ---- Mobile nav: hamburger + dropdown panel (under 760px only) ----- */
 .mq-nav-burger{display:none;width:38px;height:38px;border-radius:11px;border:1px solid var(--border);
   background:var(--card);color:var(--text);cursor:pointer;padding:0;
@@ -398,297 +471,218 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- 1. HERO -->
 <header class="mq-hero" id="mq-top">
   <div class="mq-hero-bg"></div>
-  <div class="mq-orb a"></div><div class="mq-orb b"></div>
   <div class="mq-container mq-hero-grid">
     <div class="mq-hero-copy">
-      <span class="mq-eyebrow">For 3D print shops</span>
+      <span class="mq-eyebrow">For 3D print shops and makers</span>
       <h1 class="mq-h1" style="margin-top:18px">Quote 3D prints in minutes, <span class="mq-grad">not emails.</span></h1>
-      <p class="mq-lead" style="margin-top:18px">MakerQ turns scattered quote requests into one organized, auto-priced, ready-to-send pipeline. Run it on your own computer and your customer data never leaves your desk, or use MakerQ Cloud and open your shop in any browser.</p>
+      <p class="mq-lead" style="margin-top:18px">Customers send their files and details through your own form. MakerQ prices the job from your costs, sends the quote, and keeps it on one board until it is printed, delivered and paid.</p>
       <div class="mq-hero-actions">
-        <a class="mq-btn mq-btn-primary" href="get-started?plan=free">Get the app <span class="arr">&rarr;</span></a>
-        <a class="mq-btn mq-btn-ghost" href="demo/">Try the live demo</a>
-        <a class="mq-btn mq-btn-ghost" href="#how">See how it works</a>
+        <a class="mq-btn mq-btn-primary" href="get-started?plan=free">Get MakerQ free <span class="arr">&rarr;</span></a>
+        <a class="mq-btn mq-btn-blue" href="demo/">Try the live demo</a>
       </div>
-      <p class="mq-note">Start free on Windows or macOS, no account needed. MakerQ Cloud is included with Pro.</p>
+      <p class="mq-note">Windows, Mac, or in your browser with MakerQ Cloud. The demo runs right here, no install and no sign-up.</p>
     </div>
-    <!-- Hero visual (swap for your own screenshot anytime) -->
-    <img class="mq-heroimg" src="img/kanban.png" alt="MakerQ Kanban board tracking print jobs">
+    <svg class="mq-hero-art" viewBox="-20 0 700 460" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0 60)">
+<circle cx="130" cy="26" r="24"/><circle cx="130" cy="26" r="8"/><circle cx="130" cy="26" r="16" stroke-dasharray="3 5"/>
+<rect x="20" y="56" width="220" height="14" rx="3"/>
+<rect x="20" y="70" width="16" height="230"/><rect x="224" y="70" width="16" height="230"/>
+<path d="M46 76 V294" stroke-dasharray="2 5"/>
+<rect x="36" y="150" width="188" height="12" rx="3"/>
+<rect x="108" y="128" width="46" height="56" rx="7"/><circle cx="131" cy="152" r="12"/><path d="M125 152 h12 M131 146 v12"/>
+<path d="M123 184 h16 l-4 10 h-8 z"/>
+<path class="acc" d="M150 38 C190 60 178 104 148 130"/>
+<path class="acc" d="M112 272 C108 252 116 236 110 222 L150 222 C144 236 152 252 148 272 M111 262 H149 M110 252 H150 M111 242 H149 M112 232 H148"/>
+<rect x="52" y="272" width="156" height="9" rx="2"/><path d="M130 281 V300"/>
+<rect x="0" y="300" width="260" height="30" rx="6"/><rect x="180" y="308" width="44" height="14" rx="2"/><circle cx="236" cy="315" r="5"/>
+</g><g transform="translate(300 262) scale(0.9)">
+<rect x="40" y="0" width="280" height="34" rx="3"/><path d="M40 12 H320 M40 23 H320 M80 0 V34 M120 0 V34 M160 0 V34 M200 0 V34 M240 0 V34 M280 0 V34"/>
+<path d="M10 110 V62 C10 44 24 34 44 34 H316 C336 34 350 44 350 62 V110"/>
+<path d="M28 72 H140 M188 72 H332"/>
+<rect x="140" y="52" width="48" height="38" rx="7"/><path d="M164 90 V98 M160 98 l4 8 l4 -8"/>
+<circle cx="300" cy="52" r="6"/><circle cx="322" cy="52" r="6"/>
+<rect x="0" y="110" width="360" height="24" rx="8"/>
+<path d="M14 134 L-14 168 H374 L346 134 M50 134 L38 168 M310 134 L322 168 M26 151 H334"/>
+<path class="acc" d="M164 144 l4 8 l9 1 l-7 6 l2 9 l-8 -5 l-8 5 l2 -9 l-7 -6 l9 -1 z"/>
+</g><g transform="translate(470 40) scale(0.7)">
+<circle cx="80" cy="80" r="78"/><circle cx="80" cy="80" r="66" stroke-dasharray="4 6"/><circle cx="80" cy="80" r="54" stroke-dasharray="2 7"/>
+<circle cx="80" cy="80" r="30"/><circle cx="80" cy="80" r="10"/>
+<path d="M80 50 V70 M54 95 L71 85 M106 95 L89 85"/>
+<path class="acc" d="M152 60 C176 40 196 52 214 30"/>
+</g><g transform="translate(330 40) rotate(6) scale(0.62)">
+<rect x="0" y="0" width="170" height="220" rx="6"/>
+<path class="acc" d="M50 30 l7 14 l15 2 l-11 10 l3 15 l-14 -7 l-14 7 l3 -15 l-11 -10 l15 -2 z"/>
+<circle cx="122" cy="52" r="24"/>
+<rect x="22" y="100" width="62" height="42" rx="10"/>
+<path d="M124 150 C104 136 100 116 114 110 C120 107 124 112 124 116 C124 112 128 107 134 110 C148 116 144 136 124 150 Z"/>
+<path d="M22 172 H148 M22 190 H112"/>
+<path d="M170 196 L146 220 M170 196 C158 200 150 208 146 220"/>
+</g></g></svg>
   </div>
 </header>
 
-<!-- VALUE CARDS -->
-<section class="mq-section" id="features">
+<!-- 2. PRODUCT / LIVE DEMO -->
+<section class="mq-section" style="padding-top:20px">
   <div class="mq-container">
-    <div class="mq-center mq-reveal">
-      <h2 class="mq-h2">Everything from request to paid, in one place</h2>
-      <p class="mq-lead">Stop juggling inboxes, spreadsheets, and calculators. MakerQ handles the whole quoting workflow.</p>
-    </div>
-    <div class="mq-grid">
-      <div class="mq-card mq-reveal"><div class="mq-ic">📥</div><h3>Collect requests</h3><p>An intake form you can embed on your website or Shopify store drops every request straight into your queue.</p></div>
-      <div class="mq-card mq-reveal"><div class="mq-ic">🧮</div><h3>Price automatically</h3><p>Set your rates once. MakerQ prices each print from material, weight, and time, and sticker work by the sheet. No mental math.</p></div>
-      <div class="mq-card mq-reveal"><div class="mq-ic">🗂️</div><h3>Track visually</h3><p>Move jobs across a Kanban board and production queue so nothing slips through the cracks.</p></div>
-      <div class="mq-card mq-reveal"><div class="mq-ic">✉️</div><h3>Send &amp; get paid</h3><p>Send quotes in your own words with checkout links, let customers approve and message you from their status page, then send an invoice when the job is done.</p></div>
-      <div class="mq-card wide mq-reveal">
-        <div class="mq-ic">&#9729;&#65039;</div>
-        <div>
-          <span class="mq-tag">New</span>
-          <h3>MakerQ Cloud: your shop in any browser</h3>
-          <p>The same MakerQ on the web and in the desktop app, with the same projects everywhere. Start a quote on the shop PC and finish it on your laptop. Included with Pro and existing Lifetime licenses, and your desktop data moves over in a few clicks.</p>
-        </div>
-        <a class="mq-btn mq-btn-ghost" href="#cloud">See MakerQ Cloud</a>
-      </div>
-      <div class="mq-card wide mq-reveal">
-        <div class="mq-ic">&#128248;</div>
-        <div>
-          <h3>Trace a real part from a photo</h3>
-          <p>Lay your parts on a sheet of paper, photograph it from above, and the Outline Tracer gives you their true-size outlines as SVG or DXF, ready to turn into a drawer insert or tool tray. No calipers, no CAD sketching.</p>
-        </div>
-        <a class="mq-btn mq-btn-ghost" href="#tracer">See how it works</a>
-      </div>
-    </div>
+    <a class="mq-demo" href="demo/" aria-label="Open the live demo">
+      <img src="img/kanban.png" alt="MakerQ's board: quote requests moving from New to Quoted to Approved, with prices and due dates">
+      <span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Open the live demo</span>
+    </a>
+    <p class="mq-cap">The real app with sample data. Click around, open a project, drag a job across the board. Nothing you do is saved.</p>
   </div>
 </section>
 
-<!-- FEATURE: Intake -->
-<section class="mq-section alt" id="intake">
-  <div class="mq-container mq-feature mq-reveal">
-    <div class="mq-feature-media">
-      <img class="mq-shotimg" src="img/queue.png" alt="MakerQ quote queue with request details">
-    </div>
-    <div>
-      <span class="mq-eyebrow">Intake</span>
-      <h2 class="mq-h2" style="margin-top:14px">Every request lands in one tidy queue</h2>
-      <p>Customers submit their files and project details through a form you build in the app and embed on your site. No more digging through email threads to figure out what someone wants.</p>
-      <ul class="mq-list">
-        <li>Drag-and-drop STL and 3MF file uploads, download them all as one zip</li>
-        <li>Embeddable intake forms for your website or Shopify, with bot spam quarantined before it reaches your board</li>
-        <li>An optional human check (free Cloudflare Turnstile, usually invisible to real customers) to stop bots at the door</li>
-        <li>Duplicate a form, and change any field's type or make it required or optional without rebuilding it</li>
-        <li>Import requests straight from your inbox</li>
-        <li>Lay out the project view your way: show, hide, and reorder every section</li>
-      </ul>
-    </div>
+<!-- 3. PAIN -->
+<section class="mq-section">
+  <div class="mq-container mq-pain">
+    <h2 class="mq-h2">Stop running your print shop from inboxes, spreadsheets and calculators.</h2>
+    <p>Requests come in by email, DM and text. Prices get worked out on a calculator and copied into a reply. Then you hunt for who has paid and what is due Friday. MakerQ puts all of it in one place.</p>
+    <div class="mq-scraps" aria-hidden="true"><span>Email threads</span><span>DMs</span><span>Spreadsheets</span><span>Sticky notes</span><span>Calculator app</span></div>
   </div>
 </section>
 
-<!-- FEATURE: Pricing -->
-<section class="mq-section" id="quoting">
-  <div class="mq-container mq-feature rev mq-reveal">
-    <div class="mq-feature-media">
-      <img class="mq-shotimg" src="img/form.png" alt="MakerQ quote calculator with material and time inputs">
-    </div>
-    <div>
-      <span class="mq-eyebrow">Pricing</span>
-      <h2 class="mq-h2" style="margin-top:14px">Consistent prices, calculated for you</h2>
-      <p>Enter your material costs, machine rates, and margins once. MakerQ applies them to every job so your quotes stay accurate and profitable, whoever sends them. If a quote dips below your margin floor, it warns you before it goes out.</p>
-      <ul class="mq-list">
-        <li>Fully adjustable pricing settings</li>
-        <li>Auto-price by material, weight, and print time</li>
-        <li>Outside materials too: paint, epoxy, heat-set inserts, priced per unit or per job</li>
-        <li>Write your own quote emails: up to three templates with placeholders and a live preview</li>
-        <li>Optional AI quote assistant on Pro, or switch AI off entirely in one click</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURE: Quick Quote + Sticker Calculator -->
-<section class="mq-section" id="calculators">
-  <div class="mq-container">
-    <div class="mq-center mq-reveal">
-      <span class="mq-eyebrow">Calculators</span>
-      <h2 class="mq-h2" style="margin-top:14px">Quote anything, not just prints</h2>
-      <p class="mq-lead">Someone at the counter wants a number now. Someone else wants 200 stickers. Both get a real price built from your own costs, and a reply you can paste straight back to them.</p>
-    </div>
-    <div class="mq-grid two">
-      <div class="mq-card tool mq-reveal">
-        <span class="mq-pill">Starter and up</span>
-        <div class="mq-ic">&#9889;</div>
-        <h3>Quick Quote</h3>
-        <p>Price a print for someone on the spot, over the counter, on the phone, or in a DM, with no project attached. It is the same engine and the same saved costs as the calculator on a project: grams, hours, quantity, fail rate, complexity, shipping, and any outside materials.</p>
-        <ul class="mq-list">
-          <li>Your saved rates and settings, nothing to re-enter</li>
-          <li>Ends in a customer reply you can copy and send</li>
-          <li>If they say yes, Save as New Request turns it into a real project with the price attached</li>
-          <li>A built-in inches and millimetres converter for customers who measure differently than you model</li>
-        </ul>
-      </div>
-      <div class="mq-card tool mq-reveal">
-        <div class="mq-ic">&#127991;&#65039;</div>
-        <h3>Sticker Calculator</h3>
-        <p>Stickers and decals have no grams and no hours, so MakerQ prices them by the sheet and divides by how many fit on one. Paper, laminate, ink, printer and cutter wear, blade, mat, and your labour all go in, then waste, packaging, shipping, fees, markup, and tax.</p>
-        <ul class="mq-list">
-          <li>Enter paper and laminate as pack price plus sheets per pack, and see the per-sheet cost as you type</li>
-          <li>Letter, legal, and tabloid built in, plus your own sizes: a 12x12 mat, 4x6 labels, whatever you cut</li>
-          <li>Same copyable reply, same Save as New Request</li>
-        </ul>
-      </div>
-    </div>
-    <p class="mq-compare-note mq-reveal" style="margin-top:24px">Quick Quote is included with Starter and Pro. The Sticker Calculator is on every plan, and if you leave its markup and tax blank it uses the ones from your main calculator.</p>
-  </div>
-</section>
-
-<!-- FEATURE: Outline Tracer -->
-<section class="mq-section alt" id="tracer">
-  <div class="mq-container mq-feature mq-reveal">
-    <div class="mq-feature-media">
-      <img class="mq-shotimg" src="img/tracer.jpg" alt="MakerQ Outline Tracer: a photographed sheet of paper with parts on it, traced into true-size outlines">
-    </div>
-    <div>
-      <span class="mq-eyebrow">Outline Tracer</span>
-      <h2 class="mq-h2" style="margin-top:14px">Turn a photo of your parts into a real-size outline</h2>
-      <p>Making a drawer insert, a Gridfinity pocket, a tool tray, or a foam cut-out means measuring awkward shapes. Instead, lay the parts on a sheet of paper, take a photo from straight above, and MakerQ traces their outlines at true size. The paper is the ruler: MakerQ knows how big a Letter or A4 sheet is, so it corrects the angle of your photo and gets the scale right.</p>
-      <ul class="mq-list">
-        <li>Exports SVG and DXF in real millimetres, ready for Fusion, Onshape, Inkscape, or your slicer</li>
-        <li>Drag the four corner markers for a tighter result: auto-detected corners land within about a millimetre, placed by hand around a tenth</li>
-        <li>Add clearance so the part drops into the pocket instead of jamming</li>
-        <li>Smooth the edges, ignore specks of dust, bridge a shiny edge that broke the outline, or keep a real hole like a handle opening</li>
-        <li>Works from a flatbed scan too, which skips the angle correction entirely</li>
-      </ul>
-      <p class="mq-compare-note" style="margin-top:18px">Included with Starter and Pro, and in the free trial. Check one known-size object before you print.</p>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURE: Manage -->
-<section class="mq-section alt" id="manage">
-  <div class="mq-container mq-feature mq-reveal">
-    <div class="mq-feature-media">
-      <img class="mq-shotimg" src="img/analytics.png" alt="MakerQ business analytics dashboard">
-    </div>
-    <div>
-      <span class="mq-eyebrow">Manage</span>
-      <h2 class="mq-h2" style="margin-top:14px">See your whole shop at a glance</h2>
-      <p>Track every job from new request to shipped on a visual Kanban board, and keep your printers busy with a production queue sorted by due date. Search the whole board, organize jobs into folders and subfolders, and draft a follow-up for a quote that has gone quiet in one click.</p>
-      <ul class="mq-list">
-        <li>Kanban pipeline with search, due-date chips, and collapsible columns</li>
-        <li>Folders and subfolders: drag projects and folders wherever you want them</li>
-        <li>Project numbers with your own prefix, like MQ-0001, and search by number</li>
-        <li>Changes save automatically as you work</li>
-        <li>Production queue and printer tracking</li>
-        <li>Stock deducts itself the moment a job starts printing</li>
-        <li>Business analytics: revenue and pipeline</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURE: Customer tracking -->
-<section class="mq-section" id="customers">
-  <div class="mq-container mq-feature rev mq-reveal">
-    <div class="mq-feature-media">
-      <img class="mq-shotimg" src="img/customers.png" alt="MakerQ customer tracking screen showing order status, deadline, price, deposit, and contact details">
-    </div>
-    <div>
-      <span class="mq-eyebrow">Customers</span>
-      <h2 class="mq-h2" style="margin-top:14px">Every customer and order, tracked in one place</h2>
-      <p>Keep each customer's projects, prices, deadlines, and full quote history side by side, so you always know where every order stands and what you've already sent.</p>
-      <ul class="mq-list">
-        <li>Per-customer order history and status</li>
-        <li>Deadlines, prices, and deposits at a glance</li>
-        <li>A log of every quote email you've sent</li>
-        <li>Invoices you can print or email, with your own message and your shop's websites</li>
-        <li>Import and export your customer list as CSV</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURE: Customer status page -->
-<section class="mq-section alt" id="status">
-  <div class="mq-container mq-feature mq-reveal">
-    <div class="mq-feature-media">
-      <img class="mq-shotimg" src="img/status.png" alt="MakerQ customer-facing order status page showing status, price, and progress steps">
-    </div>
-    <div>
-      <span class="mq-eyebrow">Customer status page</span>
-      <h2 class="mq-h2" style="margin-top:14px">Send a tracking link, cut the &ldquo;where's my order?&rdquo; emails</h2>
-      <p>With one click you send each customer a private status link. They open a clean page that shows exactly where their order stands, the price, and every step from quote to shipped, no account, no app, no phone tag. Post an update with a photo, send a design proof to approve, and answer their questions, all on the same page.</p>
-      <ul class="mq-list">
-        <li>One-click tracking &amp; approval links per order</li>
-        <li>Customers message you from their page, and your reply shows up right there (or reply straight from your email)</li>
-        <li>Design proofs they approve with one click, so they see the artwork before the price</li>
-        <li>Updates with photos, plus a &ldquo;new since your last visit&rdquo; marker</li>
-        <li>Live status, price, progress, and partial payments as they happen</li>
-        <li>Your shop's name, logo, and shop links, in light or dark to suit their phone</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURE: Yours / offline -->
-<section class="mq-section" id="local">
-  <div class="mq-container mq-feature rev mq-reveal">
-    <div class="mq-feature-media">
-      <img class="mq-shotimg" src="img/calculator.png" alt="MakerQ settings with license, updates, and configuration">
-    </div>
-    <div>
-      <span class="mq-eyebrow">Yours to keep</span>
-      <h2 class="mq-h2" style="margin-top:14px">Runs on your computer, or in MakerQ Cloud. Your choice.</h2>
-      <p>MakerQ is a real desktop app for Windows and macOS. Your quotes, files, and customer list stay on your machine, and it quietly updates itself. When you are away from the shop, you can reach your own instance securely from anywhere, including your phone. Want it in the browser instead? MakerQ Cloud on Pro puts the same shop online, and the desktop app keeps working exactly as it does today.</p>
-      <ul class="mq-list">
-        <li>Works offline, your data stays local</li>
-        <li>Share with a second PC or your phone on Pro, one person edits at a time so nobody overwrites anyone</li>
-        <li>Secure remote access from anywhere, including mobile</li>
-        <li>Or MakerQ Cloud on Pro: the same projects in any browser, each shop kept private</li>
-        <li>Simple monthly or yearly plans, no per-quote fees</li>
-        <li>Automatic updates built in</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- MAKERQ CLOUD -->
-<section class="mq-section alt" id="cloud">
-  <div class="mq-container">
-    <div class="mq-center mq-reveal">
-      <span class="mq-eyebrow">New: available now</span>
-      <h2 class="mq-h2" style="margin-top:14px">MakerQ Cloud: your shop in any browser</h2>
-      <p class="mq-lead">Prefer to work from anywhere? MakerQ Cloud puts the same MakerQ in your web browser and in the desktop app, with the same projects everywhere. Pick up on the shop PC exactly where you left off on your laptop.</p>
-    </div>
-    <div class="mq-reveal" style="max-width:640px;margin:22px auto 0">
-      <ul class="mq-list">
-        <li>Included with Pro, and with existing Lifetime licenses</li>
-        <li>Everything that runs your shop, online: quotes and the calculator, customers, inventory, and invoices you can email or print</li>
-        <li>Your photos and 3D files are stored safely in the cloud, so they follow you to any computer</li>
-        <li>Open it in any web browser or in the desktop app, and stay signed in on the computers you trust</li>
-        <li>Move your desktop projects, files and settings over in a few clicks from Settings</li>
-        <li>Every shop is private: your sign-in only ever opens your shop, and each account confirms its email before it works. <a href="security.html" style="color:var(--blue-l);font-weight:600">How we keep your data safe</a></li>
-        <li>Your choice: the desktop app keeps working exactly as it does today</li>
-      </ul>
-      <h3 style="margin:26px 0 8px;font-size:18px">Get started</h3>
-      <ol class="mq-list" style="list-style:decimal;padding-left:22px">
-        <li><strong>Already use MakerQ on your computer?</strong> Update the app, then open Settings and choose MakerQ Cloud. It creates your Cloud shop, copies your projects, customers, files and settings, and gives you the link to open it.</li>
-        <li><strong>Starting fresh?</strong> Create your Cloud shop at app.makerq.io, confirm your email with the code we send, then enter your Pro or Lifetime key.</li>
-      </ol>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:22px">
-        <a class="mq-btn mq-btn-primary" href="https://app.makerq.io/signup">Create your Cloud shop <span class="arr">&rarr;</span></a>
-        <a class="mq-btn mq-btn-ghost" href="https://app.makerq.io/">Sign in to Cloud</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
+<!-- 4. WORKFLOW -->
 <section class="mq-section alt" id="how">
   <div class="mq-container">
-    <div class="mq-center mq-reveal">
-      <h2 class="mq-h2">Up and running in four steps</h2>
-      <p class="mq-lead">No servers to set up, no onboarding calls.</p>
+    <div class="mq-center">
+      <h2 class="mq-h2">Collect, quote, produce, deliver</h2>
+      <p class="mq-lead">Every job follows the same four steps, and MakerQ handles each one.</p>
     </div>
-    <div class="mq-steps">
-      <div class="mq-step mq-reveal"><div class="n">1</div><h3>Install</h3><p>Download MakerQ for Windows or macOS and open it. Your data folder is created automatically.</p></div>
-      <div class="mq-step mq-reveal"><div class="n">2</div><h3>Set your pricing</h3><p>Enter your materials, rates, and margins in the calculator settings, and your sheet costs if you sell stickers.</p></div>
-      <div class="mq-step mq-reveal"><div class="n">3</div><h3>Share your form</h3><p>Embed your intake form on your website or Shopify so requests flow in.</p></div>
-      <div class="mq-step mq-reveal"><div class="n">4</div><h3>Quote &amp; send</h3><p>Review, price, and send a professional quote with a checkout link.</p></div>
+    <div class="mq-flow">
+      <div class="mq-flow-step" id="intake">
+        <span class="k">1. Collect</span>
+        <h3>Requests in one queue</h3>
+        <p>A form you build in MakerQ and put on your website or Shopify store.</p>
+        <ul><li>STL and 3MF files attached</li><li>Import requests from your inbox</li><li>Spam and bots kept off your board</li></ul>
+      </div>
+      <div class="mq-flow-step" id="quoting">
+        <span class="k">2. Quote</span>
+        <h3>A price from your costs</h3>
+        <p>Set your filament, power, labour and markup once. Every job is priced the same way.</p>
+        <ul><li>Warns you below your margin floor</li><li>Quote emails in your own words</li><li>Payment links in the email</li></ul>
+      </div>
+      <div class="mq-flow-step" id="manage">
+        <span class="k">3. Produce</span>
+        <h3>Every job on a board</h3>
+        <p>Drag jobs from New to Printing to Completed, with a production queue sorted by due date.</p>
+        <ul><li>Folders and subfolders</li><li>Printer and stock tracking</li><li>Project numbers, like MQ-0001</li></ul>
+      </div>
+      <div class="mq-flow-step" id="customers">
+        <span class="k">4. Deliver</span>
+        <h3>Customers kept in the loop</h3>
+        <p>A private status page per order, then an invoice when it is done.</p>
+        <ul><li>Approvals and design proofs</li><li>Invoices to print or email</li><li>Full history per customer</li></ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING / TIERS -->
+<!-- 5. DASHBOARD -->
+<section class="mq-section">
+  <div class="mq-container mq-bigshot">
+    <div class="mq-center">
+      <h2 class="mq-h2">Your whole shop on one screen</h2>
+      <p class="mq-lead">Open quotes, jobs in progress, revenue and margin, without opening a spreadsheet.</p>
+    </div>
+    <img class="mq-shotimg" src="img/analytics.png" alt="MakerQ analytics: quotes sent and won, revenue collected, pipeline value and margin">
+  </div>
+</section>
+
+<!-- 6. WHY MAKERQ -->
+<section class="mq-section alt" id="features">
+  <div class="mq-container">
+    <div class="mq-center">
+      <h2 class="mq-h2">Why makers use MakerQ</h2>
+    </div>
+    <div class="mq-outcomes">
+      <div class="mq-outcome"><h3>Reply to quote requests the same day</h3><p>The files and details arrive together, and the price is worked out for you. Sending a quote takes minutes, not an evening of back and forth.</p></div>
+      <div class="mq-outcome"><h3>Charge what the job is worth</h3><p>Every quote uses your real costs and markup, whoever sends it, and MakerQ warns you before a quote goes out under your margin.</p></div>
+      <div class="mq-outcome"><h3>Never lose track of a job</h3><p>Every request, print and pickup sits on one board with its due date, so nothing gets buried in a thread.</p></div>
+      <div class="mq-outcome"><h3>Get paid without chasing</h3><p>Payment links go out with the quote, deposits are tracked, and the invoice is one click when the job is done.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. CUSTOMER STATUS PAGE -->
+<section class="mq-section" id="status">
+  <div class="mq-container mq-feature">
+    <div class="mq-feature-media">
+      <img class="mq-shotimg" src="img/status.png" alt="A customer's order status page: status, price, payment and progress steps">
+    </div>
+    <div>
+      <h2 class="mq-h2">Fewer &ldquo;where's my order?&rdquo; messages</h2>
+      <p>Each customer gets a private link to their order. They see where it stands, the price and every step to done, with no account and no app.</p>
+      <ul class="mq-list">
+        <li>Design proofs they approve with one click</li>
+        <li>Updates with photos, and a message thread with you</li>
+        <li>Your shop's name, logo and links</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8. DESKTOP OR CLOUD -->
+<section class="mq-section alt" id="local">
+  <div class="mq-container">
+    <div class="mq-center">
+      <h2 class="mq-h2">Desktop or Cloud. Your choice.</h2>
+      <p class="mq-lead">Same app, same features. Start on one and move to the other whenever you like.</p>
+    </div>
+    <div class="mq-choice">
+      <div class="mq-choice-card">
+        <h3>Desktop app</h3>
+        <p class="sub">Windows and Mac. Every plan.</p>
+        <ul class="mq-list">
+          <li>Your data stays on your computer</li>
+          <li>Works offline, updates itself</li>
+          <li>Open it from a second PC or your phone on Pro</li>
+        </ul>
+        <div class="acts"><a class="mq-btn mq-btn-primary" href="get-started?plan=free">Download free</a></div>
+      </div>
+      <div class="mq-choice-card" id="cloud">
+        <h3>MakerQ Cloud</h3>
+        <p class="sub">Any browser, at app.makerq.io. Included with Pro.</p>
+        <ul class="mq-list">
+          <li>The same projects on every computer</li>
+          <li>Your files stored safely online</li>
+          <li>Move your desktop data over in a few clicks</li>
+        </ul>
+        <div class="acts"><a class="mq-btn mq-btn-blue" href="https://app.makerq.io/signup">Create your Cloud shop</a><a class="mq-btn mq-btn-ghost" href="https://app.makerq.io/">Sign in</a></div>
+      </div>
+    </div>
+    <p class="mq-cap"><a href="security.html" style="color:var(--blue-l);font-weight:700">How MakerQ handles your data</a></p>
+  </div>
+</section>
+
+<!-- 9. EXTRA TOOLS -->
+<section class="mq-section" id="calculators">
+  <div class="mq-container">
+    <div class="mq-center">
+      <h2 class="mq-h2">More than prints</h2>
+      <p class="mq-lead">Three tools for the jobs that don't fit the usual form.</p>
+    </div>
+    <div class="mq-grid three">
+      <div class="mq-card tool">
+        <h3>Quick Quote</h3>
+        <p>Someone at the counter wants a number now. Price a print with no project attached, then copy the reply and send it.</p>
+      </div>
+      <div class="mq-card tool">
+        <h3>Sticker Calculator</h3>
+        <p>Stickers and decals priced by the sheet: paper, laminate, ink, blade and labour, divided by how many fit on a sheet.</p>
+      </div>
+      <div class="mq-card tool" id="tracer">
+        <h3>Outline Tracer</h3>
+        <p>Photograph parts on a sheet of paper and get true-size SVG or DXF outlines for a drawer insert or tool tray.</p>
+        <a class="more" href="tracer.html">How the Tracer works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. PRICING -->
+
 <section class="mq-section" id="pricing">
   <div class="mq-container">
     <div class="mq-center mq-reveal">
@@ -705,7 +699,7 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
           <li>Quote requests in list &amp; Kanban</li>
           <li>Roll calculator &amp; inventory tracking</li>
           <li>Priorities and statuses</li>
-          <li>No account, no cloud</li>
+          <li>No account needed</li>
         </ul>
         <a class="mq-btn mq-btn-ghost" href="get-started?plan=free">Get started free</a>
       </div>
@@ -774,19 +768,47 @@ html[data-theme="light"] .mq-list li::after{border-color:#fff}
           </tbody>
         </table>
       </div>
-      <p class="mq-compare-note"><strong>MakerQ Cloud, now included with Pro:</strong> an optional online version of MakerQ at app.makerq.io. Sign in from any web browser or from the desktop app and see the same projects, customers and settings everywhere, so you can start a quote on the shop PC and finish it on your laptop. It is included with Pro and existing Lifetime licenses at no extra cost, it stays off unless you choose it, and your desktop data only moves when you tell it to. <a href="#cloud">Get started</a> or <a href="faq.html#cloud">read how Cloud works</a>.</p>
       <p class="mq-compare-note">Every plan runs on your own computer and your data stays local unless you choose MakerQ Cloud. Starter and Pro are purchased inside the app. Anyone with an existing license keeps every feature they already had, this only affects the plans offered going forward.</p>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
+
+<!-- 12. FAQ -->
+<section class="mq-section" id="faq">
+  <div class="mq-container">
+    <div class="mq-center"><h2 class="mq-h2">Questions</h2></div>
+    <div class="mq-faq">
+      <details><summary>Can I try it before I pay?</summary><p>Yes. The live demo runs in your browser with sample data, no install and no sign-up. The Free plan is the real app with up to 5 active projects, and it needs no account and no card.</p></details>
+      <details><summary>Does it run on Mac and Windows?</summary><p>Yes, on Windows 10 and 11 and on macOS 12 or later. With MakerQ Cloud on Pro you can also use it in any web browser.</p></details>
+      <details><summary>Where is my data kept?</summary><p>On the desktop app, on your own computer. In MakerQ Cloud, on our servers, with every shop kept separate. <a href="security.html">Read exactly what leaves your computer and when.</a></p></details>
+      <details><summary>Can I switch from the desktop app to Cloud later?</summary><p>Yes. In the desktop app, open Settings and choose MakerQ Cloud. It copies your projects, customers, files and settings, and the copy on your computer stays as it was.</p></details>
+      <details><summary>Do I need an account?</summary><p>Not for the desktop app. You only create an account if you use MakerQ Cloud, and paid plans are bought inside the app.</p></details>
+    </div>
+    <p class="all"><a href="faq.html">All questions</a></p>
+  </div>
+</section>
+
+<!-- 13. FOUNDER -->
+<section class="mq-section alt" id="about">
+  <div class="mq-container">
+    <div class="mq-founder">
+      <img src="apple-touch-icon.png" alt="" width="72" height="72">
+      <div>
+        <h2 class="mq-h2">Made in a print shop</h2>
+        <p>MakerQ is made by C3D Prints, a small 3D print shop. It started as the tool we built to run our own quote requests and order queue, and we still run our own orders on it every day.</p>
+        <p>If something is missing, or doesn't match how your shop works, <a href="contact.html">tell us</a>. A real person reads every message.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14. FINAL CTA -->
 <section class="mq-cta-band">
-  <div class="mq-orb a" style="opacity:.35;top:-40px;left:10%"></div>
   <div class="mq-container mq-reveal" style="position:relative;z-index:1">
-    <h2 class="mq-h2">Start quoting the easy way</h2>
-    <p class="mq-lead" style="margin:14px auto 26px">Download MakerQ and turn your next quote request into a sent quote in minutes.</p>
-    <a class="mq-btn mq-btn-primary" href="get-started?plan=free">Get MakerQ <span class="arr">&rarr;</span></a>
+    <h2 class="mq-h2">Send your next quote from MakerQ</h2>
+    <p class="mq-lead" style="margin:14px auto 26px">Free to start, no account and no card. Or try the live demo first.</p>
+    <div class="mq-hero-actions" style="justify-content:center"><a class="mq-btn mq-btn-primary" href="get-started?plan=free">Get MakerQ free <span class="arr">&rarr;</span></a><a class="mq-btn mq-btn-blue" href="demo/">Try the live demo</a></div>
   </div>
 </section>
 
