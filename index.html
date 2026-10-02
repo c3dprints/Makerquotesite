@@ -392,8 +392,8 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
 .mq-faq summary::after{content:"+";color:var(--blue-l);font-weight:800}
 .mq-faq details[open] summary::after{content:"\2212"}
 .mq-faq details p{margin:0;padding:0 22px 18px;color:var(--muted)}
-.mq-faq .all{text-align:center;margin-top:18px}
-.mq-faq .all a,.mq-founder a{color:var(--blue-l);font-weight:700}
+.mq-faq-all{display:flex;justify-content:center;margin-top:22px}
+.mq-founder a{color:var(--blue-l);font-weight:700}
 .mq-founder{max-width:780px;margin:0 auto;display:grid;grid-template-columns:72px 1fr;gap:24px;align-items:start}
 .mq-founder img{width:72px;height:72px;border-radius:18px;display:block}
 .mq-founder h2{margin-bottom:12px}
@@ -785,7 +785,7 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
       <details><summary>Can I switch from the desktop app to Cloud later?</summary><p>Yes. In the desktop app, open Settings and choose MakerQ Cloud. It copies your projects, customers, files and settings, and the copy on your computer stays as it was.</p></details>
       <details><summary>Do I need an account?</summary><p>Not for the desktop app. You only create an account if you use MakerQ Cloud, and paid plans are bought inside the app.</p></details>
     </div>
-    <p class="all"><a href="faq.html">All questions</a></p>
+    <div class="mq-faq-all"><a class="mq-btn mq-btn-ghost" href="faq.html">All questions</a></div>
   </div>
 </section>
 
@@ -793,7 +793,7 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
 <section class="mq-section alt" id="about">
   <div class="mq-container">
     <div class="mq-founder">
-      <img src="apple-touch-icon.png" alt="" width="72" height="72">
+      <img src="img/mq-icon.png" alt="" width="72" height="72">
       <div>
         <h2 class="mq-h2">Made in a print shop</h2>
         <p>MakerQ is made by C3D Prints, a small 3D print shop. It started as the tool we built to run our own quote requests and order queue, and we still run our own orders on it every day.</p>
