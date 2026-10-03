@@ -440,6 +440,14 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
 .mq-about p{color:var(--muted);font-size:17px;margin:0 0 14px}
 .mq-about h2{font-size:24px;margin:30px 0 10px}
 .mq-about a{color:var(--blue-l);font-weight:700}
+/* ---- Video tour (35-second captioned tour of the live demo) --------- */
+.mq-video{position:relative;max-width:1120px;margin:0 auto;border-radius:20px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.45);background:#000}
+.mq-video video{display:block;width:100%;height:auto}
+.mq-video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:12px;padding:16px 26px;border-radius:999px;background:rgba(11,22,35,.88);color:#fff;font-weight:800;font-size:18px;line-height:1;font-family:inherit;border:2px solid var(--blue);cursor:pointer;white-space:nowrap;transition:background .2s,color .2s}
+.mq-video-play svg{width:22px;height:22px}
+.mq-video-play:hover,.mq-video-play:focus-visible{background:var(--blue);color:#04121e}
+.mq-video.playing .mq-video-play{display:none}
+@media(max-width:560px){.mq-video-play{font-size:15px;padding:12px 18px}}
 /* ---- Mobile nav: hamburger + dropdown panel (under 760px only) ----- */
 .mq-nav-burger{display:none;width:38px;height:38px;border-radius:11px;border:1px solid var(--border);
   background:var(--card);color:var(--text);cursor:pointer;padding:0;
@@ -558,14 +566,16 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
   </div>
 </header>
 
-<!-- 2. PRODUCT / LIVE DEMO -->
-<section class="mq-section" style="padding-top:20px">
+<!-- 2. VIDEO TOUR / LIVE DEMO -->
+<section class="mq-section" style="padding-top:20px" id="video">
   <div class="mq-container">
-    <a class="mq-demo" href="demo/" aria-label="Open the live demo">
-      <img src="img/kanban.png" alt="MakerQ's board: quote requests moving from New to Quoted to Approved, with prices and due dates">
-      <span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Open the live demo</span>
-    </a>
-    <p class="mq-cap">The real app with sample data. Click around, open a project, drag a job across the board. Nothing you do is saved.</p>
+    <div class="mq-video">
+      <video controls playsinline preload="metadata" poster="demo/makerq-demo-poster.jpg" width="1280" height="800" aria-label="A 35-second tour of MakerQ">
+        <source src="demo/makerq-demo.mp4" type="video/mp4">
+      </video>
+      <button class="mq-video-play" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Watch the 35-second tour</button>
+    </div>
+    <p class="mq-cap">A 35-second tour of the real app with sample data. Want to click around yourself? <a href="demo/" style="color:var(--blue-l);font-weight:700">Open the live demo</a>. Nothing you do there is saved.</p>
   </div>
 </section>
 
@@ -710,6 +720,15 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
     if(nav.classList.contains('mq-nav-open')&&!nav.contains(e.target)) setOpen(false);
   });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') setOpen(false); });
+})();
+
+/* Video tour: the big button starts it; hidden while playing, back when it ends. */
+(function(){
+  var box=document.querySelector('.mq-video'); if(!box) return;
+  var v=box.querySelector('video'), b=box.querySelector('.mq-video-play'); if(!v||!b) return;
+  b.addEventListener('click',function(){ v.play(); });
+  v.addEventListener('play',function(){ box.classList.add('playing'); try{gtag('event','video_start',{video_title:'makerq_tour'})}catch(e){} });
+  v.addEventListener('ended',function(){ box.classList.remove('playing'); });
 })();
 </script>
 </div><!-- /.mq-landing -->

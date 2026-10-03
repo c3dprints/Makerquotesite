@@ -160,6 +160,8 @@ html[data-theme="light"] body{--art:rgba(19,35,58,.05)}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-color:var(--art);
   -webkit-mask:url(../img/lineart.svg) 0 0/1200px auto repeat;mask:url(../img/lineart.svg) 0 0/1200px auto repeat}
 @media(max-width:700px){body::before{-webkit-mask-size:760px auto;mask-size:760px auto}}
+/* 35-second video tour above the interactive demo */
+.vid{max-width:1100px;margin:0 auto 6px;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:#000}.vid video{display:block;width:100%;height:auto}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -203,6 +205,8 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 <div class="wrap">
   <h1>Take MakerQ for a <span class="grad">test drive</span></h1>
   <p class="sub">This is the real MakerQ dashboard with sample data. Click around, drag jobs across the board, open a request. Nothing is saved, refresh to reset.</p>
+  <div class="vid"><video controls playsinline preload="metadata" poster="makerq-demo-poster.jpg" width="1280" height="800" aria-label="A 35-second tour of MakerQ"><source src="makerq-demo.mp4" type="video/mp4"></video></div>
+  <p class="sub" style="margin-top:26px">Watched the tour? Now try it yourself:</p>
   <div class="frame">
     <div class="chrome">
       <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
