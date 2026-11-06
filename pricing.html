@@ -428,7 +428,7 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
 @media(max-width:640px){
   .mq-compare table{min-width:0}
   .mq-compare thead tr:first-child{display:none}
-  .mq-compare tr{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--border)}
+  .mq-compare tr{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border)}
   .mq-compare tbody tr:last-child{border-bottom:0}
   .mq-compare th,.mq-compare td{border-bottom:0}
   .mq-compare tbody th,.mq-compare .prices th{grid-column:1/-1;padding:12px 14px 2px;color:var(--text)}
@@ -512,9 +512,9 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
   <div class="mq-container">
     <div class="mq-center mq-reveal">
       <h1 class="mq-h1" style="font-size:clamp(32px,5vw,52px)">Simple pricing. Own your data.</h1>
-      <p class="mq-lead">Start free, no account and no card. Step up to Starter for the core quote, price and get paid loop, with invoices, CSV import and backups included, or Pro for AI, hosted customer pages and forms, and hosted email.</p>
+      <p class="mq-lead">Start free, no account and no card. Step up to Starter for the core quote, price and get paid loop, buy Desktop once and keep everything except AI and Cloud, or go Pro for all of it.</p>
     </div>
-    <div class="mq-tiers three">
+    <div class="mq-tiers">
       <div class="mq-tier mq-reveal">
         <div class="tname">Free</div>
         <div class="tprice">$0 <small>to start</small></div>
@@ -544,18 +544,29 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
         </ul>
         <a class="mq-btn mq-btn-ghost" href="get-started?plan=starter">Get Starter</a>
       </div>
-      <div class="mq-tier pop mq-reveal">
-        <div class="mq-pill">Most popular</div>
-        <div class="tname">Pro</div>
-        <div class="tprice">$8.99 <small>/ month</small></div>
-        <div class="tdesc">Or $89.99/year, 2 months free. Everything in Starter, plus automation and hosted customer pages.</div>
+      <div class="mq-tier mq-reveal">
+        <div class="mq-pill">Pay once</div>
+        <div class="tname">Desktop</div>
+        <div class="tprice">$99 <small>one time</small></div>
+        <div class="tdesc">No subscription. Every desktop feature except AI and MakerQ Cloud, yours to keep.</div>
         <ul>
           <li>Everything in Starter</li>
-          <li>AI triage &amp; quote assist</li>
           <li>Hosted customer status &amp; approval pages</li>
           <li>Embeddable web / Shopify intake forms</li>
           <li>Hosted email, no SMTP setup</li>
           <li>Network sharing (2nd PC / phone / mobile)</li>
+          <li>Free updates, no renewal</li>
+        </ul>
+        <a class="mq-btn mq-btn-ghost" href="get-started?plan=desktop">Get Desktop</a>
+      </div>
+      <div class="mq-tier pop mq-reveal">
+        <div class="mq-pill">Most popular</div>
+        <div class="tname">Pro</div>
+        <div class="tprice">$8.99 <small>/ month</small></div>
+        <div class="tdesc">Or $89.99/year, 2 months free. Everything in Desktop, plus AI and MakerQ Cloud.</div>
+        <ul>
+          <li>Everything in Desktop</li>
+          <li>AI triage &amp; quote assist</li>
           <li>MakerQ Cloud: work from any browser, same projects everywhere<span style="display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;border:1px solid currentColor;opacity:.8">New</span></li>
         </ul>
         <a class="mq-btn mq-btn-primary" href="get-started?plan=pro">Get Pro</a>
@@ -567,33 +578,33 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
       <div class="tablewrap">
         <table>
           <thead>
-            <tr><th></th><th>Free</th><th>Starter</th><th class="colpro">Pro</th></tr>
-            <tr class="prices"><th>Price</th><td data-plan="Free">$0<small>to start</small></td><td data-plan="Starter">$4/mo<small>or $48/yr</small></td><td data-plan="Pro" class="colpro">$8.99/mo<small>or $89.99/yr</small></td></tr>
+            <tr><th></th><th>Free</th><th>Starter</th><th>Desktop</th><th class="colpro">Pro</th></tr>
+            <tr class="prices"><th>Price</th><td data-plan="Free">$0<small>to start</small></td><td data-plan="Starter">$4/mo<small>or $48/yr</small></td><td data-plan="Desktop">$99<small>one time</small></td><td data-plan="Pro" class="colpro">$8.99/mo<small>or $89.99/yr</small></td></tr>
           </thead>
           <tbody>
-            <tr><th>Manage quote requests (list + Kanban)</th><td data-plan="Free" class="on">&#10003;</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Roll calculator &amp; inventory tracking</th><td data-plan="Free" class="on">&#10003;</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Sticker Calculator (priced by the sheet)</th><td data-plan="Free" class="on">&#10003;</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Active projects</th><td data-plan="Free">Up to 5</td><td data-plan="Starter">Unlimited</td><td data-plan="Pro" class="colpro">Unlimited</td></tr>
-            <tr><th>Set your own material &amp; labour costs</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Quick Quote (price a print with no project)</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Outline Tracer (photo to true-size SVG / DXF)</th><td data-plan="Free" class="on">&#10003;</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Send quotes to customers</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Payment / checkout links in emails</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Invoices</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>CSV import / export of customers</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Custom shop &amp; social links in emails</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Settings + client-info backup</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>AI triage &amp; quote assist</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Hosted customer status &amp; approval pages</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Embeddable web / Shopify intake forms</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Hosted email (no SMTP setup)</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>Network sharing (2nd PC / phone / mobile)</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
-            <tr><th>MakerQ Cloud (browser + desktop, same projects everywhere)</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Manage quote requests (list + Kanban)</th><td data-plan="Free" class="on">&#10003;</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Roll calculator &amp; inventory tracking</th><td data-plan="Free" class="on">&#10003;</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Sticker Calculator (priced by the sheet)</th><td data-plan="Free" class="on">&#10003;</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Active projects</th><td data-plan="Free">Up to 5</td><td data-plan="Starter">Unlimited</td><td data-plan="Desktop">Unlimited</td><td data-plan="Pro" class="colpro">Unlimited</td></tr>
+            <tr><th>Set your own material &amp; labour costs</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Quick Quote (price a print with no project)</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Outline Tracer (photo to true-size SVG / DXF)</th><td data-plan="Free" class="on">&#10003;</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Send quotes to customers</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Payment / checkout links in emails</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Invoices</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>CSV import / export of customers</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Custom shop &amp; social links in emails</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Settings + client-info backup</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="on">&#10003;</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>AI triage &amp; quote assist</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Desktop" class="off">-</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Hosted customer status &amp; approval pages</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Embeddable web / Shopify intake forms</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Hosted email (no SMTP setup)</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>Network sharing (2nd PC / phone / mobile)</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Desktop" class="on">&#10003;</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
+            <tr><th>MakerQ Cloud (browser + desktop, same projects everywhere)</th><td data-plan="Free" class="off">-</td><td data-plan="Starter" class="off">-</td><td data-plan="Desktop" class="off">-</td><td data-plan="Pro" class="colpro on">&#10003;</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="mq-compare-note">Every plan runs on your own computer and your data stays local unless you choose MakerQ Cloud. Starter and Pro are purchased inside the app. Anyone with an existing license keeps every feature they already had, this only affects the plans offered going forward.</p>
+      <p class="mq-compare-note">Every plan runs on your own computer and your data stays local unless you choose MakerQ Cloud. Starter, Desktop and Pro are purchased inside the app. Desktop is a single payment with no renewal. Anyone with an existing license keeps every feature they already had, this only affects the plans offered going forward.</p>
     </div>
   </div>
 </section>
@@ -608,6 +619,7 @@ html[data-theme="light"] .mq-hero-art{opacity:.5}
       <details><summary>Does it run on Mac and Windows?</summary><p>Yes, on Windows 10 and 11 and on macOS 12 or later. With MakerQ Cloud on Pro you can also use it in any web browser.</p></details>
       <details><summary>Where is my data kept?</summary><p>On the desktop app, on your own computer. In MakerQ Cloud, on our servers, with every shop kept separate. <a href="security.html">Read exactly what leaves your computer and when.</a></p></details>
       <details><summary>Can I switch from the desktop app to Cloud later?</summary><p>Yes. In the desktop app, open Settings and choose MakerQ Cloud. It copies your projects, customers, files and settings, and the copy on your computer stays as it was.</p></details>
+      <details><summary>Is there a one-time price?</summary><p>Yes. Desktop is $99 once, with no subscription. It includes every desktop feature except AI and MakerQ Cloud, and you keep getting updates. If you later want AI or Cloud, Pro adds them.</p></details>
       <details><summary>Do I need an account?</summary><p>Not for the desktop app. You only create an account if you use MakerQ Cloud, and paid plans are bought inside the app.</p></details>
     </div>
     <div class="mq-faq-all"><a class="mq-btn mq-btn-ghost" href="faq.html">All questions</a></div>

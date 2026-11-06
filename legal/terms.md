@@ -24,6 +24,8 @@ computer; your business data stays on your machine (see our Privacy Policy).
 - **Pro**, **$8.99/month** or **$89.99/year** (subscription). Everything in Starter plus AI triage
   and quote assist, hosted customer pages and intake forms,
   hosted email, and network sharing.
+- **Desktop**, **$99** (one-time payment, no subscription). Everything in Pro except AI features
+  and MakerQ Cloud. Includes updates to the desktop app.
 
 The **Lifetime** plan is no longer offered. Existing Lifetime licenses remain valid and keep every
 feature they already had.

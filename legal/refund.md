@@ -16,6 +16,11 @@ If you're not satisfied, email us within **[14] days** of your **initial** Start
 a full refund. **Renewals are non-refundable**, but you can cancel anytime (Settings → License → Manage
 subscription) to stop future charges, your access continues until the end of the paid period.
 
+## Desktop (one-time)
+
+If you're not satisfied, email us within **14 days** of your Desktop purchase for a full refund.
+After 14 days the Desktop purchase is **non-refundable**. A refunded Desktop license stops working.
+
 ## Lifetime
 
 The Lifetime plan is **no longer sold**. Existing Lifetime licenses remain valid and keep every feature

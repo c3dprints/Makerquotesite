@@ -72,7 +72,7 @@ All at the site root unless noted. "indexed" = in sitemap / crawlable.
 | URL | File | Purpose | Indexed |
 |---|---|---|---|
 | `/` | `index.html` | Landing: hero, value cards, feature sections (intake, pricing, manage, **customers**, **customer status page**, own-your-data), how-it-works, **pricing cards + compare grid** | yes |
-| `/get-started?plan=free\|starter\|pro` | `get-started.html` | Plan-aware onboarding + Windows download + activation steps. Pills switch plan without reload | yes |
+| `/get-started?plan=free\|starter\|desktop\|pro` | `get-started.html` | Plan-aware onboarding + Windows download + activation steps. Pills switch plan without reload | yes |
 | `/download` | `download.html` | Download page. Windows live; macOS "coming soon" card | yes |
 | `/contact` | `contact.html` | Links out to the MooseDesk-hosted contact form (native tickets) | yes |
 | `/demo/` | `demo/index.html` | Framed wrapper around the interactive demo (`demo/app.html` in an iframe) | yes |
@@ -114,9 +114,10 @@ Shown on the landing pricing section (`#pricing`) as three cards + a **Compare p
 |---|---|---|
 | **Free** | **$0 · to start** | Organize + price only: 5 active projects, quote requests in list/Kanban, roll calculator & inventory. Free **cannot send quotes** or set its own material/labour costs (changed 2026-08-17). NOT "free forever" wording. |
 | **Starter** | **$4/mo** or **$48/yr** | The core "quote, price and get paid" loop. $4 × 12 = $48 exactly, so annual has **no discount**, word it "billed annually" and never claim savings. |
+| **Desktop** | **$99 one time** | Added 2026-11-06. No subscription: everything in Pro except AI and MakerQ Cloud (both cost us monthly). Plan label `desktop`, Stripe product "MakerQ Desktop", env `STRIPE_PRICE_DESKTOP`. Cards: Free, Starter, Desktop, Pro (4-up `.mq-tiers`). |
 | **Pro** | **$8.99/mo** or **$89.99/yr** | "Most popular", everything unlocked. Annual genuinely is 2 months free. |
 
-- **Lifetime ($249.99 one-time) was retired 2026-08-17**; don't reintroduce. Existing Lifetime
+- **Lifetime ($249.99 one-time) was retired 2026-08-17**; don't reintroduce it (Desktop is the one-time option now, and it excludes AI and Cloud). Existing Lifetime
   licenses stay valid and keep every feature, say so wherever plans are listed.
 - Source of truth for the tier split is `MakerQ-Plans.pdf` (Desktop). Card copy, the compare grid,
   the FAQ, and `legal/terms.md` all mirror it.
