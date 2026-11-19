@@ -99,6 +99,7 @@ html[data-theme="light"] .nav{background:rgba(255,255,255,.86)}
 
   <div id="content"><div class="msg"><span class="spin"></span>Loading download counts&hellip;</div></div>
   <div id="ga"></div>
+  <div id="heard"></div>
 </div>
 
 <script>
@@ -199,8 +200,34 @@ function loadGA(){
     .catch(function(){ box.innerHTML='<div class="section"><div class="msg err">Could not reach the analytics relay.</div></div>'; });
 }
 
-document.getElementById("refresh").addEventListener("click", function(){ load(); loadGA(); });
-load(); loadGA();
+/* "How did you hear about us?" answers from the app (counts and write-ins only, no emails) */
+var HEARD_ENDPOINT = "https://enyimtvgqzmpaiaeiyxj.supabase.co/functions/v1/heard-from?action=summary";
+function loadHeard(){
+  var box=document.getElementById("heard");
+  box.innerHTML='<div class="section"><div class="msg"><span class="spin"></span>Loading how people heard about MakerQ&hellip;</div></div>';
+  fetch(HEARD_ENDPOINT).then(function(r){ return r.json().catch(function(){return {};}).then(function(d){return {ok:r.ok,d:d};}); })
+    .then(function(x){
+      var d=x.d||{};
+      if(!x.ok || !d.counts){ box.innerHTML='<div class="section"><div class="msg">How people heard about MakerQ: not available yet.</div></div>'; return; }
+      var c=d.counts, items=[{name:"Instagram",count:c.instagram||0},{name:"Etsy",count:c.etsy||0},
+        {name:"Website",count:c.website||0},{name:"Other",count:c.other||0}].sort(function(a,b){return b.count-a.count;});
+      var others=(d.other_answers||[]);
+      var list = others.length
+        ? '<div class="bars">'+others.map(function(o){ return '<div class="bar"><span class="lab">'+esc(o.text)+'</span><span class="val">'+esc(fdate(o.at))+'</span></div>'; }).join("")+'</div>'
+        : '<div class="gamuted">No "Other" answers yet.</div>';
+      box.innerHTML=''
+        +'<div class="section"><h2>How did you hear about us?</h2>'
+        +'<div class="stats"><div class="stat"><div class="v">'+n(d.total)+'</div><div class="k">Answers (from the app)</div></div></div>'
+        +'<div class="panels">'
+        +'<div class="panel"><h3>By source</h3>'+barList(items)+'</div>'
+        +'<div class="panel"><h3>&ldquo;Other&rdquo; answers</h3>'+list+'</div>'
+        +'</div></div>';
+    })
+    .catch(function(){ box.innerHTML='<div class="section"><div class="msg err">Could not load how people heard about MakerQ.</div></div>'; });
+}
+
+document.getElementById("refresh").addEventListener("click", function(){ load(); loadGA(); loadHeard(); });
+load(); loadGA(); loadHeard();
 </script>
 </body>
 </html>
