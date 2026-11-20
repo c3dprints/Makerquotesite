@@ -141,21 +141,22 @@ html[data-theme="light"] .nav{background:rgba(255,255,255,.86)}
 <div class="wrap" id="app" style="display:none">
   <div class="tabs">
     <button data-tab="stats" class="active" type="button">Stats</button>
-    <button data-tab="releases" type="button">Releases</button>
+    <button data-tab="releases" type="button">Releases &amp; downloads</button>
     <button data-tab="lock" class="lockbtn" type="button">Lock</button>
   </div>
 
   <div class="tabpane active" id="pane-stats">
     <h1>MakerQ stats</h1>
-    <p class="sub">Live installer download counts from GitHub, website analytics, and how people heard about MakerQ.</p>
-    <div id="content"><div class="msg"><span class="spin"></span>Loading download counts&hellip;</div></div>
+    <p class="sub">Website analytics and how people heard about MakerQ. Release and download counts are on the next tab.</p>
     <div id="ga"></div>
     <div id="heard"></div>
   </div>
 
   <div class="tabpane" id="pane-releases">
-    <h1>Releases</h1>
-    <p class="sub">Every published release, Windows and macOS, with notes and download counts. Source: GitHub.</p>
+    <h1>Releases &amp; downloads</h1>
+    <p class="sub">Installer download totals and every published release, Windows and macOS, with notes. Source: GitHub.</p>
+    <div id="content"><div class="msg"><span class="spin"></span>Loading download counts&hellip;</div></div>
+    <div class="section"><h2>All releases</h2></div>
     <div id="releases"><div class="msg"><span class="spin"></span>Loading releases&hellip;</div></div>
   </div>
 </div>
@@ -348,7 +349,7 @@ function tryAuth(key){
     return true;
   });
 }
-function loadAll(){ load(); loadGA(); loadHeard(); if(relLoaded) loadReleases(); }
+function loadAll(){ loadGA(); loadHeard(); if(relLoaded){ load(); loadReleases(); } }
 function enter(key){
   document.getElementById("gerr").textContent="Checking…";
   tryAuth(key).then(function(){ setKey(key); showApp(); loadAll(); })
@@ -367,7 +368,7 @@ document.querySelectorAll(".tabs button").forEach(function(b){
     document.querySelectorAll(".tabs button").forEach(function(x){ if(x.getAttribute("data-tab")!=="lock") x.classList.toggle("active", x===b); });
     document.getElementById("pane-stats").classList.toggle("active", t==="stats");
     document.getElementById("pane-releases").classList.toggle("active", t==="releases");
-    if(t==="releases" && !relLoaded){ relLoaded=true; loadReleases(); }
+    if(t==="releases" && !relLoaded){ relLoaded=true; load(); loadReleases(); }
   });
 });
 
