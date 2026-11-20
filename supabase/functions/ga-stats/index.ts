@@ -21,7 +21,7 @@ function cors(origin: string | null): HeadersInit {
   return {
     "Access-Control-Allow-Origin": allow,
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "content-type",
+    "Access-Control-Allow-Headers": "content-type, x-stats-key",
     "Vary": "Origin",
   };
 }
@@ -82,10 +82,24 @@ function pairs(rep: any): { name: string; count: number }[] {
 }
 const sum = (a: { count: number }[]) => a.reduce((t, x) => t + x.count, 0);
 
+// Constant-time string compare for the viewer password.
+function ctEq(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let d = 0;
+  for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return d === 0;
+}
+
 Deno.serve(async (req) => {
   const origin = req.headers.get("origin");
   const headers = { ...cors(origin), "content-type": "application/json" };
   if (req.method === "OPTIONS") return new Response("ok", { headers });
+
+  // Gated for makerq.io/stats: the viewer's password (STATS_VIEW_KEY) is required once set.
+  const viewKey = Deno.env.get("STATS_VIEW_KEY") || "";
+  if (viewKey && !ctEq(req.headers.get("x-stats-key") || "", viewKey)) {
+    return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers });
+  }
 
   if (!PROPERTY_ID || !SA_RAW) {
     return new Response(JSON.stringify({ configured: false }), { headers });

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>MakerQ downloads</title>
+<title>MakerQ stats</title>
 <style>
 :root{--bg:#0b1623;--surface:#111e2e;--card:#162236;--input:#0d1928;--border:#1e3550;
   --blue:#00aaff;--blue-l:#33ccff;--orange:#ff6b1a;--orange-l:#ff8c3a;--green:#00e890;
@@ -71,6 +71,39 @@ html[data-theme="light"] .nav{background:rgba(255,255,255,.86)}
 .spark .col:hover{opacity:1}
 .gamuted{color:var(--muted);font-size:13px}
 @media(max-width:640px){.panels{grid-template-columns:1fr}}
+/* Shared button */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14px;padding:9px 18px;
+  border-radius:11px;cursor:pointer;border:none;background:linear-gradient(135deg,var(--orange),var(--orange-l));color:#fff;
+  box-shadow:0 8px 26px rgba(255,107,26,.35);transition:transform .12s,filter .2s}
+.btn:hover{filter:brightness(1.07);transform:translateY(-1px)}
+/* Login gate */
+.gate{max-width:420px;margin:12vh auto 0;padding:0 24px;text-align:center}
+.gate .box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:30px 26px;
+  box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.gate h1{font-size:24px;margin:0 0 6px}
+.gate p{color:var(--muted);font-size:14px;margin:0 0 18px}
+.gate input{width:100%;padding:12px 14px;font-size:15px;background:var(--input);border:1px solid var(--border);
+  border-radius:10px;color:var(--text)}
+.gate .btn{width:100%;margin-top:12px;padding:13px;font-size:15px}
+.gate .err{color:#ffb0b0;font-size:13px;margin-top:12px;min-height:16px}
+/* Tabs */
+.tabs{display:flex;gap:4px;margin:0 0 24px;border-bottom:1px solid var(--border)}
+.tabs button{appearance:none;background:none;border:none;color:var(--muted);font-weight:700;font-size:14px;
+  padding:11px 14px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}
+.tabs button:hover{color:var(--text)}
+.tabs button.active{color:var(--text);border-bottom-color:var(--blue)}
+.tabs .lockbtn{margin-left:auto;font-size:13px;color:var(--muted)}
+.tabpane{display:none}.tabpane.active{display:block}
+/* Releases */
+.relcols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.relcol h3{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--blue-l);margin:0 0 12px;font-weight:800}
+.rel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px 17px;margin-bottom:12px}
+.rel .h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rel .ver{font-weight:800;font-size:16px}
+.rel .date{color:var(--muted);font-size:13px}
+.rel .dl{margin-left:auto;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.rel .notes{margin:10px 0 0;color:var(--muted);font-size:13.5px;white-space:pre-wrap;line-height:1.5}
+@media(max-width:720px){.relcols{grid-template-columns:1fr}}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -80,7 +113,7 @@ html[data-theme="light"] .nav{background:rgba(255,255,255,.86)}
 <nav class="nav">
   <div class="nav-inner">
     <a class="brand" href="./">Maker<span>Q</span></a>
-    <span class="tag">Downloads</span>
+    <span class="tag">Stats</span>
     <div class="right">
       <button class="icon-btn" id="refresh" title="Refresh" aria-label="Refresh">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
@@ -93,13 +126,38 @@ html[data-theme="light"] .nav{background:rgba(255,255,255,.86)}
   </div>
 </nav>
 
-<div class="wrap">
-  <h1>MakerQ downloads</h1>
-  <p class="sub">Live installer download counts from GitHub, every download of the <code>.exe</code>/<code>.dmg</code>, from anywhere (not just the site).</p>
+<!-- Login gate -->
+<div class="gate" id="gate" style="display:none">
+  <div class="box">
+    <h1>MakerQ stats</h1>
+    <p>This dashboard is private. Enter the password to continue.</p>
+    <input id="pw" type="password" autocomplete="current-password" placeholder="Password" aria-label="Password">
+    <button class="btn" id="go" type="button">View stats</button>
+    <div class="err" id="gerr"></div>
+  </div>
+</div>
 
-  <div id="content"><div class="msg"><span class="spin"></span>Loading download counts&hellip;</div></div>
-  <div id="ga"></div>
-  <div id="heard"></div>
+<!-- Dashboard -->
+<div class="wrap" id="app" style="display:none">
+  <div class="tabs">
+    <button data-tab="stats" class="active" type="button">Stats</button>
+    <button data-tab="releases" type="button">Releases</button>
+    <button data-tab="lock" class="lockbtn" type="button">Lock</button>
+  </div>
+
+  <div class="tabpane active" id="pane-stats">
+    <h1>MakerQ stats</h1>
+    <p class="sub">Live installer download counts from GitHub, website analytics, and how people heard about MakerQ.</p>
+    <div id="content"><div class="msg"><span class="spin"></span>Loading download counts&hellip;</div></div>
+    <div id="ga"></div>
+    <div id="heard"></div>
+  </div>
+
+  <div class="tabpane" id="pane-releases">
+    <h1>Releases</h1>
+    <p class="sub">Every published release, Windows and macOS, with notes and download counts. Source: GitHub.</p>
+    <div id="releases"><div class="msg"><span class="spin"></span>Loading releases&hellip;</div></div>
+  </div>
 </div>
 
 <script>
@@ -116,14 +174,26 @@ html[data-theme="light"] .nav{background:rgba(255,255,255,.86)}
     var t=(root.getAttribute("data-theme")==="light")?"dark":"light";apply(t);try{localStorage.setItem(KEY,t)}catch(e){}});
 })();
 
-/* Download stats from the GitHub public API (no auth needed for public repos) */
-var REPO = "c3dprints/MakerQ-download";
-var API = "https://api.github.com/repos/" + REPO + "/releases?per_page=100";
+/* Helpers */
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 function n(x){return Number(x||0).toLocaleString();}
 function fdate(s){ if(!s) return ""; var d=new Date(s); var mo=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   return mo[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear(); }
 
+/* Password (shared, kept only for this browser session) */
+var SKEY="mq-stats-key";
+function getKey(){try{return sessionStorage.getItem(SKEY)||""}catch(e){return ""}}
+function setKey(k){try{sessionStorage.setItem(SKEY,k)}catch(e){}}
+function clearKey(){try{sessionStorage.removeItem(SKEY)}catch(e){}}
+function sHdr(){return {"x-stats-key":getKey()};}
+
+var SUPA="https://enyimtvgqzmpaiaeiyxj.supabase.co/functions/v1";
+var GA_ENDPOINT=SUPA+"/ga-stats";
+var HEARD_ENDPOINT=SUPA+"/heard-from?action=summary";
+
+/* ---- Downloads (GitHub public API) ---- */
+var REPO="c3dprints/MakerQ-download";
+var API="https://api.github.com/repos/"+REPO+"/releases?per_page=100";
 function load(){
   var box=document.getElementById("content");
   box.innerHTML='<div class="msg"><span class="spin"></span>Loading download counts&hellip;</div>';
@@ -139,7 +209,7 @@ function load(){
         rows.push({tag:rel.tag_name||rel.name||"", date:rel.published_at, count:c});
       });
       var latest=rows[0]||{tag:"-",count:0};
-      var html=''
+      box.innerHTML=''
         +'<div class="hero"><div class="label">Total installer downloads</div>'
         +'<div class="big">'+n(total)+'</div>'
         +'<div class="hint">across '+rows.length+' release'+(rows.length===1?"":"s")+' &middot; source: GitHub</div></div>'
@@ -153,12 +223,11 @@ function load(){
         +'</tbody></table>'
         +'<div class="foot"><span>Counts are per release and reset when a new version ships, the big number is the running total.</span>'
         +'<span>Updated '+new Date().toLocaleTimeString()+'</span></div>';
-      box.innerHTML=html;
     })
     .catch(function(e){ box.innerHTML='<div class="msg err">'+esc(e.message||"Could not load download counts.")+'</div>'; });
 }
-/* Website analytics from Google Analytics, via the ga-stats Supabase relay */
-var GA_ENDPOINT = "https://enyimtvgqzmpaiaeiyxj.supabase.co/functions/v1/ga-stats";
+
+/* ---- Website analytics (GA via ga-stats relay, password-gated) ---- */
 function maxOf(a){ return a && a.length ? a.reduce(function(m,x){return Math.max(m,x.count)},0) : 0; }
 function barList(items){
   if(!items || !items.length) return '<div class="gamuted">No data yet.</div>';
@@ -172,7 +241,8 @@ function barList(items){
 function loadGA(){
   var box=document.getElementById("ga");
   box.innerHTML='<div class="section"><div class="msg"><span class="spin"></span>Loading website analytics&hellip;</div></div>';
-  fetch(GA_ENDPOINT).then(function(r){ return r.json().catch(function(){return {};}).then(function(d){return {ok:r.ok,d:d};}); })
+  fetch(GA_ENDPOINT,{headers:sHdr()}).then(function(r){ if(r.status===401){expired();throw new Error("unauthorized");}
+      return r.json().catch(function(){return {};}).then(function(d){return {ok:r.ok,d:d};}); })
     .then(function(x){
       var d=x.d||{};
       if(d.error){ box.innerHTML='<div class="section"><div class="msg err">Google Analytics: '+esc(d.error)+'</div></div>'; return; }
@@ -197,15 +267,15 @@ function loadGA(){
         +'<div class="panel"><h3>Purchases by country</h3>'+barList(buyC)+'</div>'
         +'</div></div>';
     })
-    .catch(function(){ box.innerHTML='<div class="section"><div class="msg err">Could not reach the analytics relay.</div></div>'; });
+    .catch(function(e){ if(e&&e.message==="unauthorized")return; box.innerHTML='<div class="section"><div class="msg err">Could not reach the analytics relay.</div></div>'; });
 }
 
-/* "How did you hear about us?" answers from the app (counts and write-ins only, no emails) */
-var HEARD_ENDPOINT = "https://enyimtvgqzmpaiaeiyxj.supabase.co/functions/v1/heard-from?action=summary";
+/* ---- How did you hear about us (password-gated) ---- */
 function loadHeard(){
   var box=document.getElementById("heard");
   box.innerHTML='<div class="section"><div class="msg"><span class="spin"></span>Loading how people heard about MakerQ&hellip;</div></div>';
-  fetch(HEARD_ENDPOINT).then(function(r){ return r.json().catch(function(){return {};}).then(function(d){return {ok:r.ok,d:d};}); })
+  fetch(HEARD_ENDPOINT,{headers:sHdr()}).then(function(r){ if(r.status===401){expired();throw new Error("unauthorized");}
+      return r.json().catch(function(){return {};}).then(function(d){return {ok:r.ok,d:d};}); })
     .then(function(x){
       var d=x.d||{};
       if(!x.ok || !d.counts){ box.innerHTML='<div class="section"><div class="msg">How people heard about MakerQ: not available yet.</div></div>'; return; }
@@ -223,11 +293,90 @@ function loadHeard(){
         +'<div class="panel"><h3>&ldquo;Other&rdquo; answers</h3>'+list+'</div>'
         +'</div></div>';
     })
-    .catch(function(){ box.innerHTML='<div class="section"><div class="msg err">Could not load how people heard about MakerQ.</div></div>'; });
+    .catch(function(e){ if(e&&e.message==="unauthorized")return; box.innerHTML='<div class="section"><div class="msg err">Could not load how people heard about MakerQ.</div></div>'; });
 }
 
-document.getElementById("refresh").addEventListener("click", function(){ load(); loadGA(); loadHeard(); });
-load(); loadGA(); loadHeard();
+/* ---- Releases tab (Windows + macOS, GitHub public API) ---- */
+var REL_REPOS=[
+  {name:"Windows", repo:"c3dprints/MakerQ-download",   rx:/\.(exe|zip)$/i},
+  {name:"macOS",   repo:"cdezbch/MakerQ-mac-releases", rx:/\.(dmg|pkg)$/i}
+];
+var relLoaded=false;
+function loadReleases(){
+  var box=document.getElementById("releases");
+  box.innerHTML='<div class="msg"><span class="spin"></span>Loading releases&hellip;</div>';
+  Promise.all(REL_REPOS.map(function(rr){
+    return fetch("https://api.github.com/repos/"+rr.repo+"/releases?per_page=100",{headers:{"Accept":"application/vnd.github+json"}})
+      .then(function(res){ if(!res.ok) throw new Error(res.status===403?"GitHub rate limit reached, try again shortly.":"GitHub API error "+res.status); return res.json(); })
+      .then(function(rels){ return {rr:rr, rels:rels}; })
+      .catch(function(e){ return {rr:rr, err:e.message||"Could not load releases."}; });
+  })).then(function(results){
+    var cols=results.map(function(x){
+      var inner;
+      if(x.err){ inner='<div class="msg err">'+esc(x.err)+'</div>'; }
+      else if(!x.rels||!x.rels.length){ inner='<div class="gamuted">No releases yet.</div>'; }
+      else{
+        inner=x.rels.map(function(rel){
+          var dl=0; (rel.assets||[]).forEach(function(a){ if(x.rr.rx.test(a.name)) dl+=(a.download_count||0); });
+          var notes=(rel.body||"").trim();
+          return '<div class="rel"><div class="h">'
+            +'<span class="ver">'+esc(rel.tag_name||rel.name||"")+'</span>'
+            +'<span class="date">'+esc(fdate(rel.published_at))+'</span>'
+            +'<span class="dl">'+n(dl)+' downloads</span></div>'
+            +(notes?'<div class="notes">'+esc(notes)+'</div>':'')
+            +'</div>';
+        }).join("");
+      }
+      return '<div class="relcol"><h3>'+esc(x.rr.name)+'</h3>'+inner+'</div>';
+    }).join("");
+    box.innerHTML='<div class="relcols">'+cols+'</div>';
+  });
+}
+
+/* ---- Auth gate ---- */
+function showApp(){ document.getElementById("gate").style.display="none"; document.getElementById("app").style.display="block"; }
+function showGate(msg){ document.getElementById("app").style.display="none";
+  var g=document.getElementById("gate"); g.style.display="block";
+  document.getElementById("gerr").textContent=msg||"";
+  var pw=document.getElementById("pw"); if(pw){ pw.value=""; pw.focus(); } }
+function expired(){ clearKey(); relLoaded=false; showGate("Your session ended. Sign in again."); }
+
+function tryAuth(key){
+  return fetch(HEARD_ENDPOINT,{headers:{"x-stats-key":key}}).then(function(r){
+    if(r.status===401) throw new Error("Wrong password");
+    if(!r.ok) throw new Error("Could not reach the server, try again.");
+    return true;
+  });
+}
+function loadAll(){ load(); loadGA(); loadHeard(); if(relLoaded) loadReleases(); }
+function enter(key){
+  document.getElementById("gerr").textContent="Checking…";
+  tryAuth(key).then(function(){ setKey(key); showApp(); loadAll(); })
+    .catch(function(e){ clearKey(); showGate(e.message||"Sign in failed"); });
+}
+
+document.getElementById("go").addEventListener("click", function(){ var v=document.getElementById("pw").value; if(v) enter(v); });
+document.getElementById("pw").addEventListener("keydown", function(e){ if(e.key==="Enter"){ var v=this.value; if(v) enter(v); } });
+document.getElementById("refresh").addEventListener("click", function(){ if(document.getElementById("app").style.display==="none") return; loadAll(); });
+
+/* Tabs */
+document.querySelectorAll(".tabs button").forEach(function(b){
+  b.addEventListener("click", function(){
+    var t=b.getAttribute("data-tab");
+    if(t==="lock"){ expired(); return; }
+    document.querySelectorAll(".tabs button").forEach(function(x){ if(x.getAttribute("data-tab")!=="lock") x.classList.toggle("active", x===b); });
+    document.getElementById("pane-stats").classList.toggle("active", t==="stats");
+    document.getElementById("pane-releases").classList.toggle("active", t==="releases");
+    if(t==="releases" && !relLoaded){ relLoaded=true; loadReleases(); }
+  });
+});
+
+/* Init: resume a session if the browser still holds the password, else show the gate. */
+(function(){
+  var k=getKey();
+  if(k){ tryAuth(k).then(function(){ showApp(); loadAll(); }).catch(function(){ clearKey(); showGate(""); }); }
+  else { showGate(""); }
+})();
 </script>
 </body>
 </html>
