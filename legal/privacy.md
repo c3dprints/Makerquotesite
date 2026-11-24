@@ -50,6 +50,12 @@ For your customers' data in Cloud, you remain the controller and we process it o
   they do **not** contain your customers' data.
 - **Website:** makerq.io may use basic, privacy-respecting analytics and cookies. [Confirm/adjust with
   your actual site setup.]
+- **App version check-in:** if you use the MakerQ desktop app, each copy gets a random install ID that
+  it uses when it talks to our license service, about once a day. With it, the app sends its MakerQ
+  version number. We store that install ID, the version, when the copy was first and last seen, the IP
+  address it first connected from and, if you activated a license, which license it belongs to. We use
+  this to see which versions are in use and to let customers know when an update matters to them. It
+  never includes your business data or your customers' data.
 - **Support:** if you email us, we retain those messages.
 
 ## How we use your information
